@@ -3,12 +3,22 @@
     <div class="main-section">
       <div class="title">
         <div style="display: flex; align-items: center">
-          <img class="title-img" :src="'/img/ui-elements/arm.svg'" alt="Иконка руки" />
+          <img
+            class="title-img"
+            :src="'/img/ui-elements/arm.svg'"
+            alt="Иконка руки"
+            loading="lazy"
+          />
           Ступени
         </div>
         <span class="age-span">
           образования
-          <img class="title-vector-2" :src="'/img/ui-elements/Vector-aqua.svg'" alt="Украшение" />
+          <img
+            class="title-vector-2"
+            :src="'/img/ui-elements/Vector-aqua.svg'"
+            alt="Украшение"
+            loading="lazy"
+          />
         </span>
       </div>
 
@@ -54,7 +64,7 @@ const ageGroups = $constants.age_groups;
 }
 
 @media (max-width: 748px) {
-  .title-img{
+  .title-img {
     position: absolute;
     width: auto;
     left: 5%;

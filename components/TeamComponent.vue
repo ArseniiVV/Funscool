@@ -13,25 +13,15 @@
           class="swiper-team"
           @slideChange="onSlideChange"
         >
-          <SwiperSlide
-            v-for="member in teamMembers"
-            :key="member.id"
-            @click="setActive(member)"
-          >
+          <SwiperSlide v-for="member in teamMembers" :key="member.id" @click="setActive(member)">
             <div class="swiper-team-item">
-              <img
-                :src="member.img"
-                :alt="member.name"
-              
-              
-                loading="lazy"
-              />
+              <img :src="member.img" :alt="member.name" loading="lazy" />
             </div>
           </SwiperSlide>
         </Swiper>
 
         <div class="swiper-team-arrow">
-          <img :src="'/img/ui-elements/arrow-curl.svg'" alt="" />
+          <img :src="'/img/ui-elements/arrow-curl.svg'" alt="" loading="lazy" />
         </div>
       </div>
 
@@ -50,6 +40,7 @@
               style="width: 22px; height: 18px; margin: 0 auto"
               :src="'/img/ui-elements/team-precredo-svg.svg'"
               alt=""
+              loading="lazy"
             />
             <div class="main-team-info-credo" ref="teamCredo">{{ activeMember.credo }}</div>
           </div>
@@ -57,63 +48,68 @@
           <img class="main-team-info-img" :src="'/img/persons/i238.svg'" alt="" loading="lazy" />
         </div>
 
-        <img class="main-team-svg" :src="'/img/ui-elements/team-svg.svg'" alt="" />
-        <img class="main-team-svg-2" :src="'/img/ui-elements/team-svg-mobile.svg'" alt="" />
+        <img class="main-team-svg" :src="'/img/ui-elements/team-svg.svg'" alt="" loading="lazy" />
+        <img
+          class="main-team-svg-2"
+          :src="'/img/ui-elements/team-svg-mobile.svg'"
+          alt=""
+          loading="lazy"
+        />
       </div>
     </section>
   </div>
 </template>
 
 <script setup lang="ts">
-import { gsap } from 'gsap'
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Navigation, Autoplay } from 'swiper/modules'
-import type { Swiper as SwiperType } from 'swiper'
-import type { teamMember } from '~/types'
+import { gsap } from 'gsap';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Navigation, Autoplay } from 'swiper/modules';
+import type { Swiper as SwiperType } from 'swiper';
+import type { teamMember } from '~/types';
 
-const { $constants } = useNuxtApp()
+const { $constants } = useNuxtApp();
 
-const teamMembers: teamMember[] = $constants.team_members
-const teamName: Ref<null | HTMLElement> = ref(null)
-const teamPosition: Ref<null | HTMLElement> = ref(null)
-const teamDescription: Ref<null | HTMLElement> = ref(null)
-const teamCredo: Ref<null | HTMLElement> = ref(null)
-const activeMember = ref(teamMembers[0])
-let previousIndex = 0
+const teamMembers: teamMember[] = $constants.team_members;
+const teamName: Ref<null | HTMLElement> = ref(null);
+const teamPosition: Ref<null | HTMLElement> = ref(null);
+const teamDescription: Ref<null | HTMLElement> = ref(null);
+const teamCredo: Ref<null | HTMLElement> = ref(null);
+const activeMember = ref(teamMembers[0]);
+let previousIndex = 0;
 
 function setActive(member: teamMember) {
-  activeMember.value = member
+  activeMember.value = member;
 }
 
 function onSlideChange(swiper: SwiperType) {
   // используем realIndex, чтобы работать с loop-клонами корректно
-  const current = swiper.realIndex ?? swiper.activeIndex
+  const current = swiper.realIndex ?? swiper.activeIndex;
 
-  if (teamName.value) teamName.value.style.opacity = '0'
-  if (teamPosition.value) teamPosition.value.style.opacity = '0'
-  if (teamDescription.value) teamDescription.value.style.opacity = '0'
-  if (teamCredo.value) teamCredo.value.style.opacity = '0'
+  if (teamName.value) teamName.value.style.opacity = '0';
+  if (teamPosition.value) teamPosition.value.style.opacity = '0';
+  if (teamDescription.value) teamDescription.value.style.opacity = '0';
+  if (teamCredo.value) teamCredo.value.style.opacity = '0';
 
   swiper.slides.forEach((slide: any, index: number) => {
-    const image = slide.querySelector('img')
-    gsap.set(image, { rotate: 0 })
+    const image = slide.querySelector('img');
+    gsap.set(image, { rotate: 0 });
 
     if (index === swiper.activeIndex) {
-      gsap.to(teamName.value, { duration: 1, opacity: 1 })
-      gsap.to(teamPosition.value, { duration: 1.2, opacity: 1 })
-      gsap.to(teamDescription.value, { duration: 1.4, opacity: 1 })
-      gsap.to(teamCredo.value, { duration: 1.6, opacity: 1 })
+      gsap.to(teamName.value, { duration: 1, opacity: 1 });
+      gsap.to(teamPosition.value, { duration: 1.2, opacity: 1 });
+      gsap.to(teamDescription.value, { duration: 1.4, opacity: 1 });
+      gsap.to(teamCredo.value, { duration: 1.6, opacity: 1 });
     }
 
     if (previousIndex < current) {
-      gsap.to(image, { duration: 2.5, rotate: -720 })
+      gsap.to(image, { duration: 2.5, rotate: -720 });
     } else {
-      gsap.to(image, { duration: 2.5, rotate: 720 })
+      gsap.to(image, { duration: 2.5, rotate: 720 });
     }
-  })
+  });
 
-  activeMember.value = teamMembers[current] || activeMember.value
-  previousIndex = current
+  activeMember.value = teamMembers[current] || activeMember.value;
+  previousIndex = current;
 }
 </script>
 

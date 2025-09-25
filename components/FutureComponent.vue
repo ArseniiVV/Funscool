@@ -11,23 +11,25 @@
           class="main-future-gear been-lazyload"
           :src="'/img/ui-elements/future-gear.svg'"
           aria-hidden="true"
+          loading="lazy"
         />
         <img
           class="main-future-curve been-lazyload"
           :src="'/img/ui-elements/future-curve.svg'"
           aria-hidden="true"
+          loading="lazy"
         />
       </div>
 
       <div class="main-future-img">
-        <img :src="'/img/persons/1.png'" alt="Person 1" class="person-img im1" />
-        <img :src="'/img/persons/2.png'" alt="Person 2" class="person-img im2" />
-        <img :src="'/img/persons/3.png'" alt="Person 3" class="person-img im3" />
-        <img :src="'/img/persons/4.png'" alt="Person 4" class="person-img im4" />
-        <img :src="'/img/persons/5.png'" alt="Person 5" class="person-img im5" />
-        <img :src="'/img/persons/6.png'" alt="Person 6" class="person-img im6" />
-        <img :src="'/img/persons/7.png'" alt="Person 7" class="person-img im7" />
-        <img :src="'/img/persons/8.png'" alt="Person 8" class="person-img im8" />
+        <img :src="'/img/persons/1.png'" alt="Person 1" class="person-img im1" loading="lazy" />
+        <img :src="'/img/persons/2.png'" alt="Person 2" class="person-img im2" loading="lazy" />
+        <img :src="'/img/persons/3.png'" alt="Person 3" class="person-img im3" loading="lazy" />
+        <img :src="'/img/persons/4.png'" alt="Person 4" class="person-img im4" loading="lazy" />
+        <img :src="'/img/persons/5.png'" alt="Person 5" class="person-img im5" loading="lazy" />
+        <img :src="'/img/persons/6.png'" alt="Person 6" class="person-img im6" loading="lazy" />
+        <img :src="'/img/persons/7.png'" alt="Person 7" class="person-img im7" loading="lazy" />
+        <img :src="'/img/persons/8.png'" alt="Person 8" class="person-img im8" loading="lazy" />
       </div>
       <!-- <div style="display: flex; justify-content: center">
         <button
@@ -51,6 +53,7 @@
         class="main-future-star been-lazyload"
         :src="'/img/ui-elements/future-star.svg'"
         aria-hidden="true"
+        loading="lazy"
       />
     </div>
   </section>

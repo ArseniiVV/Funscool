@@ -2,11 +2,16 @@
   <section id="addresses">
     <div class="title">
       <div style="display: flex; align-items: center">
-        <img class="title-img" :src="'/img/ui-elements/arm.svg'" alt="Иконка руки" />
+        <img class="title-img" :src="'/img/ui-elements/arm.svg'" alt="Иконка руки" loading="lazy" />
         Адреса в
         <span class="age-span" style="margin-left: 10px">
           Уфе
-          <img class="title-icon" :src="'/img/ui-elements/age-span.svg'" alt="Украшение" />
+          <img
+            class="title-icon"
+            :src="'/img/ui-elements/age-span.svg'"
+            alt="Украшение"
+            loading="lazy"
+          />
         </span>
       </div>
     </div>
@@ -56,9 +61,9 @@ const { $constants } = useNuxtApp();
 
   @media (max-width: 748px) {
     padding: 50px 00px 50px 0px;
-      .swiper-gardens {
-        padding-right: 20px;
-      }
+    .swiper-gardens {
+      padding-right: 20px;
+    }
   }
 }
 </style>

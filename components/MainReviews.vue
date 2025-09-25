@@ -39,10 +39,10 @@
       <div class="row d-flex justify-content-center">
         <div class="reviews-buttons">
           <button class="swiper-button-prev swiper-review-prev" aria-label="Назад">
-            <img :src="'/img/ui-elements/arrow-swiper.svg'" alt="" />
+            <img :src="'/img/ui-elements/arrow-swiper.svg'" alt="" loading="lazy" />
           </button>
           <button class="swiper-button-next swiper-review-next" aria-label="Вперёд">
-            <img :src="'/img/ui-elements/arrow-swiper.svg'" alt="" />
+            <img :src="'/img/ui-elements/arrow-swiper.svg'" alt="" loading="lazy" />
           </button>
         </div>
       </div>

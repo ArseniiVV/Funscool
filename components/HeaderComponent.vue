@@ -2,22 +2,22 @@
   <header ref="headerRef" class="header" :class="menuOpen ? 'menu-open' : ''">
     <div class="bvi-target header-top">
       <a class="header-top__logo" href="/">
-        <img :src="'/img/brand-book/Logo.svg'" alt="FunsCool" />
+        <img :src="'/img/brand-book/Logo.svg'" alt="FunsCool" fetchpriority="high" />
       </a>
-      <div class="header-top__menu">
+      <div class=" header-top__menu">
         <div class="header-top__menu-icons">
           <BvI />
           <a :href="'https://wa.me/' + $constants.wa" target="_blank" rel="noopener noreferrer"
             @click="useSendMetrika('WhatsApp')">
-            <img :src="'/img/contacts/whatsapp-white.svg'" class="icon" alt="WhatsApp" />
+            <img :src="'/img/contacts/whatsapp-white.svg'" class="icon" alt="WhatsApp" loading="lazy" />
           </a>
           <a :href="'https://vk.com/' + $constants.vk_link" target="_blank" rel="noopener noreferrer"
             @click="useSendMetrika('Vk')">
-            <img :src="'/img/contacts/Vk.svg'" class="icon" alt="Vk" />
+            <img :src="'/img/contacts/Vk.svg'" class="icon" alt="Vk" loading="lazy" />
           </a>
           <a :href="'https://t.me/' + $constants.tg" target="_blank" rel="noopener noreferrer"
             @click="useSendMetrika('TG')">
-            <img :src="'/img/contacts/Telegram.svg'" class="icon" alt="Telegram" />
+            <img :src="'/img/contacts/Telegram.svg'" class="icon" alt="Telegram" loading="lazy" />
           </a>
         </div>
         <div class="header-top__menu-phone">
@@ -33,7 +33,7 @@
     </div>
     <div class="header-bottom">
       <a class="header-bottom__logo" href="/">
-        <img :src="'/img/brand-book/Sign.svg'" alt="FunsCool" />
+        <img :src="'/img/brand-book/Sign.svg'" alt="FunsCool" fetchpriority="high" />
       </a>
       <div class="header-bottom__menu">
         <div class="header-bottom__menu-item">
@@ -55,9 +55,7 @@
           <a href="/#news" @click="menuOpen = false">Новости</a>
         </div>
         <div class="header-bottom__menu-item">
-          <a href="/documents/" target="_blank" @click="menuOpen = false">
-            Сведения о школе
-          </a>
+          <a href="/documents/" target="_blank" @click="menuOpen = false">Сведения о школе</a>
         </div>
         <div class="header-bottom__menu-item">
           <a href="/#contacts" @click="menuOpen = false">Контакты</a>
@@ -73,13 +71,13 @@
           menuOpen = false;
         useSendMetrika('Vk');
         ">
-          <img :src="'/img/contacts/Vk.svg'" class="icon" alt="Vk" />
+          <img :src="'/img/contacts/Vk.svg'" class="icon" alt="Vk" loading="lazy" />
         </a>
         <a :href="'https://t.me/' + $constants.tg" target="_blank" rel="noopener noreferrer" @click="
           useSendMetrika('TG');
         menuOpen = false;
         ">
-          <img :src="'/img/contacts/Telegram.svg'" class="icon" alt="Telegram" />
+          <img :src="'/img/contacts/Telegram.svg'" class="icon" alt="Telegram" loading="lazy" />
         </a>
       </div>
     </div>
@@ -103,9 +101,9 @@ function handleScroll() {
     }
   } else {
     if (window.scrollY > 50) {
-      headerRef.value!.style.boxShadow = '0 4px 6px -2px rgba(0, 0, 0, 0.2)'
+      headerRef.value!.style.boxShadow = '0 4px 6px -2px rgba(0, 0, 0, 0.2)';
     } else {
-      headerRef.value!.style.boxShadow = 'none'
+      headerRef.value!.style.boxShadow = 'none';
     }
   }
 }
@@ -257,6 +255,7 @@ header {
 
 .header.active {
   box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+
   .header-top {
     display: none;
   }

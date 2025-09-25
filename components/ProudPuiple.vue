@@ -2,10 +2,10 @@
   <section id="Puple">
     <div class="title-proud__wrap">
       <div class="title-proud">
-        <img :src="'/img/ui-elements/path.svg'" alt="" class="title-img" />
+        <img :src="'/img/ui-elements/path.svg'" alt="" class="title-img" loading="lazy" />
         Наша
         <span class="age-span">
-          <img :src="'/img/ui-elements/circle-age.svg'" alt="" />
+          <img :src="'/img/ui-elements/circle-age.svg'" alt="" loading="lazy" />
           гордость
         </span>
       </div>
@@ -25,19 +25,10 @@
         1024: { slidesPerView: 4.2, spaceBetween: 40 },
       }"
     >
-      <SwiperSlide
-        v-for="(slide, index) in slides"
-        :key="index"
-      >
+      <SwiperSlide v-for="(slide, index) in slides" :key="index">
         <div class="slide Puple-card" :class="`Puple-card-${(index % 5) + 1}`">
           <div class="Puple-card__img">
-            <img
-              :src="slide.img"
-              :alt="slide.alt"
-            
-            
-              loading="lazy"
-            />
+            <img :src="slide.img" :alt="slide.alt" loading="lazy" />
           </div>
           <div class="Puple-card__title">{{ slide.title }}</div>
           <div class="Puple-card__class">{{ slide.class }}</div>
@@ -46,10 +37,10 @@
       </SwiperSlide>
     </Swiper>
     <button class="swiper-proud-prev" aria-label="Назад">
-      <img :src="'/img/ui-elements/arrow-swiper.svg'" alt="" />
+      <img :src="'/img/ui-elements/arrow-swiper.svg'" alt="" loading="lazy" />
     </button>
     <button class="swiper-proud-next" aria-label="Вперёд">
-      <img :src="'/img/ui-elements/arrow-swiper.svg'" alt="" />
+      <img :src="'/img/ui-elements/arrow-swiper.svg'" alt="" loading="lazy" />
     </button>
   </section>
 </template>

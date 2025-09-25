@@ -1,16 +1,18 @@
 <template>
   <div style="display: flex; justify-content: center">
     <div class="branch-card" @click="useSendMetrika(branch.yaMetrikGoal)">
-      <Swiper :modules="[Autoplay]" :loop="true"
-        :autoplay="{ delay: 1500 + branch.id * 300, disableOnInteraction: true }" :speed="1000"
-        class="branch-card__swiper">
+      <Swiper
+        :modules="[Autoplay]"
+        :loop="true"
+        :autoplay="{ delay: 1500 + branch.id * 300, disableOnInteraction: true }"
+        :speed="1000"
+        class="branch-card__swiper"
+      >
         <SwiperSlide v-for="(i, index) in branch.photos" :key="index">
           <img
             :src="`/img/branches/${i}`"
             class="branch-card__image"
             alt="Branch photo"
-           
-           
             loading="lazy"
           />
         </SwiperSlide>
@@ -22,33 +24,43 @@
         <div class="branch-card__info">
           <div v-if="branch.metro && branch.metro.length > 0" class="branch-card__metro-group">
             <div v-for="m in branch.metro" :key="m" class="branch-card__metro">
-              <img :src="'/img/ui-elements/metro-white.svg'" alt="Metro" />
+              <img :src="'/img/ui-elements/metro-white.svg'" alt="Metro" loading="lazy" />
               <span>{{ m }}</span>
             </div>
           </div>
 
           <div class="branch-card__address">
-            <img :src="'/img/ui-elements/Mark.svg'" alt="Address" />
+            <img :src="'/img/ui-elements/Mark.svg'" alt="Address" loading="lazy" />
             <span v-html="branch.address" />
           </div>
-          <a 
-            v-if="branch.phone" 
-            :href="'tel:' + branch.phone" 
-            style="margin: 10px auto; color: white;"
+          <a
+            v-if="branch.phone"
+            :href="'tel:' + branch.phone"
+            style="margin: 10px auto; color: white"
             @click="useSendMetrika('phoneCall')"
           >
-            <span class="ph-btn">{{branch.phone }}</span>
+            <span class="ph-btn">{{ branch.phone }}</span>
           </a>
         </div>
 
         <div class="branch-card__action">
-          <button class="the-button" @click.stop="useVideoModal().open('/video/branch-viewing/' + branch.video)">
+          <button
+            class="the-button"
+            @click.stop="useVideoModal().open('/video/branch-viewing/' + branch.video)"
+          >
             Видеоэкскурсия
           </button>
         </div>
 
         <div v-if="branch.yaMark" class="ya-mark">
-          <iframe :src="'https://yandex.ru/sprav/widget/rating-badge/'+branch.yaMark+'?type=rating'" width="150" height="50" frameborder="0"></iframe>
+          <iframe
+            :src="'https://yandex.ru/sprav/widget/rating-badge/' + branch.yaMark + '?type=rating'"
+            width="150"
+            height="50"
+            frameborder="0"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
         </div>
       </div>
     </div>
@@ -134,7 +146,6 @@ defineProps<{
     font-size: 18px;
     line-height: 1.4em;
     gap: 10px;
-
 
     span {
       display: inline-block;

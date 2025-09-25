@@ -3,24 +3,49 @@
     <div id="potentialAnchor" />
     <div class="row position-relative">
       <div class="col-md-10 col-12 col-center mx-auto d-flex flex-column justify-content-center">
-        <img :src="'/img/ui-elements/potential-orange.svg'" class="potential-orange" alt="" />
+        <img
+          :src="'/img/ui-elements/potential-orange.svg'"
+          class="potential-orange"
+          alt=""
+          loading="lazy"
+        />
         <div class="potential-title">
           <span>
             Раскрываем потенциал каждого
             <span>
               ребёнка
-              <img class="the-circle-8" :src="'/img/ui-elements/circle-8.svg'" alt="" />
+              <img
+                class="the-circle-8"
+                :src="'/img/ui-elements/circle-8.svg'"
+                alt=""
+                loading="lazy"
+              />
             </span>
           </span>
-          <img class="the-el" :src="'/img/ui-elements/potential-green.png'" alt="" />
+          <img class="the-el" :src="'/img/ui-elements/potential-green.png'" alt="" loading="lazy" />
         </div>
         <div class="position-relative d-flex align-items-center">
-          <img :src="'/img/ui-elements/Moonsday&Feechka.webp'" class="potential-img" alt="" />
-          <img :src="'/img/ui-elements/potential-school.svg'" class="potential-purple" alt="" />
+          <img
+            :src="'/img/ui-elements/Moonsday&Feechka.webp'"
+            class="potential-img"
+            alt=""
+            loading="lazy"
+          />
+          <img
+            :src="'/img/ui-elements/potential-school.svg'"
+            class="potential-purple"
+            alt=""
+            loading="lazy"
+          />
         </div>
       </div>
     </div>
-    <img class="potential-el" :src="'/img/ui-elements/path.svg'" alt="Иконка сердца" />
+    <img
+      class="potential-el"
+      :src="'/img/ui-elements/path.svg'"
+      alt="Иконка сердца"
+      loading="lazy"
+    />
   </section>
 </template>
 

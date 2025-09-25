@@ -4,7 +4,11 @@
       <div class="open-door__wrap">
         <div class="title">
           Индивидуальный день открытых дверей
-          <img :src="'/img/ui-elements/open-door-underline.svg'" alt="Подчеркивание" />
+          <img
+            :src="'/img/ui-elements/open-door-underline.svg'"
+            alt="Подчеркивание"
+            loading="lazy"
+          />
         </div>
         <div class="open-door__wrap-text">
           С нами комфортно не только маленьким, но и большим, поэтому все экскурсии по школе мы
@@ -26,15 +30,22 @@
             class="open-door__image image-1"
             :src="'/img/open-day/frog.webp'"
             alt="Преподаватель"
+            loading="lazy"
           />
           <img
             ref="openDayImage2"
             class="open-door__image image-2"
             :src="'/img/open-day/boy.webp'"
             alt="Ученики"
+            loading="lazy"
           />
         </div>
-        <img class="open-door__sun" :src="'/img/ui-elements/open-door-sun.svg'" alt="Солнце" />
+        <img
+          class="open-door__sun"
+          :src="'/img/ui-elements/open-door-sun.svg'"
+          alt="Солнце"
+          loading="lazy"
+        />
       </div>
     </div>
   </section>

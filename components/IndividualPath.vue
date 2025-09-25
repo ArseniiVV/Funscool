@@ -1,13 +1,13 @@
 <template>
   <section id="educationPathWrap">
-    <div class="main-block" >
-      <div class="ed-path-description" style="max-width: 1400px; margin: 0 auto;">
-        <div class="ed-path-description__title" >
+    <div class="main-block">
+      <div class="ed-path-description" style="max-width: 1400px; margin: 0 auto">
+        <div class="ed-path-description__title">
           Индивидуальный
           <br />
           <span>
             образовательный маршрут
-            <img class="ed-path" :src="'/img/ui-elements/ed-path.svg'" alt="" />
+            <img class="ed-path" :src="'/img/ui-elements/ed-path.svg'" alt="" loading="lazy" />
           </span>
         </div>
         <p>
@@ -18,9 +18,9 @@
         </p>
         <b>Он состоит из четырёх главных частей:</b>
       </div>
-      <img :src="'/img/ui-elements/education-arrow-green.svg'" alt="" />
+      <img :src="'/img/ui-elements/education-arrow-green.svg'" alt="" loading="lazy" />
       <EducationPath />
-      <img class="star-sun" :src="'/img/ui-elements/star-sun.svg'" alt="" />
+      <img class="star-sun" :src="'/img/ui-elements/star-sun.svg'" alt="" loading="lazy" />
     </div>
   </section>
 </template>

@@ -5,7 +5,7 @@
         Интересные цифры о сети
         <span class="number-icon">
           школ
-          <img :src="'/img/ui-elements/education-path-svg-2.svg'" alt="" />
+          <img :src="'/img/ui-elements/education-path-svg-2.svg'" alt="" loading="lazy" />
         </span>
       </div>
       <div class="numbers-head-text">
@@ -220,4 +220,3 @@ const numbersData = $constants.numbers_data;
   }
 }
 </style>
-

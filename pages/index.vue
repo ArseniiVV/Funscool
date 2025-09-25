@@ -9,7 +9,6 @@
     <DeferredClient :loader="() => import('~/components/VideoPuiple.vue')" />
     <DeferredClient :loader="() => import('~/components/AdressesComponent.vue')" />
     <DeferredClient :loader="() => import('~/components/TeamComponent.vue')" />
-    <!-- <OpenDay /> -->
     <DeferredClient :loader="() => import('~/components/FactsSection.vue')" />
     <DeferredClient :loader="() => import('~/components/MainReviews.vue')" />
     <DeferredClient :loader="() => import('~/components/IndividualPath.vue')" />

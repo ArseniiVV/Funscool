@@ -1,59 +1,41 @@
 <template>
-  <section
-    id="educationPath"
-    :style="{ '--steps-color': slides[activeSlideIndex].color || '#00CCCC' }"
-  >
+  <section id="educationPath" :style="{ '--steps-color': slides[activeSlideIndex].color || '#00CCCC' }">
     <!-- Верхние шаги (статичная часть) -->
     <div class="main-education-path__steps" style="margin-top: 90px">
       <div class="main-education-path__step">
-        <img
-          class="main-education-path__step-img-1"
-          :src="'/img/ui-elements/education-path-img1.webp'"
-          alt=""
-        />
+        <img class="main-education-path__step-img-1" :src="'/img/ui-elements/education-path-img1.webp'" alt=""
+          loading="lazy" />
       </div>
       <div class="main-education-path__step" :class="{ active: 0 === activeSlideIndex }">
-        <img
-          class="main-education-path__step-img-2"
-          :src="'/img/ui-elements/education-path-img2.webp'"
-          alt=""
-        />
+        <img class="main-education-path__step-img-2" :src="'/img/ui-elements/education-path-img2.webp'" alt=""
+          loading="lazy" />
         <button @click="goToSlide(0)">
           Личные качества
-          <img :src="'/img/ui-elements/education-path-svg-1.svg'" alt="" />
+          <img :src="'/img/ui-elements/education-path-svg-1.svg'" alt="" loading="lazy" />
         </button>
       </div>
       <div class="main-education-path__step" :class="{ active: 1 === activeSlideIndex }">
-        <img
-          class="main-education-path__step-img-2"
-          :src="'/img/ui-elements/education-path-img2.webp'"
-          alt=""
-        />
+        <img class="main-education-path__step-img-2" :src="'/img/ui-elements/education-path-img2.webp'" alt=""
+          loading="lazy" />
         <button @click="goToSlide(1)">
           Академические грамотности
-          <img :src="'/img/ui-elements/education-path-svg-2.svg'" alt="" />
+          <img :src="'/img/ui-elements/education-path-svg-2.svg'" alt="" loading="lazy" />
         </button>
       </div>
       <div class="main-education-path__step" :class="{ active: 2 === activeSlideIndex }">
-        <img
-          class="main-education-path__step-img-2"
-          :src="'/img/ui-elements/education-path-img2.webp'"
-          alt=""
-        />
+        <img class="main-education-path__step-img-2" :src="'/img/ui-elements/education-path-img2.webp'" alt=""
+          loading="lazy" />
         <button @click="goToSlide(2)">
           Когнитивные навыки
-          <img :src="'/img/ui-elements/education-path-svg-3.svg'" alt="" />
+          <img :src="'/img/ui-elements/education-path-svg-3.svg'" alt="" loading="lazy" />
         </button>
       </div>
       <div class="main-education-path__step" :class="{ active: 3 === activeSlideIndex }">
-        <img
-          class="main-education-path__step-img-2"
-          :src="'/img/ui-elements//education-path-img2.webp'"
-          alt=""
-        />
+        <img class="main-education-path__step-img-2" :src="'/img/ui-elements/education-path-img2.webp'" alt=""
+          loading="lazy" />
         <button @click="goToSlide(3)">
           Эмоциональный и социальный интеллект
-          <img :src="'/img/ui-elements/education-path-svg-4.svg'" alt="" />
+          <img :src="'/img/ui-elements/education-path-svg-4.svg'" alt="" loading="lazy" />
         </button>
       </div>
       <div class="main-education-path__step">
@@ -65,47 +47,36 @@
     <div class="main-education-path__bottom">
       <div class="main-education-path__swiper-navigation">
         <button class="main-education-path__swiper-navigation-prev" aria-label="Назад">
-          <img :src="'/img/ui-elements/arrow-swiper.svg'" alt="" />
+          <img :src="'/img/ui-elements/arrow-swiper.svg'" alt="" loading="lazy" />
         </button>
         <button class="main-education-path__swiper-navigation-next" aria-label="Вперёд">
-          <img :src="'/img/ui-elements/arrow-swiper.svg'" alt="" />
+          <img :src="'/img/ui-elements/arrow-swiper.svg'" alt="" loading="lazy" />
         </button>
       </div>
       <div class="container">
         <div class="row">
           <div class="col-md-8 col-12 col-center mx-auto">
-            <Swiper
-              ref="educationSwiper"
-              :modules="[Autoplay]"
-              :loop="true"
-              :navigation="{
-                nextEl: '.main-education-path__swiper-navigation-next',
-                prevEl: '.main-education-path__swiper-navigation-prev',
-              }"
-              :autoplay="{ delay: 5000, disableOnInteraction: true }"
-              class="swiper-path"
-              @slide-change="onSlideChange"
-            >
+            <Swiper ref="educationSwiper" :modules="[Autoplay]" :loop="true" :navigation="{
+              nextEl: '.main-education-path__swiper-navigation-next',
+              prevEl: '.main-education-path__swiper-navigation-prev',
+            }" :autoplay="{ delay: 5000, disableOnInteraction: true }" class="swiper-path"
+              @slide-change="onSlideChange">
               <SwiperSlide v-for="slide in slides" :key="slide.id" :data-color="slide.color">
                 <div class="main-education-path__bottom-head">
                   {{ slide.head }}
-                  <img :src="slide.headIcon" alt="" />
+                  <img :src="slide.headIcon" alt="" loading="lazy" />
                 </div>
                 <div class="main-education-path__bottom-text" v-html="slide.text" />
-                <button
-                  class="the-button"
-                  type="button"
-                  @click="
-                    useModalStore().openLidModal({
-                      title: slide.buttonText,
-                      text: 'Оставьте ваши контактные данные, мы свяжемся с вами в течение дня!',
-                      buttonText: 'Присоединиться к обучению',
-                      group: '',
-                      community: '',
-                      motive: 'ИОМ: ' + slide.head,
-                    })
-                  "
-                >
+                <button class="the-button" type="button" @click="
+                  useModalStore().openLidModal({
+                    title: slide.buttonText,
+                    text: 'Оставьте ваши контактные данные, мы свяжемся с вами в течение дня!',
+                    buttonText: 'Присоединиться к обучению',
+                    group: '',
+                    community: '',
+                    motive: 'ИОМ: ' + slide.head,
+                  })
+                  ">
                   {{ slide.buttonText }}
                 </button>
               </SwiperSlide>
@@ -236,7 +207,7 @@ function goToSlide(index: number) {
       transform: translateY(-50%);
       width: 100px;
       height: 56px;
-      background-image: url('/img/education-title-svg.svg');
+      background-image: url('/img/ui-elements/education-title-svg.svg');
       background-size: contain;
       background-repeat: repeat;
     }

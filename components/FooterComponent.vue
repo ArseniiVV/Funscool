@@ -3,13 +3,15 @@
     <div class="footer-head">
       <div class="footer-head__container">
         <div class="footer-head__logo">
-          <img :src="'/img/brand-book/Logo.svg'" alt="FunsCool" />
+          <img :src="'/img/brand-book/Logo.svg'" alt="FunsCool" loading="lazy" />
         </div>
       </div>
       <div class="poclicy-link">
         <a :href="$constants.policy" target="blank" class="footer-policy-link">
           Политика конфиденциальности
-        </a> <br><br> 
+        </a>
+        <br />
+        <br />
         <a :href="$constants.agreement" target="blank" class="footer-policy-link">
           Согласие на обработку данных
         </a>
@@ -19,30 +21,64 @@
     <div class="footer-bottom">
       <div class="footer-bottom__rights">
         © {{ $constants.company_name }}, 2025
-        <br>
+        <br />
         Все права защищены
       </div>
 
       <div class="footer-bottom__social-group">
-        <a :href="'https://wa.me/' + $constants.wa" target="_blank" rel="noopener noreferrer"
-          @click="useSendMetrika('WhatsApp')">
-          <img class="lazyload icon" :src="'/img/contacts/whatsapp-white.svg'" alt="whatsapp" />
+        <a
+          :href="'https://wa.me/' + $constants.wa"
+          target="_blank"
+          rel="noopener noreferrer"
+          @click="useSendMetrika('WhatsApp')"
+        >
+          <img
+            class="lazyload icon"
+            :src="'/img/contacts/whatsapp-white.svg'"
+            alt="whatsapp"
+            loading="lazy"
+          />
         </a>
-        <a :href="'https://vk.com/' + $constants.vk_link" target="_blank" rel="noopener noreferrer"
-          @click="useSendMetrika('VK')">
-          <img class="lazyload icon" :src="'/img/contacts/Vk.svg'" alt="Vk" />
+        <a
+          :href="'https://vk.com/' + $constants.vk_link"
+          target="_blank"
+          rel="noopener noreferrer"
+          @click="useSendMetrika('VK')"
+        >
+          <img class="lazyload icon" :src="'/img/contacts/Vk.svg'" alt="Vk" loading="lazy" />
         </a>
-        <a :href="'https://t.me/' + $constants.tg" target="_blank" rel="noopener noreferrer"
-          @click="useSendMetrika('TG')">
-          <img class="lazyload icon" :src="'/img/contacts/Telegram.svg'" alt="Telegram" />
+        <a
+          :href="'https://t.me/' + $constants.tg"
+          target="_blank"
+          rel="noopener noreferrer"
+          @click="useSendMetrika('TG')"
+        >
+          <img
+            class="lazyload icon"
+            :src="'/img/contacts/Telegram.svg'"
+            alt="Telegram"
+            loading="lazy"
+          />
         </a>
       </div>
 
       <div class="footer-bottom__policy">
-        <a :href="$constants.policy" target="blank" rel="noopener noreferrer" class="footer-bottom__policy-link footer-policy-link">
+        <a
+          :href="$constants.policy"
+          target="blank"
+          rel="noopener noreferrer"
+          class="footer-bottom__policy-link footer-policy-link"
+        >
           Политика конфиденциальности
-        </a> <br><br>
-        <a :href="$constants.agreement" target="blank" rel="noopener noreferrer" class="footer-bottom__policy-link footer-policy-link">
+        </a>
+        <br />
+        <br />
+        <a
+          :href="$constants.agreement"
+          target="blank"
+          rel="noopener noreferrer"
+          class="footer-bottom__policy-link footer-policy-link"
+        >
           Согласие на обработку данных
         </a>
       </div>
@@ -140,7 +176,7 @@ footer {
         transition: transform 0.3s ease;
       }
 
-      a:hover img { 
+      a:hover img {
         transform: scale(1.1);
       }
     }
@@ -154,8 +190,6 @@ footer {
         display: block;
       }
     }
-
-
 
     .footer-head__text {
       font-size: 16px;
@@ -208,7 +242,6 @@ footer {
   transition: gap 0.4s ease;
   text-decoration: underline;
   color: #fff;
-
 
   &::before {
     content: '';

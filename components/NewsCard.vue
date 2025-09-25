@@ -1,13 +1,7 @@
 <template>
   <div class="news__item" :class="news.color" @click="useInfoModal().open(news)">
     <div class="news__item-img">
-      <img
-        :src="news.img"
-        :alt="news.title"
-      
-      
-        loading="lazy"
-      />
+      <img :src="news.img" :alt="news.title" loading="lazy" />
     </div>
     <div class="news__body">
       <div class="news__body-date">
@@ -20,7 +14,7 @@
       </div>
     </div>
     <div class="news__body-img">
-      <img :src="'/img/ui-elements/arrow-yellow.svg'" alt="" />
+      <img :src="'/img/ui-elements/arrow-yellow.svg'" alt="" loading="lazy" />
     </div>
   </div>
 </template>

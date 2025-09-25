@@ -9,6 +9,7 @@
           style="width: 120px"
           :src="'/img/ui-elements/Vector2.svg'"
           alt="Украшение"
+          loading="lazy"
         />
       </span>
     </div>
@@ -21,7 +22,7 @@
       :breakpoints="{
         0: { slidesPerView: 1.2 },
         600: { slidesPerView: 'auto' },
-        1200: { slidesPerView: 'auto', centerInsufficientSlides: true }
+        1200: { slidesPerView: 'auto', centerInsufficientSlides: true },
       }"
       class="swiper-gardens"
       :class="{ 'should-center': $constants.news.length < 6 }"

@@ -1,6 +1,6 @@
 <template>
   <section id="video-section" class="main-section">
-    <img class="title-img" :src="'/img/ui-elements/Vector4.svg'" alt="" />
+    <img class="title-img" :src="'/img/ui-elements/Vector4.svg'" alt="" loading="lazy" />
     <div class="video-heading">
       Наши выпускники 2023-2024 гг. поступили
       <br />
@@ -11,17 +11,21 @@
 
     <div class="video-container">
       <div class="video-item" v-for="(video, i) in videos" :key="i">
-        <div class="video-wrapper" :class="{ 'is-loaded': loaded[i] }">
-          <!-- Скелетон всегда в разметке, но скрывается классом -->
-          <div class="video-skeleton"></div>
+        <div
+          class="video-wrapper"
+          :class="{ 'is-loaded': loaded[i], 'is-visible': isVisible[i], 'has-error': errors[i] }"
+          :ref="(el) => setWrapperRef(el, i)"
+        >
+          <div v-if="!loaded[i]" class="video-skeleton" />
 
           <video
+            v-if="isVisible[i] && !errors[i]"
             class="video-player"
             controls
             muted
             loop
             playsinline
-            preload="auto"
+            preload="metadata"
             @loadeddata="markLoaded(i, $event)"
             @canplay="markLoaded(i, $event)"
             @playing="markLoaded(i, $event)"
@@ -30,6 +34,10 @@
             <source :src="video.src" type="video/mp4" />
             Ваш браузер не поддерживает видео.
           </video>
+
+          <div v-else-if="errors[i]" class="video-error">
+            Ошибка загрузки видео. Пожалуйста, попробуйте позже.
+          </div>
         </div>
 
         <div class="video-caption" v-html="video.caption" />
@@ -39,7 +47,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, nextTick } from 'vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue';
 
 const videos = [
   {
@@ -57,34 +65,80 @@ const videos = [
     caption: `Кудояров Маркус, выпуск 2024 г, поступил в César Ritz colleges, Switzerland на
               специальность «International business in Hotel and Tourism management».`,
   },
-]
+];
 
-const loaded = ref<boolean[]>(videos.map(() => false))
+const loaded = ref<boolean[]>(videos.map(() => false));
+const isVisible = ref<boolean[]>(videos.map(() => false));
+const errors = ref<boolean[]>(videos.map(() => false));
+const wrapperRefs = ref<(HTMLElement | null)[]>([]);
+
+let observer: IntersectionObserver | null = null;
+
+const setWrapperRef = (el: Element | null, index: number) => {
+  const current = wrapperRefs.value[index];
+  if (current && observer) {
+    observer.unobserve(current);
+  }
+
+  const element = (el as HTMLElement | null) || null;
+  wrapperRefs.value[index] = element;
+
+  if (observer && element) {
+    observer.observe(element);
+  }
+};
 
 function markLoaded(i: number, e?: Event) {
-  if (loaded.value[i]) return
-  const v = (e?.target as HTMLVideoElement) || null
-  // считаем загруженным, если readyState >= HAVE_CURRENT_DATA (2)
-  if (!v || v.readyState >= 2) {
-    loaded.value[i] = true
+  if (loaded.value[i]) return;
+  const video = (e?.target as HTMLVideoElement) || null;
+  if (!video || typeof HTMLMediaElement === 'undefined') {
+    loaded.value[i] = true;
+    return;
+  }
+
+  if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+    loaded.value[i] = true;
   }
 }
 
 function markError(i: number) {
-  // убираем скелетон, чтобы не перекрывал интерфейс; можно ещё показать текст «не удалось загрузить»
-  loaded.value[i] = true
+  errors.value[i] = true;
+  loaded.value[i] = true;
 }
 
-onMounted(async () => {
-  await nextTick()
-  // если видео уже в кэше — сразу снимем скелетон
-  const nodes = Array.from(
-    document.querySelectorAll<HTMLVideoElement>('#video-section .video-player')
-  )
-  nodes.forEach((v, idx) => {
-    if (v.readyState >= 2) loaded.value[idx] = true
-  })
-})
+onMounted(() => {
+  if (typeof window === 'undefined') {
+    isVisible.value = isVisible.value.map(() => true);
+    return;
+  }
+
+  if (!('IntersectionObserver' in window)) {
+    isVisible.value = isVisible.value.map(() => true);
+    return;
+  }
+
+  observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const idx = wrapperRefs.value.indexOf(entry.target as HTMLElement);
+        if (idx === -1) return;
+        isVisible.value[idx] = true;
+        observer?.unobserve(entry.target as HTMLElement);
+      });
+    },
+    { rootMargin: '200px 0px', threshold: 0.25 }
+  );
+
+  wrapperRefs.value.forEach((el) => {
+    if (el) observer?.observe(el);
+  });
+});
+
+onBeforeUnmount(() => {
+  observer?.disconnect();
+  observer = null;
+});
 </script>
 
 <style scoped lang="scss">
@@ -128,6 +182,12 @@ onMounted(async () => {
 
 .video-wrapper {
   position: relative;
+  min-height: 240px;
+}
+
+.video-wrapper.has-error {
+  background: rgba(255, 102, 0, 0.1);
+  border-radius: 10px;
 }
 
 /* сам плеер */
@@ -146,9 +206,10 @@ onMounted(async () => {
   border-radius: 10px;
   background: var(--theme-middle);
   background-size: 400% 100%;
-  // animation: shimmer 1.4s ease infinite;
-  pointer-events: none;  /* ← не блокирует клики по видео */
-  transition: opacity .25s ease, visibility .25s ease;
+  pointer-events: none;
+  transition:
+    opacity 0.25s ease,
+    visibility 0.25s ease;
 }
 
 .video-wrapper.is-loaded .video-skeleton {
@@ -156,9 +217,23 @@ onMounted(async () => {
   visibility: hidden;
 }
 
+.video-error {
+  padding: 32px 24px;
+  border-radius: 10px;
+  font-size: 16px;
+  color: #444;
+  background: #fff;
+  max-width: 450px;
+}
+
 @keyframes shimmer {
-  0% { background-position: -400% 0; }
-  100% { background-position: 400% 0; }
+  0% {
+    background-position: -400% 0;
+  }
+
+  100% {
+    background-position: 400% 0;
+  }
 }
 
 .video-caption {

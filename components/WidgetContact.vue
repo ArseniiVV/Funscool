@@ -1,25 +1,25 @@
 <template>
   <div id="ContactWidget" class="widget" v-if="showOnMobile">
-    <div style="margin-bottom: 30px;">
+    <div style="margin-bottom: 30px">
       <a :href="'https://wa.me/' + $constants.wa" target="_blank" rel="noopener noreferrer" class="widget-content-item"
         @click="useSendMetrika('WhatsApp')">
-        <img :src="'/img/contacts/whatsapp2.svg'" alt="wa" style="width: 60px;"/>
+        <img :src="'/img/contacts/whatsapp2.svg'" alt="wa" style="width: 60px" loading="lazy" />
       </a>
     </div>
     <div>
       <a target="_blank" :href="'tel:' + $constants.phone_number" class="widget-phone widget-content-item"
         @click="useSendMetrika('phoneCall')">
         <span style="display: none" class="phone-number">{{ $constants.phone_text }}</span>
-        <img  :src="'/img/contacts/phone2.svg'" alt="" style="width: 60px;"/>
+        <img :src="'/img/contacts/phone2.svg'" alt="" style="width: 60px" loading="lazy" />
       </a>
-    </div>   
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue';
 
-const widgetShow = ref(false);
+// const widgetShow = ref(false);
 const showOnMobile = ref(false);
 const { $constants } = useNuxtApp();
 
@@ -40,7 +40,6 @@ onUnmounted(() => {
   window.removeEventListener('resize', checkScrollAndWidth);
 });
 </script>
-
 
 <style lang="scss" scoped>
 #ContactWidget {

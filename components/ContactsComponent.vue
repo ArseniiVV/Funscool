@@ -7,9 +7,11 @@
       <div class="contacts-column">
         <!-- <b>Школа без языковых границ</b> -->
         <span v-for="br in $constants.branches" :key="br.id">
-          <img :src="'/img/ui-elements/Mark.svg'" style="margin-right: 10px" />
+          <img :src="'/img/ui-elements/Mark.svg'" style="margin-right: 10px" loading="lazy" />
           <a :href="`tel:${br.phone.replace(/\D/g, '')}`" style="display: inline">
-            {{ br.address }}<br>{{ br.phone }}
+            {{ br.address }}
+            <br />
+            {{ br.phone }}
             <!-- <a :href="`tel:${br.phone.replace(/\D/g, '')}`">{{ br.phone }}</a> -->
           </a>
         </span>
@@ -17,21 +19,29 @@
 
       <!-- Contact links in a row -->
       <div class="contacts-row">
-        <a target="_blank" :href="'tel:' + $constants.phone_number" @click="useSendMetrika('phoneCall')"
-          class="phone-number">
-          <img :src="'/img/contacts/phone.svg'" alt="" />
+        <a
+          target="_blank"
+          :href="'tel:' + $constants.phone_number"
+          @click="useSendMetrika('phoneCall')"
+          class="phone-number"
+        >
+          <img :src="'/img/contacts/phone.svg'" alt="" loading="lazy" />
           {{ $constants.phone_text }}
         </a>
-        <a target="_blank" :href="'https://wa.me/' + $constants.wa" @click="useSendMetrika('WhatsApp')">
-          <img :src="'/img/contacts/whatsapp.svg'" alt="" />
+        <a
+          target="_blank"
+          :href="'https://wa.me/' + $constants.wa"
+          @click="useSendMetrika('WhatsApp')"
+        >
+          <img :src="'/img/contacts/whatsapp.svg'" alt="" loading="lazy" />
           WhatsApp
         </a>
         <a target="_blank" :href="'https://t.me/' + $constants.tg" @click="useSendMetrika('TG')">
-          <img :src="'/img/contacts/telegram-yellow.svg'" alt="" />
+          <img :src="'/img/contacts/telegram-yellow.svg'" alt="" loading="lazy" />
           Telegram
         </a>
         <a target="_blank" :href="'mailto:' + $constants.mail" @click="useSendMetrika('email')">
-          <img :src="'/img/contacts/mail.svg'" alt="" />
+          <img :src="'/img/contacts/mail.svg'" alt="" loading="lazy" />
           {{ $constants.mail }}
         </a>
       </div>
@@ -126,7 +136,6 @@ onMounted(() => {
       height: 20px;
     }
   }
-
 
   .contacts-row {
     display: flex;
