@@ -1,0 +1,23 @@
+stages:
+  - build
+  - deploy
+
+build_nuxt:
+  stage: build
+  tags:
+    - first-server
+  script:
+    - docker build -t funscool-ufa-school:$CI_PIPELINE_ID .
+
+deploy_nuxt:
+  stage: deploy
+  tags:
+    - first-server
+  script:
+    - docker rm -f funscool-ufa-school || true
+    - >
+      docker run -d --restart=always
+      --name funscool-ufa-school
+      -p 127.0.0.1:3095:7000
+      funscool-ufa-school:$CI_PIPELINE_ID
+  environment: production
