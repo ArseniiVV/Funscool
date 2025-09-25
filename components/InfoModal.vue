@@ -28,20 +28,17 @@
 
                 <div class="modal-group__price" v-html="modalData.price" />
                 <div style="text-align: center">
-                  <button
-                    class="the-button"
-                    @click="
-                      useModalStore().openLidModal({
-                        title: 'Заявка на обратный звонок',
-                        text: 'Оставьте заявку и мы свяжемся с вами в ближайшее время',
-                        buttonText: 'Отправить заявку',
-                        group: modalData.title,
-                        community: '',
-                        motive: modalData.title && 'Возрастная группа: ' + modalData.title,
-                      });
-                      close();
-                    "
-                  >
+                  <button class="the-button" @click="
+                    useModalStore().openLidModal({
+                      title: 'Заявка на обратный звонок',
+                      text: 'Оставьте заявку и мы свяжемся с вами в ближайшее время',
+                      buttonText: 'Отправить заявку',
+                      group: modalData.title,
+                      community: '',
+                      motive: modalData.title && 'Возрастная группа: ' + modalData.title,
+                    });
+                  close();
+                  ">
                     Записаться в группу
                   </button>
                 </div>
@@ -51,11 +48,7 @@
             <div class="modal-group__swiper">
               <div ref="swiperContainer" class="swiper swiper-group-modal">
                 <div class="swiper-wrapper">
-                  <div
-                    v-for="(imgUrl, index) in modalData.images"
-                    :key="index"
-                    class="swiper-slide"
-                  >
+                  <div v-for="(imgUrl, index) in modalData.images" :key="index" class="swiper-slide">
                     <img :alt="'slide ' + index" class="group-image" :src="imgUrl" loading="lazy" />
                   </div>
                 </div>

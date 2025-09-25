@@ -7,7 +7,7 @@
       <div class="contacts-column">
         <!-- <b>Школа без языковых границ</b> -->
         <span v-for="br in $constants.branches" :key="br.id">
-          <img :src="'/img/ui-elements/Mark.svg'" style="margin-right: 10px" loading="lazy" />
+          <img :src="'/img/ui-elements/Mark.svg'" style="margin-right: 10px" loading="lazy" alt="Маркер" />
           <a :href="`tel:${br.phone.replace(/\D/g, '')}`" style="display: inline">
             {{ br.address }}
             <br />
@@ -19,20 +19,12 @@
 
       <!-- Contact links in a row -->
       <div class="contacts-row">
-        <a
-          target="_blank"
-          :href="'tel:' + $constants.phone_number"
-          @click="useSendMetrika('phoneCall')"
-          class="phone-number"
-        >
+        <a target="_blank" :href="'tel:' + $constants.phone_number" @click="useSendMetrika('phoneCall')"
+          class="phone-number">
           <img :src="'/img/contacts/phone.svg'" alt="" loading="lazy" />
           {{ $constants.phone_text }}
         </a>
-        <a
-          target="_blank"
-          :href="'https://wa.me/' + $constants.wa"
-          @click="useSendMetrika('WhatsApp')"
-        >
+        <a target="_blank" :href="'https://wa.me/' + $constants.wa" @click="useSendMetrika('WhatsApp')">
           <img :src="'/img/contacts/whatsapp.svg'" alt="" loading="lazy" />
           WhatsApp
         </a>

@@ -1,20 +1,11 @@
 <template>
   <div style="display: flex; justify-content: center">
     <div class="branch-card" @click="useSendMetrika(branch.yaMetrikGoal)">
-      <Swiper
-        :modules="[Autoplay]"
-        :loop="true"
-        :autoplay="{ delay: 1500 + branch.id * 300, disableOnInteraction: true }"
-        :speed="1000"
-        class="branch-card__swiper"
-      >
+      <Swiper :modules="[Autoplay]" :loop="true"
+        :autoplay="{ delay: 1500 + branch.id * 300, disableOnInteraction: true }" :speed="1000"
+        class="branch-card__swiper">
         <SwiperSlide v-for="(i, index) in branch.photos" :key="index">
-          <img
-            :src="`/img/branches/${i}`"
-            class="branch-card__image"
-            alt="Branch photo"
-            loading="lazy"
-          />
+          <img :src="`/img/branches/${i}`" class="branch-card__image" alt="Branch photo" loading="lazy" />
         </SwiperSlide>
       </Swiper>
 
@@ -33,34 +24,22 @@
             <img :src="'/img/ui-elements/Mark.svg'" alt="Address" loading="lazy" />
             <span v-html="branch.address" />
           </div>
-          <a
-            v-if="branch.phone"
-            :href="'tel:' + branch.phone"
-            style="margin: 10px auto; color: white"
-            @click="useSendMetrika('phoneCall')"
-          >
+          <a v-if="branch.phone" :href="'tel:' + branch.phone" style="margin: 10px auto; color: white"
+            @click="useSendMetrika('phoneCall')">
             <span class="ph-btn">{{ branch.phone }}</span>
           </a>
         </div>
 
         <div class="branch-card__action">
-          <button
-            class="the-button"
-            @click.stop="useVideoModal().open('/video/branch-viewing/' + branch.video)"
-          >
+          <button class="the-button" @click.stop="useVideoModal().open('/video/branch-viewing/' + branch.video)">
             Видеоэкскурсия
           </button>
         </div>
 
         <div v-if="branch.yaMark" class="ya-mark">
-          <iframe
-            :src="'https://yandex.ru/sprav/widget/rating-badge/' + branch.yaMark + '?type=rating'"
-            width="150"
-            height="50"
-            frameborder="0"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-          ></iframe>
+          <iframe :src="'https://yandex.ru/sprav/widget/rating-badge/' + branch.yaMark + '?type=rating'" width="150"
+            height="50" frameborder="0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            title="Яндекс отзывы"></iframe>
         </div>
       </div>
     </div>

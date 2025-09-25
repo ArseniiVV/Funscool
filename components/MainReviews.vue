@@ -2,19 +2,12 @@
   <section id="reviews">
     <div class="container">
       <div class="title">Нам доверяют</div>
-      <Swiper
-        :navigation="{ nextEl: '.swiper-review-next', prevEl: '.swiper-review-prev' }"
-        :breakpoints="{
-          0: { slidesPerView: 1 },
-          768: { slidesPerView: 2 },
-          991: { slidesPerView: 3 },
-          1200: { slidesPerView: 4 },
-        }"
-        class="swiper swiper-review"
-        :modules="[Navigation]"
-        :center-insufficient-slides="true"
-        :space-between="24"
-      >
+      <Swiper :navigation="{ nextEl: '.swiper-review-next', prevEl: '.swiper-review-prev' }" :breakpoints="{
+        0: { slidesPerView: 1 },
+        768: { slidesPerView: 2 },
+        991: { slidesPerView: 3 },
+        1200: { slidesPerView: 4 },
+      }" class="swiper swiper-review" :modules="[Navigation]" :center-insufficient-slides="true" :space-between="24">
         <SwiperSlide v-for="item in $constants.reviews" :key="item.title">
           <div class="reviews-card" :class="item.color">
             <div class="reviews-card__head">
@@ -36,7 +29,7 @@
           </div>
         </SwiperSlide>
       </Swiper>
-      <div class="row d-flex justify-content-center">
+      <!-- <div class="row d-flex justify-content-center">
         <div class="reviews-buttons">
           <button class="swiper-button-prev swiper-review-prev" aria-label="Назад">
             <img :src="'/img/ui-elements/arrow-swiper.svg'" alt="" loading="lazy" />
@@ -45,7 +38,7 @@
             <img :src="'/img/ui-elements/arrow-swiper.svg'" alt="" loading="lazy" />
           </button>
         </div>
-      </div>
+      </div> -->
     </div>
   </section>
   <Teleport to="body">

@@ -1,92 +1,74 @@
 <template>
-  <component :is="tag" ref="rootEl">
-    <slot name="placeholder" v-if="!mounted || !isVisible" />
+  <div ref="root" :style="placeholderStyle">
     <ClientOnly>
-      <component v-if="AsyncComp" :is="AsyncComp" />
+      <component :is="resolved" v-if="resolved" />
+      <slot v-else name="placeholder">
+        <!-- скелет/заглушка, чтобы не было CLS -->
+        <div :style="placeholderStyle" aria-hidden="true"></div>
+      </slot>
     </ClientOnly>
-  </component>
-  
+  </div>
 </template>
 
 <script setup lang="ts">
-type Loader = () => Promise<any>
+import { onMounted, onBeforeUnmount, shallowRef, ref, computed } from 'vue'
 
-const props = withDefaults(defineProps<{
-  loader: Loader
-  tag?: string
-  rootMargin?: string
-  threshold?: number | number[]
-  eager?: boolean
-}>(), {
-  tag: 'div',
-  rootMargin: '200px 0px',
-  threshold: 0.1,
-  eager: false,
-})
+type When = 'immediate' | 'visible' | 'idle'
 
-const rootEl: Ref<HTMLElement | null> = ref(null)
-const isVisible = ref(false)
-const mounted = ref(false)
-const AsyncComp = shallowRef<any | null>(null)
+const props = defineProps<{
+  loader: () => Promise<any>
+  when?: When
+  placeholderHeight?: number | string // например 400 или '40vh'
+}>()
+
+const resolved = shallowRef<any>(null)
+const root = ref<HTMLElement | null>(null)
 let io: IntersectionObserver | null = null
+let canceled = false
 
-const startLoading = () => {
-  if (AsyncComp.value) return
-  // Create async component on-demand so chunk is fetched only when needed
-  AsyncComp.value = defineAsyncComponent({
-    loader: props.loader,
-    suspensible: false,
-    // Optional small delay to yield to main thread
-    delay: 0,
-    // Retry logic for transient chunk/network issues
-    onError(error, retry, fail, attempts) {
-      const isChunkError = /Loading chunk|fetch|timeout/i.test(String(error))
-      if (isChunkError && attempts <= 3) {
-        setTimeout(() => retry(), 500 * attempts)
-      } else {
-        fail(error)
-      }
-    },
-  })
+const placeholderStyle = computed(() => ({
+  minHeight: props.placeholderHeight !== undefined
+    ? (typeof props.placeholderHeight === 'number'
+      ? `${props.placeholderHeight}px`
+      : props.placeholderHeight)
+    : '0px',
+}))
+
+async function loadNow() {
+  if (resolved.value || canceled) return
+  const mod = await props.loader()
+  resolved.value = mod.default || mod
 }
 
 onMounted(() => {
-  mounted.value = true
-  if (props.eager) {
-    isVisible.value = true
-    startLoading()
+  const when: When = props.when ?? 'immediate'
+
+  if (when === 'immediate') {
+    loadNow()
     return
   }
 
-  if (!('IntersectionObserver' in window)) {
-    // Fallback if IO unsupported
-    isVisible.value = true
-    startLoading()
+  if (when === 'idle' && 'requestIdleCallback' in window) {
+    ; (window as any).requestIdleCallback(() => loadNow())
     return
   }
 
+  // when === 'visible' (или fallback)
   io = new IntersectionObserver((entries) => {
-    for (const entry of entries) {
-      if (entry.isIntersecting) {
-        isVisible.value = true
-        startLoading()
-        if (rootEl.value) io?.unobserve(rootEl.value)
-        io?.disconnect()
-        io = null
-        break
-      }
+    const e = entries[0]
+    if (e?.isIntersecting) {
+      io?.disconnect()
+      io = null
+      loadNow()
     }
-  }, { rootMargin: props.rootMargin, threshold: props.threshold as any })
+  }, { rootMargin: '100px' }) // чуть заранее
 
-  if (rootEl.value) io.observe(rootEl.value)
+  if (root.value) io.observe(root.value)
 })
 
 onBeforeUnmount(() => {
+  canceled = true
   io?.disconnect()
   io = null
 })
 </script>
-
-<style scoped>
-/* No visual styles; acts as behavior wrapper */
-</style>

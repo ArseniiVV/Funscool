@@ -1,25 +1,53 @@
 <template>
   <div id="app">
     <NuxtPage />
-    <!-- <ClientOnly>
-      <YaMetrika />
-    </ClientOnly> -->
-    <widget-contact />
-    <lid-modal />
-    <video-modal />
-    <InfoModal v-if="infoModalVisible" />
+    <CookieAgreement loading="lazy" />
 
-    <CookieAgreement />
+    <ClientOnly>
+      <WidgetContact loading="lazy" />
+      <YaMetrika loading="lazy" />
+      <LidModal loading="lazy" />
+      <VideoModal loading="lazy" />
+      <InfoModal v-if="infoModalVisible" />
+    </ClientOnly>
+
   </div>
 </template>
 
 <script setup lang="ts">
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-import "swiper/css/autoplay";
-import "swiper/css/effect-fade";
+import { defineAsyncComponent } from 'vue';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import 'swiper/css/autoplay';
+import 'swiper/css/effect-fade';
+
 const { infoModalVisible } = useInfoModal();
+
+const WidgetContact = defineAsyncComponent({
+  loader: () => import('~/components/WidgetContact.vue'),
+  suspensible: false,
+});
+
+const LidModal = defineAsyncComponent({
+  loader: () => import('~/components/LidModal.vue'),
+  suspensible: false,
+});
+
+const VideoModal = defineAsyncComponent({
+  loader: () => import('~/components/VideoModal.vue'),
+  suspensible: false,
+});
+
+const InfoModal = defineAsyncComponent({
+  loader: () => import('~/components/InfoModal.vue'),
+  suspensible: false,
+});
+
+const CookieAgreement = defineAsyncComponent({
+  loader: () => import('~/components/CookieAgreement.vue'),
+  suspensible: false,
+});
 </script>
 
 <style lang="scss">
@@ -88,7 +116,7 @@ body {
   background-size: contain;
 }
 
-// Button  
+// Button
 .the-button {
   z-index: 599;
   padding: 22px 30px;

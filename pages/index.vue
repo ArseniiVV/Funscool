@@ -2,26 +2,73 @@
   <div data-main>
     <HeaderComponent />
     <MainSlider />
-    <DeferredClient :loader="() => import('~/components/AdvantagesComponent.vue')" />
-    <DeferredClient :loader="() => import('~/components/PhotoFilm.vue')" />
-    <DeferredClient :loader="() => import('~/components/AgeGroups.vue')" />
-    <DeferredClient :loader="() => import('~/components/NumbersComponent.vue')" />
-    <DeferredClient :loader="() => import('~/components/VideoPuiple.vue')" />
-    <DeferredClient :loader="() => import('~/components/AdressesComponent.vue')" />
-    <DeferredClient :loader="() => import('~/components/TeamComponent.vue')" />
-    <DeferredClient :loader="() => import('~/components/FactsSection.vue')" />
-    <DeferredClient :loader="() => import('~/components/MainReviews.vue')" />
-    <DeferredClient :loader="() => import('~/components/IndividualPath.vue')" />
-    <DeferredClient :loader="() => import('~/components/ProudPuiple.vue')" />
-    <DeferredClient :loader="() => import('~/components/PhotoFilm.vue')" />
-    <DeferredClient :loader="() => import('~/components/FutureComponent.vue')" />
-    <DeferredClient :loader="() => import('~/components/NewsComponent.vue')" />
-    <DeferredClient :loader="() => import('~/components/ContactsComponent.vue')" />
-    <DeferredClient :loader="() => import('~/components/MapComponent.vue')" />
-    <DeferredClient :loader="() => import('~/components/PotentialComponent.vue')" />
-    <DeferredClient :loader="() => import('~/components/FooterComponent.vue')" />
+
+    <DeferredClient :loader="() => import('~/components/AdvantagesComponent.vue')" when="visible"
+      :placeholder-height="420" />
+
+    <DeferredClient :loader="() => import('~/components/PhotoFilm.vue')" when="visible" :placeholder-height="380" />
+
+    <DeferredClient :loader="() => import('~/components/AgeGroups.vue')" when="visible" :placeholder-height="560" />
+
+    <DeferredClient :loader="() => import('~/components/NumbersComponent.vue')" when="visible"
+      :placeholder-height="320" />
+
+    <DeferredClient :loader="() => import('~/components/VideoPuiple.vue')" when="visible" :placeholder-height="420" />
+
+    <DeferredClient :loader="() => import('~/components/AdressesComponent.vue')" when="visible"
+      :placeholder-height="460" />
+
+    <DeferredClient :loader="() => import('~/components/TeamComponent.vue')" when="visible" :placeholder-height="520" />
+
+    <DeferredClient :loader="() => import('~/components/FactsSection.vue')" when="visible" :placeholder-height="420" />
+
+    <DeferredClient :loader="() => import('~/components/MainReviews.vue')" when="visible" :placeholder-height="520" />
+
+    <DeferredClient :loader="() => import('~/components/IndividualPath.vue')" when="visible"
+      :placeholder-height="420" />
+
+    <DeferredClient :loader="() => import('~/components/ProudPuiple.vue')" when="visible" :placeholder-height="480" />
+
+    <!-- PhotoFilm второй раз был дубликатом — убери его, если не нужен -->
+    <DeferredClient :loader="() => import('~/components/PhotoFilm.vue')" when="visible" :placeholder-height="380" />
+
+    <DeferredClient :loader="() => import('~/components/FutureComponent.vue')" when="visible"
+      :placeholder-height="480" />
+
+    <DeferredClient :loader="() => import('~/components/NewsComponent.vue')" when="visible" :placeholder-height="520" />
+
+    <DeferredClient :loader="() => import('~/components/ContactsComponent.vue')" when="visible"
+      :placeholder-height="560" />
+
+    <DeferredClient :loader="() => import('~/components/MapComponent.vue')" when="visible"
+      :placeholder-height="'60vh'" />
+
+    <DeferredClient :loader="() => import('~/components/PotentialComponent.vue')" when="visible"
+      :placeholder-height="420" />
+
+    <DeferredClient :loader="() => import('~/components/FooterComponent.vue')" when="visible"
+      :placeholder-height="300" />
   </div>
 </template>
+
+
+<script setup>
+import { onMounted, ref } from 'vue'
+
+const showRatingBadge = ref(false)
+
+onMounted(() => {
+  const enableBadge = () => {
+    showRatingBadge.value = true
+  }
+
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(enableBadge)
+  } else {
+    window.setTimeout(enableBadge, 0)
+  }
+})
+</script>
 
 <style lang="scss">
 .main-block {

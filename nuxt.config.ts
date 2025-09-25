@@ -7,19 +7,26 @@ export default defineNuxtConfig({
   // === СТАТИКА / КЭШИРОВАНИЕ ЧЕРЕЗ ROUTE RULES ===
   // Глобальные правила для кэша и ISR (revalidate) там, где есть динамика.
   routeRules: {
-    // Агрессивный кэш для бандла и ассетов
+    // Бандлы и IPX — год, immutable
     '/_nuxt/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
     '/_ipx/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
-    '/fonts/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
-    '/images/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
 
-    // Страницы — кэш CDN/прокси, быстрая инвалидация
+    // 🔧 ИМЕННО /img/** (а не /images/**)
+    '/img/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
+    '/fonts/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
+    '/favicon.ico': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
+
+    // SEO-файлы (их разумно кэшировать короче)
+    '/robots.txt': { headers: { 'cache-control': 'public, max-age=86400' } }, // 1 день
+    '/sitemap.xml': { headers: { 'cache-control': 'public, max-age=86400' } },
+
+    // Страницы — кэш CDN + быстрая ревалидация
     '/**': {
       headers: { 'cache-control': 'public, s-maxage=86400, stale-while-revalidate=604800' },
     },
 
-    // Пример гибридной динамики: новости пересобираются раз в 5 минут
-    // '/news/**':  { isr: 300 }
+    // Если есть «полудинамика»
+    // '/news/**': { isr: 300 }, // пересборка раз в 5 минут
   },
 
   nitro: {

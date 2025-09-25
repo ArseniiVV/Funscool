@@ -23,11 +23,11 @@
               </div>
 
             </div>
-              <div class="slider-column slider-column--right">
-                <div class="swiper-main__img">
-                  <img :src="slide.image" :alt="slide.alt" loading="lazy" />
-                </div>
+            <div class="slider-column slider-column--right">
+              <div class="swiper-main__img">
+                <img :src="slide.image" :alt="slide.alt" fetchpriority="high" />
               </div>
+            </div>
           </div>
         </div>
       </swiper-slide>
@@ -57,7 +57,7 @@
           </div>
           <div class="slider-column slider-column--right">
             <div class="swiper-main__img">
-              <img :src="slides[0].image" :alt="slides[0].alt" loading="eager" fetchpriority="high" />
+              <img :src="slides[0].image" :alt="slides[0].alt" fetchpriority="high" />
             </div>
           </div>
         </div>
@@ -66,16 +66,18 @@
 
 
     <div class="swiper-buttons" v-show="slides.length > 1 && isInitialized">
-      <div class="swiper-button-prev swiper-button-prev-main" />
+      <button type="button" class="swiper-button-prev swiper-button-prev-main" aria-label="Назад"
+        style="transform: rotate(180deg);"></button>
       <div class="swiper-pagination swiper-pagination-main" />
-      <div class="swiper-button-next swiper-button-next-main" />
+      <button type="button" class="swiper-button-next swiper-button-next-main" aria-label="Вперёд"></button>
     </div>
 
     <div class="remark" v-html="remark"></div>
     <div class="ya-mark">
-          <iframe src="https://yandex.ru/sprav/widget/rating-badge/148976675462?type=rating" width="150" height="50" frameborder="0"></iframe>
+      <iframe v-if="src" :src="src" width="150" height="50" loading="lazy" frameborder="0"
+        title="Рейтинг Яндекс Справочника" />
+      <div v-else class="ya-placeholder" aria-hidden="true"></div>
     </div>
-
   </section>
 </template>
 
@@ -134,9 +136,18 @@ onMounted(async () => {
   register();
   gsapRef = (gsapMod as any).gsap || gsapMod;
   initializeSwiper();
+  if ('requestIdleCallback' in window) {
+    ; (window as any).requestIdleCallback(start)        // когда поток «свободен»
+  } else {
+    setTimeout(start, 0)                               // фолбэк
+  }
 });
 
 const remark = ref('');
+
+const src = ref<string>('')
+
+function start() { src.value = 'https://yandex.ru/sprav/widget/rating-badge/148976675462?type=rating' }
 
 const onSlideChange = (swiper: Swiper) => {
   // Получаем индекс активного слайда
@@ -183,10 +194,21 @@ const onSlideChange = (swiper: Swiper) => {
     // gsap.to(image, { duration: 5, opacity: 0.3 });
   });
 };
-
 </script>
 
 <style scoped lang="scss">
+.ya-placeholder {
+  width: 150px;
+  height: 50px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, .15);
+  border-radius: 6px;
+}
+
+.ya-mark {
+  text-align: center;
+}
+
 #MainSlider-nuxt {
   padding-top: 10rem;
   background-color: var(--theme-dark);
@@ -194,10 +216,11 @@ const onSlideChange = (swiper: Swiper) => {
   position: relative;
   padding-bottom: 60px;
 
-  .ya-mark{
+  .ya-mark {
     width: 100%;
     text-align: center;
   }
+
   .remark {
     max-width: 1240px;
     margin: 20px auto;
@@ -322,15 +345,17 @@ const onSlideChange = (swiper: Swiper) => {
       transform: none;
     }
 
-      /* ↓ добавлено: выравнивание wrapper и слайда по вертикали */
+    /* ↓ добавлено: выравнивание wrapper и слайда по вертикали */
     :deep(.swiper-main .swiper-wrapper) {
-      align-items: center; /* wrapper у Swiper — flex, этого достаточно */
+      align-items: center;
+      /* wrapper у Swiper — flex, этого достаточно */
     }
 
     :deep(.swiper-main .swiper-slide) {
       height: 100%;
       display: flex;
-      align-items: center; /* вертикальный центр содержимого слайда */
+      align-items: center;
+      /* вертикальный центр содержимого слайда */
       /* при нужде можно раскомментировать: */
       /* justify-content: center; */
     }
@@ -356,10 +381,18 @@ const onSlideChange = (swiper: Swiper) => {
     margin: 0;
     color: #fff;
     cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 0;
 
     &::after {
       font-size: 22px;
       font-weight: bold;
+    }
+
+    &:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: 4px;
     }
   }
 
