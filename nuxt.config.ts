@@ -81,20 +81,20 @@ export default defineNuxtConfig({
         // { rel: 'preconnect', as: 'image', href: '/img/brand-book/Logo.svg' },
 
         // Критичные шрифты — preload (woff2 только)
-        {
-          rel: 'preload',
-          as: 'font',
-          href: '/fonts/Montserrat-Regular.woff2',
-          type: 'font/woff2',
-          crossorigin: 'anonymous',
-        },
-        {
-          rel: 'preload',
-          as: 'font',
-          href: '/fonts/Montserrat-SemiBold.woff2',
-          type: 'font/woff2',
-          crossorigin: 'anonymous',
-        },
+        //   {
+        //     rel: 'preload',
+        //     as: 'font',
+        //     href: '/fonts/Montserrat-Regular.woff2',
+        //     type: 'font/woff2',
+        //     crossorigin: 'anonymous',
+        //   },
+        //   {
+        //     rel: 'preload',
+        //     as: 'font',
+        //     href: '/fonts/Montserrat-SemiBold.woff2',
+        //     type: 'font/woff2',
+        //     crossorigin: 'anonymous',
+        //   },
       ],
       // Скрипты подключайте через @nuxt/scripts или здесь, ТОЛЬКО defer
       script: [

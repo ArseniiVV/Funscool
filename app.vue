@@ -1,9 +1,8 @@
 <template>
   <div id="app">
     <NuxtPage />
-    <CookieAgreement loading="lazy" />
-
     <ClientOnly>
+      <CookieAgreement loading="lazy" />
       <WidgetContact loading="lazy" />
       <YaMetrika loading="lazy" />
       <LidModal loading="lazy" />
