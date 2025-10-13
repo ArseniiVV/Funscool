@@ -15,8 +15,8 @@
 
     <DeferredClient :loader="() => import('~/components/VideoPuiple.vue')" when="visible" :placeholder-height="420" />
 
-    <DeferredClient :loader="() => import('~/components/AdressesComponent.vue')" when="visible"
-      :placeholder-height="460" />
+    <!-- <DeferredClient :loader="() => import('~/components/AdressesComponent.vue')" when="visible"
+      :placeholder-height="460" /> -->
 
     <DeferredClient :loader="() => import('~/components/TeamComponent.vue')" when="visible" :placeholder-height="520" />
 
@@ -37,11 +37,9 @@
 
     <DeferredClient :loader="() => import('~/components/NewsComponent.vue')" when="visible" :placeholder-height="520" />
 
-    <DeferredClient :loader="() => import('~/components/ContactsComponent.vue')" when="visible"
-      :placeholder-height="560" />
+    <DeferredClient :loader="() => import('~/components/ContactsComponent.vue')" when="visible"/>
 
-    <DeferredClient :loader="() => import('~/components/MapComponent.vue')" when="visible"
-      :placeholder-height="'60vh'" />
+    <DeferredClient :loader="() => import('~/components/MapComponent.vue')" when="visible"/>
 
     <DeferredClient :loader="() => import('~/components/PotentialComponent.vue')" when="visible"
       :placeholder-height="420" />

@@ -147,7 +147,7 @@ const remark = ref('');
 
 const src = ref<string>('')
 
-function start() { src.value = 'https://yandex.ru/sprav/widget/rating-badge/148976675462?type=rating' }
+function start() { src.value = 'https://yandex.ru/sprav/widget/rating-badge/'+$constants.yaMark+'?type=rating' }
 
 const onSlideChange = (swiper: Swiper) => {
   // Получаем индекс активного слайда
