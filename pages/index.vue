@@ -37,17 +37,14 @@
 
     <DeferredClient :loader="() => import('~/components/NewsComponent.vue')" when="visible" :placeholder-height="520" />
 
-    <DeferredClient :loader="() => import('~/components/ContactsComponent.vue')" when="visible"
-      :placeholder-height="560" />
+    <DeferredClient :loader="() => import('~/components/ContactsComponent.vue')" when="visible" />
 
-    <DeferredClient :loader="() => import('~/components/MapComponent.vue')" when="visible"
-      :placeholder-height="'60vh'" />
+    <DeferredClient :loader="() => import('~/components/MapComponent.vue')" when="visible"/>
 
     <DeferredClient :loader="() => import('~/components/PotentialComponent.vue')" when="visible"
-      :placeholder-height="420" />
+      :placeholder-height="320" />
 
-    <DeferredClient :loader="() => import('~/components/FooterComponent.vue')" when="visible"
-      :placeholder-height="300" />
+    <DeferredClient :loader="() => import('~/components/FooterComponent.vue')" when="visible" />
   </div>
 </template>
 
