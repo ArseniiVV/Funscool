@@ -10,7 +10,7 @@ export default defineNuxtPlugin(() => {
         phone_number: '+73472120690',
         phone_text: '+7 (347) 212 06 90',
         wa: '+79872541541',
-        tg: '+79872541541',
+        tg: '+79174710434',
         tg_chanel: 'https://t.me/funscool_ufa_school',
         vk_link: 'funscool.ufa.school',
         mail: 'School@FunsCool.ru',

@@ -3,7 +3,7 @@
 # ==============================
 
 # Конфигурация
-$BucketName = "landings-2025"      # имя бакета в Object Storage
+$BucketName = "ufa-school"      # имя бакета в Object Storage
 $BuildDir   = ".output/public"     # папка со статикой после nuxi generate
 
 Write-Host "=== 1. Сборка Nuxt проекта ==="
