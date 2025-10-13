@@ -24,8 +24,8 @@ export default defineNuxtPlugin((nuxtApp) => {
       }
 
       const script = document.createElement('script');
-      script.src =
-        'https://api-maps.yandex.ru/v3/?apikey=1f4f5a22-ac82-4851-9e07-98b180a7d83b&lang=ru_RU';
+      const apiKey = nuxtApp.$constants?.yandex_maps_api_key;
+      script.src = `https://api-maps.yandex.ru/v3/?apikey=${apiKey}&lang=ru_RU`;
       script.defer = true;
       script.dataset.yandexMaps = 'true';
       script.onload = () => {

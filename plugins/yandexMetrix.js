@@ -1,5 +1,5 @@
 export default defineNuxtPlugin((nuxtApp) => {
-  const YID = 102155142;
+  const YID = nuxtApp.$constants?.yandex_metrika_id ?? 0;
   nuxtApp.provide('YID', YID);
   if (import.meta.client) {
     if (!window.ym) {

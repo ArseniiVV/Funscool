@@ -2,6 +2,9 @@ export default defineNuxtPlugin(() => {
   return {
     provide: {
       constants: {
+        // yandex integration
+        yandex_metrika_id: 102155142,
+        yandex_maps_api_key: '1f4f5a22-ac82-4851-9e07-98b180a7d83b',
         //general
         landing_name: 'school UFA',
         company_name: 'ООО "Фанскул"',
