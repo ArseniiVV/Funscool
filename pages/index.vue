@@ -6,7 +6,7 @@
     <DeferredClient :loader="() => import('~/components/AdvantagesComponent.vue')" when="visible"
       :placeholder-height="420" />
 
-    <DeferredClient :loader="() => import('~/components/PhotoFilm.vue')" when="visible" :placeholder-height="380" />
+    <DeferredClient :loader="() => import('~/components/PhotoFilm.vue')" when="visible" :placeholder-height="220" />
 
     <DeferredClient :loader="() => import('~/components/AgeGroups.vue')" when="visible" :placeholder-height="560" />
 
@@ -30,7 +30,7 @@
     <DeferredClient :loader="() => import('~/components/ProudPuiple.vue')" when="visible" :placeholder-height="480" />
 
     <!-- PhotoFilm второй раз был дубликатом — убери его, если не нужен -->
-    <DeferredClient :loader="() => import('~/components/PhotoFilm.vue')" when="visible" :placeholder-height="380" />
+    <DeferredClient :loader="() => import('~/components/PhotoFilm.vue')" when="visible" :placeholder-height="220" />
 
     <DeferredClient :loader="() => import('~/components/FutureComponent.vue')" when="visible"
       :placeholder-height="480" />
@@ -41,8 +41,7 @@
 
     <DeferredClient :loader="() => import('~/components/MapComponent.vue')" when="visible"/>
 
-    <DeferredClient :loader="() => import('~/components/PotentialComponent.vue')" when="visible"
-      :placeholder-height="320" />
+    <DeferredClient :loader="() => import('~/components/PotentialComponent.vue')" when="visible"/>
 
     <DeferredClient :loader="() => import('~/components/FooterComponent.vue')" when="visible" />
   </div>

@@ -582,6 +582,7 @@ function goToSlide(index: number) {
     }
 
     .main-education-path__step {
+      width: 101%;
       &.active {
         .main-education-path__step-img-2 {
           display: none !important;
