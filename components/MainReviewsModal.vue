@@ -65,6 +65,10 @@ const closeModal = () => (modalStore.isReviewModalVisible = false);
   @media (max-width: 576px) {
     padding: 24px 20px;
     gap: 16px;
+    max-height: 90vh;
+    max-height: 90dvh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 }
 

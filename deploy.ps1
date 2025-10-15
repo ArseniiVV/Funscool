@@ -3,7 +3,7 @@
 # ==============================
 
 # Configuration
-$BucketName = "moscow-school"       # your Yandex Cloud bucket name
+$BucketName = "school.moscow.funscool.ru"       # your Yandex Cloud bucket name
 $BuildDir   = ".output/public"      # static output folder from Nuxt generate
 
 Write-Host "=== 1. Building Nuxt project ==="
