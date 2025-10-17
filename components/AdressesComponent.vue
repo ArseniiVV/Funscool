@@ -5,7 +5,7 @@
         <img class="title-img" :src="'/img/ui-elements/arm.svg'" alt="Иконка руки" loading="lazy" />
         Адреса в
         <span class="age-span" style="margin-left: 10px">
-          Москве
+          Уфе
           <img
             class="title-icon"
             :src="'/img/ui-elements/age-span.svg'"

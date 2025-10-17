@@ -61,8 +61,11 @@ onBeforeUnmount(() => {
     gap: 24px;
     justify-items: center;
     justify-content: center;
-    perspective: 1200;
-    transform-style: preserve-3d;
+    /* A 3D context here causes text rasterization on some GPUs
+       and makes cards look blurry. Keep the 3D context only on
+       the card itself. */
+    perspective: none;
+    transform-style: flat;
     margin: auto;
 
     .ccard {
