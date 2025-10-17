@@ -17,9 +17,7 @@ if (-Not (Test-Path $BuildDir)) {
 
 Write-Host "=== 2. Clearing bucket ==="
 $ConfirmClear = Read-Host "Clear bucket $BucketName before upload? (y/n)"
-if ($ConfirmClear -eq "y") {
-    aws --profile yandex --endpoint-url=https://storage.yandexcloud.net s3 rm "s3://$BucketName" --recursive
-}
+aws --profile yandex --endpoint-url=https://storage.yandexcloud.net s3 rm "s3://$BucketName" --recursive
 
 Write-Host "=== 3. Uploading all files ==="
 aws --profile yandex --endpoint-url=https://storage.yandexcloud.net s3 cp "$BuildDir\" "s3://$BucketName" --recursive
