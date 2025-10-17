@@ -20,6 +20,7 @@ export default defineNuxtPlugin(() => {
         agreement: 'https://storage.yandexcloud.net/funscool-pdfs/OAHO_agreement.pdf',
         policy: 'https://storage.yandexcloud.net/funscool-pdfs/OAHO_policy.pdf',
         license_number: 'Л035-01198-02/00172878',
+        ya_mark: '148976675462',
 
         main_sliders: [
           {
@@ -244,10 +245,10 @@ export default defineNuxtPlugin(() => {
             color: 'aqua',
             image: '/img/age-groups/school-group.webp',
             images: [
-              '/img/group/1.webp',
-              '/img/group/2.webp',
-              '/img/group/3.webp',
-              '/img/group/4.webp',
+              '/img/group/ps/1.webp',
+              '/img/group/ps/2.webp',
+              '/img/group/ps/3.webp',
+              '/img/group/ps/4.webp',
             ],
             yaMetrikGoal: 'agePreSchool',
           },

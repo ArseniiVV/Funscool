@@ -103,8 +103,8 @@
 
           <div class="lid-modal__link">
             Нажимая на кнопку «Отправить заявку», Вы даете
-            <a :href="$constants.agreement">согласие</a> на обработку персональных данных согласно
-            <a :href="$constants.policy">политике</a>
+            <a :href="$constants.agreement" target="_blank">согласие</a> на обработку персональных данных согласно
+            <a :href="$constants.policy" target="_blank">политике</a>
           </div>
         </form>
       </div>

@@ -34,8 +34,9 @@ let observer: IntersectionObserver;
 
 onMounted(() => {
   observer = new IntersectionObserver(
-    ([entry]) => {
-      if (entry.isIntersecting) {
+    (entries) => {
+      const entry = entries[0];
+      if (entry && entry.isIntersecting) {
         isRotated.value = true;
         observer.disconnect();
       }
@@ -56,10 +57,16 @@ onBeforeUnmount(() => {
 
   .row {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    /* Responsive, centered fixed-width columns */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 360px));
     gap: 24px;
-    perspective: 1200;
-    transform-style: preserve-3d;
+    justify-items: center;
+    justify-content: center;
+    /* A 3D context here causes text rasterization on some GPUs
+       and makes cards look blurry. Keep the 3D context only on
+       the card itself. */
+    perspective: none;
+    transform-style: flat;
     margin: auto;
 
     .ccard {

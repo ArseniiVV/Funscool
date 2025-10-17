@@ -8,6 +8,8 @@
 
     <DeferredClient :loader="() => import('~/components/PhotoFilm.vue')" when="visible" :placeholder-height="220" />
 
+    <!-- Anchor placeholder so /#ageGroupSection works before lazy load -->
+    <div id="ageGroupSection" style="scroll-margin-top: 120px"></div>
     <DeferredClient :loader="() => import('~/components/AgeGroups.vue')" when="visible" :placeholder-height="560" />
 
     <DeferredClient :loader="() => import('~/components/NumbersComponent.vue')" when="visible"
@@ -18,6 +20,8 @@
     <DeferredClient :loader="() => import('~/components/AdressesComponent.vue')" when="visible"
       :placeholder-height="460" />
 
+    <!-- Anchor placeholder so /#team works before lazy load -->
+    <div id="team" style="scroll-margin-top: 120px"></div>
     <DeferredClient :loader="() => import('~/components/TeamComponent.vue')" when="visible" :placeholder-height="520" />
 
     <DeferredClient :loader="() => import('~/components/FactsSection.vue')" when="visible" :placeholder-height="420" />
@@ -35,8 +39,12 @@
     <DeferredClient :loader="() => import('~/components/FutureComponent.vue')" when="visible"
       :placeholder-height="480" />
 
+    <!-- Anchor placeholder so /#news works before lazy load -->
+    <div id="news" style="scroll-margin-top: 120px"></div>
     <DeferredClient :loader="() => import('~/components/NewsComponent.vue')" when="visible" :placeholder-height="520" />
 
+    <!-- Anchor placeholder so /#contacts works before lazy load -->
+    <div id="contacts" style="scroll-margin-top: 120px"></div>
     <DeferredClient :loader="() => import('~/components/ContactsComponent.vue')" when="visible" />
 
     <DeferredClient :loader="() => import('~/components/MapComponent.vue')" when="visible"/>
