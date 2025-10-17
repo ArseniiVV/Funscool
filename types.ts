@@ -33,7 +33,7 @@ export type branchData = {
   photos: string[];
   title: string;
   address: string;
-  yaMetrikGoal: string;
+  yaMetrikGoal?: string;
   video: string;
   metro?: string[];
   phone?: string;

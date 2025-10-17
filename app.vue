@@ -2,11 +2,11 @@
   <div id="app">
     <NuxtPage />
     <ClientOnly>
-      <CookieAgreement loading="lazy" />
-      <WidgetContact loading="lazy" />
-      <YaMetrika loading="lazy" />
-      <LidModal loading="lazy" />
-      <VideoModal loading="lazy" />
+      <CookieAgreement />
+      <WidgetContact/>
+      <YaMetrika />
+      <LidModal />
+      <VideoModal />
       <InfoModal v-if="infoModalVisible" />
     </ClientOnly>
 
@@ -51,10 +51,10 @@ const CookieAgreement = defineAsyncComponent({
 
 <style lang="scss">
 :root {
-  --theme-dark: #ff6600;
-  --theme-strong: #ffb380;
+  --theme-dark: #feb200;
+  --theme-strong: #fed880;
   --theme-middle: #ffd9bf;
-  --theme-light: #ffe8d9;
+  --theme-light: #ffecbf;
   --yellow: #feb200;
   --yellow-light: #fed880;
   --aqua: #80e5e5;

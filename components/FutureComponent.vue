@@ -31,24 +31,6 @@
         <img :src="'/img/persons/7.png'" alt="Person 7" class="person-img im7" loading="lazy" />
         <img :src="'/img/persons/8.png'" alt="Person 8" class="person-img im8" loading="lazy" />
       </div>
-      <!-- <div style="display: flex; justify-content: center">
-        <button
-          class="the-button"
-          @click="
-            useModalStore().openLidModal({
-              title: 'Нужен пробный день',
-              text: 'Оставьте заявку и мы свяжемся с вами в ближайшее время',
-              buttonText: 'Отправить заявку',
-              group: '',
-              community: true,
-              additional: '',
-              motive: 'Записаться на пробный день',
-            })
-          "
-        >
-          Записаться на пробный день
-        </button>
-      </div> -->
       <img
         class="main-future-star been-lazyload"
         :src="'/img/ui-elements/future-star.svg'"

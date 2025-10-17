@@ -26,7 +26,7 @@
         </div>
         <div class="position-relative d-flex align-items-center">
           <img
-            :src="'/img/ui-elements/Moonsday&Feechka.webp'"
+            :src="'/img/persons/Moonsday&Feechka.webp'"
             class="potential-img"
             alt=""
             loading="lazy"
@@ -89,7 +89,6 @@ onUnmounted(() => {
 <style scoped lang="scss">
 #potential {
   position: relative;
-  padding: 300px 100px 0 100px;
   margin-top: 100px;
   margin-bottom: 100px;
 
@@ -204,6 +203,7 @@ onUnmounted(() => {
 @media (max-width: 768px) {
   #potential {
     padding: 100px 24px 0px 24px;
+    margin-top: 20px;
 
     .potential-el {
       top: 20px;

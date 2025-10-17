@@ -37,7 +37,7 @@
       </a>
       <div class="header-bottom__menu">
         <div class="header-bottom__menu-item">
-          <a href="/#ageGroupSection" @click="menuOpen = false">Ступени образования</a>
+          <a href="/#ageGroupSection" @click="menuOpen = false">Группы</a>
         </div>
         <!-- <div class="header-bottom__menu-item">
           <a href="/#MainSlider-nuxt" @click="menuOpen = false">О школе</a>
@@ -46,7 +46,7 @@
           <a href="/#educationPath" @click="menuOpen = false">ИОМ</a>
         </div> -->
         <div class="header-bottom__menu-item">
-          <a href="/#team" @click="menuOpen = false">Команда школы</a>
+          <a href="/#team" @click="menuOpen = false">Команда</a>
         </div>
         <!-- <div class="header-bottom__menu-item">
           <a href="/#future" @click="menuOpen = false">О сообществе</a>
@@ -55,7 +55,7 @@
           <a href="/#news" @click="menuOpen = false">Новости</a>
         </div>
         <div class="header-bottom__menu-item">
-          <a href="/documents/" target="_blank" @click="menuOpen = false">Сведения о школе</a>
+          <a href="/documents/" target="_blank" @click="menuOpen = false">Сведения о детских садах</a>
         </div>
         <div class="header-bottom__menu-item">
           <a href="/#contacts" @click="menuOpen = false">Контакты</a>

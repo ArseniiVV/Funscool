@@ -35,7 +35,7 @@ let observer: IntersectionObserver;
 onMounted(() => {
   observer = new IntersectionObserver(
     ([entry]) => {
-      if (entry.isIntersecting) {
+      if (entry && entry.isIntersecting) {
         isRotated.value = true;
         observer.disconnect();
       }
@@ -56,8 +56,11 @@ onBeforeUnmount(() => {
 
   .row {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    /* Responsive, centered fixed-width columns */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 360px));
     gap: 24px;
+    justify-items: center;
+    justify-content: center;
     perspective: 1200;
     transform-style: preserve-3d;
     margin: auto;
@@ -75,20 +78,9 @@ onBeforeUnmount(() => {
   }
 
   @media (max-width: 1400px) {
+    /* Grid auto-fit handles centering; remove nth-child hacks */
     .row {
-      grid-template-columns: repeat(2, 1fr);
-
-      .ccard {
-        max-width: 400px;
-
-        &:nth-child(even) {
-          margin-right: auto;
-        }
-
-        &:nth-child(odd) {
-          margin-left: auto;
-        }
-      }
+      grid-template-columns: repeat(auto-fit, minmax(280px, 360px));
     }
 
     .advantages-card {

@@ -1,17 +1,13 @@
 <template>
   <section id="numbers">
+    <div class="numbers-pattern"></div>
     <div class="numbers-head">
       <div class="title">
-        Интересные цифры о сети
+        Интересные цифры о 
         <span class="number-icon">
-          школ
+          Фанскул
           <img :src="'/img/ui-elements/education-path-svg-2.svg'" alt="" loading="lazy" />
         </span>
-      </div>
-      <div class="numbers-head-text">
-        Добро пожаловать в Фанскул — место, где учёба превращается в интересное и увлекательное
-        путешествие. Малокомплектные классы, индивидуальные программы, кружки и секции помогают
-        детям расти и развиваться, чтобы двигаться к успеху
       </div>
     </div>
 
@@ -23,17 +19,94 @@
         </div>
       </div>
     </div>
+
+    <div class="pilot" ref="pilotContainer">
+      <img
+        src="/img/pilot-gear.svg"
+        class="pilot-gear"
+        ref="pilotGear"
+        alt=""
+        loading="lazy"
+      />
+      <img class="pilot-img" src="/img/pilot.webp" alt="" loading="lazy" />
+    </div>
   </section>
 </template>
 
 <script setup lang="ts">
+import { gsap } from 'gsap';
+
 const { $constants } = useNuxtApp();
 
 const numbersData = $constants.numbers_data;
+
+const pilotContainer: Ref<HTMLElement | null> = ref(null);
+const pilotGear: Ref<HTMLElement | null> = ref(null);
+
+let tl: gsap.core.Timeline | null = null;
+
+function setupPilotAnim() {
+  const container = pilotContainer.value;
+  const gear = pilotGear.value as HTMLElement | null;
+  if (!container || !gear) return;
+
+  if (tl) {
+    tl.kill();
+    tl = null;
+  }
+
+  const gearWidth = gear.clientWidth || 40;
+  const dist = container.clientWidth / 2 - gearWidth / 2; // до центра
+  const rotation = (dist / (Math.PI * gearWidth)) * 360; // имитация реального кручения
+
+  gsap.set(gear, { x: 0, rotation: 0 });
+
+  tl = gsap
+    .timeline({ repeat: -1, yoyo: true, defaults: { ease: 'power1.inOut', duration: 4 } })
+    .to(gear, { x: dist, rotation });
+}
+
+onMounted(() => {
+  setupPilotAnim();
+  window.addEventListener('resize', setupPilotAnim);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', setupPilotAnim);
+  if (tl) tl.kill();
+});
 </script>
 
 <style scoped lang="scss">
 #numbers {
+  .pilot {
+    position: relative;
+    height: 300px;
+    @media (max-width: 768px) {
+      height: 150px;
+    }
+    .pilot-gear {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 40px;
+      z-index: 1;
+    }
+    .pilot-img {
+      position: absolute;
+      right: 50%;
+      transform: translateX(120%);
+      bottom: 0;
+      width: 200px;
+      z-index: 2;
+      @media (max-width: 768px) {
+        width: 150px;
+        transform: translateX(100%);
+      }
+    }
+  }
+
+
   .numbers-pattern {
     position: absolute;
     left: 0;
@@ -47,7 +120,7 @@ const numbersData = $constants.numbers_data;
 
   .numbers-head {
     background-color: var(--theme-dark);
-    padding: 60px 0 78px 0;
+    padding: 60px 0 20px 0;
     position: relative;
     margin-bottom: 62px;
     text-align: center;
@@ -71,7 +144,7 @@ const numbersData = $constants.numbers_data;
   .numbers-head-text {
     padding: 10px;
     margin: 90px auto 0 auto;
-    color: white;
+    
     font-size: 20px;
     font-weight: 500;
     line-height: 1.2em;
@@ -82,8 +155,7 @@ const numbersData = $constants.numbers_data;
 
   .title {
     font-size: 48px;
-    color: white;
-    font-weight: 600;
+    font-weight: 500;
 
     .number-icon {
       position: relative;
@@ -103,11 +175,14 @@ const numbersData = $constants.numbers_data;
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 30px;
 
     &-number {
       color: rgba(254, 178, 0, 1);
       font-size: 64px;
       font-weight: 600;
+      line-height: 1;
+      margin-bottom: 4px;
 
       img {
         width: 100%;
@@ -119,29 +194,27 @@ const numbersData = $constants.numbers_data;
       color: #000;
       font-size: 18px;
       font-weight: 500;
-      line-height: 24px;
+      line-height: 1.5em;
       text-align: center;
+      text-wrap: balance;
+      max-width: 220px;
     }
   }
 }
 
 /* Responsive Grid */
 .numbers-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
+display: flex;
   justify-content: center;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 40px;
+  flex-wrap: wrap;
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 16px;
+  margin: 0 auto 100px auto;
 
   &__item {
+    flex: 1 1 200px; /* Flex-grow, flex-shrink, flex-basis */
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    max-width: 25%;
+    justify-content: center;
   }
 }
 
@@ -158,8 +231,8 @@ const numbersData = $constants.numbers_data;
 
     &-text {
       font-size: 16px;
-      margin-bottom: 20px;
-      line-height: 17px;
+      margin-bottom: 16px;
+      line-height: 1.35em;
     }
   }
 }
@@ -192,10 +265,6 @@ const numbersData = $constants.numbers_data;
 }
 
 @media (max-width: 568px) {
-  .numbers-grid__item {
-    max-width: 45%;
-  }
-
   #numbers .numbers-head {
     padding: 50px 0 48px 0;
 
@@ -205,9 +274,10 @@ const numbersData = $constants.numbers_data;
   }
 
   #numbers .numbers__item {
-    max-width: 45%;
+    gap: 8px;
     &-number {
-      font-size: 32px;
+      font-size: 36px;
+      line-height: 1;
 
       img {
         height: 26px;

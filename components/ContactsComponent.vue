@@ -72,7 +72,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 #contacts {
-  background-color: var(--theme-middle);
+  background-color: var(--theme-light);
   text-align: center;
   padding: 64px 20px;
   color: #000;

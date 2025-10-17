@@ -45,7 +45,7 @@
             <div class="main-team-info-credo" ref="teamCredo">{{ activeMember.credo }}</div>
           </div>
 
-          <img class="main-team-info-img" :src="'/img/persons/i238.svg'" alt="" loading="lazy" />
+          <img class="main-team-info-img" :src="'/img/persons/Feechka_05_reception.webp'" alt="" loading="lazy" />
         </div>
 
         <img class="main-team-svg" :src="'/img/ui-elements/team-svg.svg'" alt="" loading="lazy" />

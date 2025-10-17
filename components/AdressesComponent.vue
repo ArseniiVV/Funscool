@@ -5,7 +5,7 @@
         <img class="title-img" :src="'/img/ui-elements/arm.svg'" alt="Иконка руки" loading="lazy" />
         Адреса в
         <span class="age-span" style="margin-left: 10px">
-          Уфе
+          Москве
           <img
             class="title-icon"
             :src="'/img/ui-elements/age-span.svg'"
@@ -43,7 +43,7 @@ const { $constants } = useNuxtApp();
 #addresses {
   margin-bottom: 50px;
   padding: 50px 0px 50px 0px;
-  background-color: var(--theme-middle);
+  background-color: var(--theme-strong);
 
   .title {
     margin-bottom: 80px;

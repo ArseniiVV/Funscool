@@ -1,5 +1,5 @@
 <template>
-  <div ref="mapComp" class="main-map">
+  <div ref="mapComp" class="main-map" :class="{ 'map-hidden': isFailed }">
     <div id="map" class="map-canvas" />
     <div v-if="isLoading && !isReady" class="map-loading">
       <span class="spinner" />
@@ -13,6 +13,13 @@ const { $constants, $loadYandexMaps } = useNuxtApp();
 const mapComp: Ref<null | HTMLElement> = ref(null);
 const isLoading = ref(false);
 const isReady = ref(false);
+const isFailed = ref(false);
+
+watch(isLoading, (now) => {
+  if (now === false && !isReady.value) {
+    isFailed.value = true;
+  }
+});
 
 let observer: IntersectionObserver;
 
@@ -111,6 +118,11 @@ async function initYandexMap() {
   position: relative;
   height: 400px;
   background-color: var(--ol);
+}
+
+.map-hidden {
+  display: none !important;
+  height: 0 !important;
 }
 
 .map-canvas {

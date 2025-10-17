@@ -1,6 +1,6 @@
 <template>
   <div style="display: flex; justify-content: center">
-    <div class="branch-card" @click="useSendMetrika(branch.yaMetrikGoal)">
+    <div class="branch-card">
       <Swiper :modules="[Autoplay]" :loop="true"
         :autoplay="{ delay: 1500 + branch.id * 300, disableOnInteraction: true }" :speed="1000"
         class="branch-card__swiper">
@@ -15,7 +15,7 @@
         <div class="branch-card__info">
           <div v-if="branch.metro && branch.metro.length > 0" class="branch-card__metro-group">
             <div v-for="m in branch.metro" :key="m" class="branch-card__metro">
-              <img :src="'/img/ui-elements/metro-white.svg'" alt="Metro" loading="lazy" />
+              <img :src="'/img/ui-elements/metro.svg'" alt="Metro" loading="lazy" />
               <span>{{ m }}</span>
             </div>
           </div>

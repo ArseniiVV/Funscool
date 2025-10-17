@@ -56,7 +56,7 @@ const filmImages = ref([
     position: absolute;
     width: 100%;
     height: 56px;
-    background-image: url('/img/ui-elements/Rectangle2.svg');
+    background-image: url('/img/ui-elements/Rectangle.svg');
     background-repeat: repeat;
     transform: translateY(-130%);
     z-index: 100;
@@ -66,7 +66,7 @@ const filmImages = ref([
     position: absolute;
     width: 100%;
     height: 56px;
-    background-image: url('/img/ui-elements/Rectangle2.svg');
+    background-image: url('/img/ui-elements/Rectangle.svg');
     background-repeat: repeat;
     transform: translateY(30%);
     z-index: 100;

@@ -51,7 +51,7 @@ const facts = [
 
   .main-facts-top {
     padding: 112px 0;
-    background-color: rgba(255, 178, 128, 1);
+    background-color: var(--theme-dark);
     position: relative;
 
     &::after {
