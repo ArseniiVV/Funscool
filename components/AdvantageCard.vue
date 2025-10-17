@@ -171,7 +171,10 @@ onMounted(() => {
   cursor: pointer;
   min-height: 420px;
   padding-bottom: 30px;
+  /* Keep 3D context local to the card to avoid text blur
+     from ancestor perspective on some Chrome/Windows GPUs */
   perspective: 1000px;
+  transform-style: preserve-3d;
 
   &__wrap {
     position: relative;
@@ -223,7 +226,10 @@ onMounted(() => {
   }
 
   &__front {
+    /* Prevent the hidden face from bleeding through and
+       force the browser to create a crisp layer */
     backface-visibility: hidden;
+    transform: translateZ(0);
     padding: 10px;
     flex-grow: 1;
     justify-content: flex-start;
@@ -232,7 +238,9 @@ onMounted(() => {
   }
 
   &__back {
-    transform: rotateY(-180deg);
+    /* Rotate the back face and ensure it renders sharply */
+    transform: rotateY(-180deg) translateZ(0);
+    backface-visibility: hidden;
     position: absolute;
     display: flex;
     flex-direction: column;
