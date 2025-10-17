@@ -11,23 +11,23 @@ export default defineNuxtPlugin(() => {
     provide: {
       constants: {
         // yandex integration
-        yandex_metrika_id: 102155122,
+        yandex_metrika_id: 104682596,
         yandex_maps_api_key: '1f4f5a22-ac82-4851-9e07-98b180a7d83b',
         //general
-        landing_name: 'kindergarten Ufa',
-        company_name: 'ОАНО "Фанскул"',
+        landing_name: 'kindergarten Kazan',
+        company_name: 'ИП Фаррахова',
 
         //contacts
-        phone_number: '+73472120590',
-        phone_text: '+7 (347) 212 05 90',
-        wa: '+79872542080',
-        tg: '+79872542080',
-        vk_link: 'funscool.kids',
-        mail: 'Moscow@FunsCool.ru',
-        agreement: 'https://storage.yandexcloud.net/funscool-pdfs/OAHO_agreement.pdf', // OOO_agreement.pdf
-        policy: 'https://storage.yandexcloud.net/funscool-pdfs/OAHO_policy.pdf', //OOO_policy.pdf
+        phone_number: '+79276790280',
+        phone_text: '+7 (927) 679-02-80',
+        wa: '+79276790280',
+        tg: '+79276790280',
+        vk_link: 'funscoolkzn',
+        mail: 'kazan@FunsCool.ru',
+        agreement: 'https://storage.yandexcloud.net/funscool-pdfs/aggreement.pdf', // OOO_agreement.pdf
+        policy: 'https://storage.yandexcloud.net/funscool-pdfs/policy.pdf', //OOO_policy.pdf
         license_number: '',
-        ya_mark: '1140593951',
+        ya_mark: '34058963498',
 
         main_sliders: [
           {
@@ -80,7 +80,6 @@ export default defineNuxtPlugin(() => {
             buttonText: 'Узнать о наличии мест',
             image: '/img/main-sliders/MainSlider4.webp',
             alt: 'Занятия мама и малыш',
-            remark: `Адреса: ул. Гоголя, 63, ул. Крупская, 8, ул. Кирова, 39, ул. Менделеева, 9, ул. Ю. Гагарина, 26/1, Проспект Октября, 107/6`,
           },
           {
             title: 'Щедрая Школа<br>Для старта школьной жизни',
@@ -88,7 +87,6 @@ export default defineNuxtPlugin(() => {
       <ul>
         <li>Приёмная кампания в нулевой класс на 2025–2026 учебные годы открыта до ${formattedDate}</li>
         <li>Вступительная диагностика в нулевой класс открыта для ребят от 5,5 лет</li>
-        <li>Ждём вас в филиалах: Менделеева, Идель, Гоголя, Крупской</li>
       </ul>
     `,
             buttonText: 'Оставить заявку',
@@ -391,13 +389,13 @@ export default defineNuxtPlugin(() => {
               'gogol/7.webp',
               'gogol/9.webp',
             ],
-            title: 'Арт-квадрат',
+            title: 'Чистопольская',
             additional: 'детский сад',
-            address: 'ул. Гоголя, 63',
-            metro: [],
+            address: 'ул. Чистопольская, д.15/16',
+            metro: ['Козья слобода'],
             video: 'gogol.mp4',
-            yaMark: '1185770504',
-            phone: '+79174500437',
+            yaMark: '34058963498',
+            phone: '+79276790280',
           },
           {
             id: 2,
@@ -409,77 +407,13 @@ export default defineNuxtPlugin(() => {
               'krupskay/9.webp',
               'krupskay/11.webp',
             ],
-            title: 'ГКЗ Башкортостан',
+            title: 'Хакима',
             additional: 'детский сад',
-            address: 'ул. Крупская, 8',
+            address: 'ул. Сибгата Хакима, д. 41',
             metro: [],
             video: 'krupskay.mp4',
-            yaMark: '195738897423',
-            phone: '+79174710374',
-          },
-          {
-            id: 3,
-            photos: [
-              'kirova/1.webp',
-              'kirova/3.webp',
-              'kirova/5.webp',
-              'kirova/7.webp',
-              'kirova/9.webp',
-            ],
-            title: 'Трансагенство',
-            additional: 'детский сад',
-            address: 'ул. Кирова, 39',
-            metro: [],
-            video: 'kirova.mp4',
-            yaMark: '12069353568',
-            phone: '+79872549575',
-          },
-          {
-            id: 4,
-            photos: [
-              'mendel/11.webp',
-              'mendel/9.webp',
-              'mendel/5.webp',
-              'mendel/7.webp',
-              'mendel/4.webp',
-              'mendel/2.webp',
-            ],
-            title: 'Зелёная роща',
-            additional: 'детский сад',
-            address: 'ул. Менделеева, 9',
-            metro: [],
-            video: 'mendel.mp4',
-            yaMark: '36061674608',
-            phone: '+79872545655',
-          },
-          {
-            id: 5,
-            photos: [
-              'gagarina/2.webp',
-              'gagarina/4.webp',
-              'gagarina/5.webp',
-              'gagarina/7.webp',
-              'gagarina/9.webp',
-              'gagarina/11.webp',
-            ],
-            title: 'Сипайлово',
-            additional: 'детский сад',
-            address: 'ул. Ю. Гагарина, 26/1',
-            metro: [],
-            video: 'gagarina.mp4',
-            yaMark: '1140593951',
-            phone: '+79173722797',
-          },
-          {
-            id: 6,
-            photos: ['idel/1.webp', 'idel/2.webp', 'idel/3.webp', 'idel/4.webp'],
-            title: 'ЖК «Идель тауэр»',
-            additional: 'детский сад',
-            address: 'проспект Октября, 107/6',
-            metro: [],
-            video: 'idel.mp4',
-            yaMark: '23088268917',
-            phone: '+79174710433',
+            yaMark: '24322902370',
+            phone: '+79274031778',
           },
         ],
 
@@ -893,14 +827,10 @@ reviews: [
 ],
 
         map_points: [
-      [56.028727, 54.782743],
-      [55.940277, 54.731877],
-      [56.062879, 54.762454],
-      [55.974828, 54.711212],
-      [55.959067, 54.730127],
-      [55.951576, 54.727178],
+      [49.109209, 55.818253],
+      [49.139499, 55.816492],
         ],
-        map_center: [55.997636, 54.748989],
+        map_center: [49.124796, 55.817555],
       },
     },
   };

@@ -12,7 +12,7 @@
       <div class="branch-card__content">
         <div class="branch-card__title">{{ branch.title }}</div>
 
-        <div class="branch-card__info">
+        <div class="branch-card__info" style="min-height: 170px;">
           <div v-if="branch.metro && branch.metro.length > 0" class="branch-card__metro-group">
             <div v-for="m in branch.metro" :key="m" class="branch-card__metro">
               <img :src="'/img/ui-elements/metro.svg'" alt="Metro" loading="lazy" />

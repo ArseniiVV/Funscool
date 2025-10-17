@@ -5,7 +5,7 @@
         <img class="title-img" :src="'/img/ui-elements/arm.svg'" alt="Иконка руки" loading="lazy" />
         Адреса в
         <span class="age-span" style="margin-left: 10px">
-          Уфе
+          Казани
           <img
             class="title-icon"
             :src="'/img/ui-elements/age-span.svg'"
@@ -44,6 +44,21 @@ const { $constants } = useNuxtApp();
   margin-bottom: 50px;
   padding: 50px 0px 50px 0px;
   background-color: var(--theme-strong);
+  text-align: center;
+
+
+  .swiper-gardens {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  margin: 0 auto;
+  max-width: 1280px; 
+}
+
+.swiper-gardens .swiper-wrapper {
+  justify-content: center;
+}
 
   .title {
     margin-bottom: 80px;
