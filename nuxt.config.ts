@@ -99,7 +99,7 @@ export default defineNuxtConfig({
       // Скрипты подключайте через @nuxt/scripts или здесь, ТОЛЬКО defer
       script: [
         {
-          src: 'https://widgets.mango-office.ru/site/27876',
+          src: 'https://widgets.mango-office.ru/site/27768',
           defer: true,
         },
       ],
