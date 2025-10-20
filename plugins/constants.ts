@@ -1,3 +1,11 @@
+const now = new Date();
+const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+const formattedDate = lastDay.toLocaleDateString('ru-RU', {
+  day: '2-digit',
+  month: '2-digit',
+  year: 'numeric',
+});
+
 export default defineNuxtPlugin(() => {
   return {
     provide: {
@@ -87,7 +95,7 @@ export default defineNuxtPlugin(() => {
                 <li>Грантовое обучение при выдающихся результатах</li>
                 <li>Программа лояльности для многодетных и неполных семей</li>
                 <li>Оплата обучения материнским капиталом</li>
-                <li>Подарок 25% от вступительного взноса при заключении договора до 15.09.2025</li>
+                <li>Подарок 25% от вступительного взноса при заключении договора до ${formattedDate}</li>
               </ul>
             `,
             buttonText: 'Оставить заявку',
