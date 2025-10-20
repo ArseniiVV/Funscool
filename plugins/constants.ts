@@ -81,18 +81,6 @@ export default defineNuxtPlugin(() => {
             image: '/img/main-sliders/MainSlider4.webp',
             alt: 'Занятия мама и малыш',
           },
-          {
-            title: 'Щедрая Школа<br>Для старта школьной жизни',
-            text: `
-      <ul>
-        <li>Приёмная кампания в нулевой класс на 2025–2026 учебные годы открыта до ${formattedDate}</li>
-        <li>Вступительная диагностика в нулевой класс открыта для ребят от 5,5 лет</li>
-      </ul>
-    `,
-            buttonText: 'Оставить заявку',
-            image: '/img/main-sliders/MainSlider5.webp',
-            alt: 'Щедрая школа — нулевой класс Фанскул',
-          },
         ],
 
         advantages: [
