@@ -74,7 +74,7 @@
 
     <div class="remark" v-html="remark"></div>
     <div class="ya-mark">
-      <iframe v-if="src" :src="src" width="150" height="50" loading="lazy" frameborder="0"
+      <iframe v-if="src" :src="src" width="170" height="70" loading="lazy" frameborder="0"
         title="Рейтинг Яндекс Справочника" />
       <div v-else class="ya-placeholder" aria-hidden="true"></div>
     </div>
