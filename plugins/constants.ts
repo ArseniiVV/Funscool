@@ -148,7 +148,7 @@ export default defineNuxtPlugin(() => {
             frontImage: '/img/advantages/Advantages4.webp',
             backImage: '/img/ui-elements/Advantages-back4.svg',
             buttonText: 'Подробнее',
-            cardClass: 'beige',
+            cardClass: 'purple',
             additional: 'Забота о здоровье',
             modal: {
               title: 'Узнайте, как мы следим за здоровьем',
@@ -163,7 +163,7 @@ export default defineNuxtPlugin(() => {
             frontImage: '/img/advantages/Advantages5.webp',
             backImage: '/img/ui-elements/Advantages-back5.svg',
             buttonText: 'Подробнее',
-            cardClass: 'purple',
+            cardClass: 'beige',
             additional: 'Билингвальная программа',
             modal: {
               title: 'Узнайте, как мы учим два языка',
