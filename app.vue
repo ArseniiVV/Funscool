@@ -2,11 +2,11 @@
   <div id="app">
     <NuxtPage />
     <ClientOnly>
-      <CookieAgreement loading="lazy" />
-      <WidgetContact loading="lazy" />
-      <YaMetrika loading="lazy" />
-      <LidModal loading="lazy" />
-      <VideoModal loading="lazy" />
+      <CookieAgreement />
+      <WidgetContact />
+      <YaMetrika />
+      <LidModal />
+      <VideoModal />
       <InfoModal v-if="infoModalVisible" />
     </ClientOnly>
 

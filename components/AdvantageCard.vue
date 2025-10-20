@@ -23,22 +23,6 @@
           </div>
           <div class="advantages-card__back-text" v-html="description" />
           <div class="advantages-card__back-btn">
-            <!-- <button
-              class="the-button"
-              @click.stop="
-                useModalStore().openLidModal({
-                  title: 'Оставить заявку на ' + title,
-                  text: 'Оставьте заявку и мы свяжемся с вами в ближайшее время',
-                  buttonText: 'Отправить заявку',
-                  group: '',
-                  community: '',
-                  additional: additional,
-                  motive: title && 'Мотив: лагерь ' + title,
-                })
-              "
-            >
-              {{ buttonText }}
-            </button> -->
           </div>
         </div>
       </div>
@@ -99,36 +83,22 @@ function toggleFlip() {
   }, 300);
 }
 
-// Watch external prop
-watch(
-  () => props.isRotated,
-  (newVal) => {
-    if (newVal) toggleFlip();
-  },
-  { immediate: true }
-);
-
 // Run auto-flip only after user sees the card
 onMounted(() => {
-  if (!cardElement.value) return;
+  setTimeout(() => {
+      toggleFlip();
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting && !autoFlipped) {
-          autoFlipped = true;
-          const randomDelay = 500 + Math.random() * 500; // 1s + 0–0.5s
-          setTimeout(() => toggleFlip(), randomDelay);
-          observer.disconnect(); // больше не наблюдаем
-        }
-      });
-    },
-    {
-      threshold: 0.3, // карточка считается "видимой", если хотя бы 30% в зоне экрана
-    }
-  );
+      // Далее — бесконечный цикл каждые 7 ± 0–2 сек
+      const flipLoop = () => {
+        const randomDelay = 7000 + Math.random() * 2000; // 7–9 сек
+        setTimeout(() => {
+          toggleFlip();
+          flipLoop();
+        }, randomDelay);
+      };
 
-  observer.observe(cardElement.value);
+      flipLoop();
+    }, 2000);
 });
 </script>
 
@@ -171,7 +141,10 @@ onMounted(() => {
   cursor: pointer;
   min-height: 420px;
   padding-bottom: 30px;
+  /* Keep 3D context local to the card to avoid text blur
+     from ancestor perspective on some Chrome/Windows GPUs */
   perspective: 1000px;
+  transform-style: preserve-3d;
 
   &__wrap {
     position: relative;
@@ -223,7 +196,10 @@ onMounted(() => {
   }
 
   &__front {
+    /* Prevent the hidden face from bleeding through and
+       force the browser to create a crisp layer */
     backface-visibility: hidden;
+    transform: translateZ(0);
     padding: 10px;
     flex-grow: 1;
     justify-content: flex-start;
@@ -232,7 +208,9 @@ onMounted(() => {
   }
 
   &__back {
-    transform: rotateY(-180deg);
+    /* Rotate the back face and ensure it renders sharply */
+    transform: rotateY(-180deg) translateZ(0);
+    backface-visibility: hidden;
     position: absolute;
     display: flex;
     flex-direction: column;
