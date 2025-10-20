@@ -70,31 +70,12 @@ export default defineNuxtConfig({
       meta: [
         { name: 'description', content: 'Фанскул - инновационная образовательная школа в Уфе' }, //todo: добавить описание
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'theme-color', content: '#ff6600' },
+        { name: 'theme-color', content: '#feb200' },
       ],
       link: [
         // Иконка
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
 
-        // Предварительные соединения к CDN/статике (поставьте свои хосты)
-
-        // { rel: 'preconnect', as: 'image', href: '/img/brand-book/Logo.svg' },
-
-        // Критичные шрифты — preload (woff2 только)
-        //   {
-        //     rel: 'preload',
-        //     as: 'font',
-        //     href: '/fonts/Montserrat-Regular.woff2',
-        //     type: 'font/woff2',
-        //     crossorigin: 'anonymous',
-        //   },
-        //   {
-        //     rel: 'preload',
-        //     as: 'font',
-        //     href: '/fonts/Montserrat-SemiBold.woff2',
-        //     type: 'font/woff2',
-        //     crossorigin: 'anonymous',
-        //   },
       ],
       // Скрипты подключайте через @nuxt/scripts или здесь, ТОЛЬКО defer
       script: [
