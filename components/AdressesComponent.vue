@@ -19,11 +19,12 @@
     <Swiper
       :a11y="false"
       :space-between="24"
+      :center-insufficient-slides="true"
       :breakpoints="{
-        0: { slidesPerView: 1.2, slidesOffsetBefore: 20 },
-        600: { slidesPerView: 2.2, slidesOffsetBefore: 20 },
-        960: { slidesPerView: 3.2, slidesOffsetBefore: 20 },
-        1480: { slidesPerView: 3 },
+        0: { slidesPerView: 1.05, slidesOffsetBefore: 20, slidesOffsetAfter: 20 },
+        600: { slidesPerView: 2.05, slidesOffsetBefore: 20, slidesOffsetAfter: 20 },
+        960: { slidesPerView: 3.05, slidesOffsetBefore: 20, slidesOffsetAfter: 20 },
+        1480: { slidesPerView: 3.05 },
       }"
       class="swiper-gardens"
     >
@@ -49,13 +50,14 @@ const { $constants } = useNuxtApp();
     margin-bottom: 80px;
   }
 
+  .swiper-gardens {
+    width: 100%;
+  }
+
   @media (min-width: 1480px) {
     .swiper-gardens {
-      max-width: 1200px;
+      width: 100%;
       margin: 0 auto;
-      .swiper-slide {
-        width: auto;
-      }
     }
   }
 

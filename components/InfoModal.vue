@@ -1,5 +1,10 @@
 <template>
-  <div id="groupModal" aria-hidden="true" @click="onOverlayClick" v-if="modalData">
+  <div
+  id="groupModal"
+  :aria-hidden="!modalData"
+  @click="onOverlayClick"
+  v-if="modalData"
+>
     <div class="modal-group__dialog" role="document">
       <div class="modal-group__wrap container" @click.stop>
         <div class="modal-logo modal-logo--desktop">
@@ -428,7 +433,7 @@ $beige-light: #ffecbf;
   }
 
   .modal-group__scroller {
-    padding: 40px 24px;
+    padding: 40px 24px 100px 24px;
     max-height: 100%;
     /* Учитываем высоту шапки и подвала */
 

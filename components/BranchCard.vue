@@ -37,7 +37,7 @@
         </div>
 
         <div v-if="branch.yaMark" class="ya-mark">
-          <iframe :src="'https://yandex.ru/sprav/widget/rating-badge/' + branch.yaMark + '?type=rating'" width="150"
+          <iframe :src="'https://yandex.ru/sprav/widget/rating-badge/' + branch.yaMark + '?type=rating'" width="250"
             height="50" frameborder="0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
             title="Яндекс отзывы"></iframe>
         </div>
@@ -114,7 +114,7 @@ defineProps<{
     display: flex;
     flex-direction: column;
     gap: 6px;
-    height: 50px;
+    height: 5rem;
   }
 
   &__metro,
