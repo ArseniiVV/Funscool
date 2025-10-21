@@ -433,13 +433,14 @@ $beige-light: #ffecbf;
   }
 
   .modal-group__scroller {
-    padding: 40px 24px 100px 24px;
+    padding: 40px 24px;
     max-height: 100%;
     /* Учитываем высоту шапки и подвала */
 
     .modal-group__content {
       order: 1;
       height: calc(100vh - 420px);
+      padding-bottom: 100px;
     }
 
     .modal-group__swiper {
