@@ -10,11 +10,9 @@ export default defineNuxtPlugin((nuxtApp) => {
       })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
       
       window.ym(YID, 'init', {
-        // clickmap: true,
-        // trackLinks: true,
-        accurateTrackBounce: true,
-        // webvisor: true,
-        // ecommerce: "dataLayer"
+        defer:true,
+        useCookie:false,
+        accurateTrackBounce: true        
       });
     }
     try {
