@@ -11,7 +11,7 @@ export default defineNuxtPlugin(() => {
     provide: {
       constants: {
         // yandex integration
-        yandex_metrika_id: 82462639,
+        yandex_metrika_id: 102155122,
         yandex_maps_api_key: '1f4f5a22-ac82-4851-9e07-98b180a7d83b',
         //general
         landing_name: 'kindergarten Ufa',
