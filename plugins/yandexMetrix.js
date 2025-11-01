@@ -22,7 +22,6 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     // Инициализация счётчика
     window.ym(YID, "init", {
-      defer: true,
       useCookie: false,
       accurateTrackBounce: true,
       webvisor: true, // ✅ Вебвизор включён
@@ -39,23 +38,5 @@ export default defineNuxtPlugin((nuxtApp) => {
         console.warn(`[Yandex Metrika] Цель "${event}" не отправлена: ym не определён.`);
       }
     });
-
-    // === Отправляем цель "60+" если пользователь пробыл на странице ≥ 60 секунд ===
-    let timer60;
-    const trigger60 = () => {
-      if (typeof window.ym === "function") {
-        window.ym(YID, "reachGoal", "60+");
-        console.log("reachGoal 60+");
-      }
-    };
-
-    // Обнуляем и пересоздаём таймер при каждой навигации внутри Nuxt
-    nuxtApp.hook("page:finish", () => {
-      if (timer60) clearTimeout(timer60);
-      timer60 = setTimeout(trigger60, 60000); // 60 секунд = 60000 мс
-    });
-
-    // Первый запуск при загрузке страницы
-    if (!timer60) timer60 = setTimeout(trigger60, 60000);
   }
 });
