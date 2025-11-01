@@ -110,6 +110,7 @@ function handleScroll() {
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll);
+  setTimeout(()=>{useSendMetrika('more60sec')}, 60000) // 60 секунд
 });
 
 onUnmounted(() => {
