@@ -63,12 +63,12 @@ export default defineNuxtConfig({
   // === HEAD: ШРИФТЫ / PRELOAD / PRECONNECT ===
   app: {
     head: {
-      title: 'Фанскул - инновационная образовательная школа в Уфе', // todo: Устанавливаем заголовок страницы
+      title: 'Фанскул - билингвальный детский сад в Уфе', // todo: Устанавливаем заголовок страницы
       htmlAttrs: {
         lang: 'ru', // Устанавливаем язык страницы
       },
       meta: [
-        { name: 'description', content: 'Фанскул - инновационная образовательная школа в Уфе' }, //todo: добавить описание
+        { name: 'description', content: 'Фанскул - билингвальный детский сад в Уфе' }, //todo: добавить описание
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { name: 'theme-color', content: '#feb200' },
       ],
