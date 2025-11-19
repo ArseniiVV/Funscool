@@ -234,10 +234,9 @@ onMounted(() => {
     }
 
     &-text {
-      text-align: center;
       font-size: min(max(14px, 1.2vw), 17px);
       font-weight: 500;
-      line-height: 1.8em;
+      line-height: 1em;
       text-wrap: balance;
     }
 

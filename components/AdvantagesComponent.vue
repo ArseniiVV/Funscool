@@ -9,15 +9,15 @@
     <div style="text-align: center;">
       <button type="button" class="the-button swiper-main__btn" style="opacity: 1; " @click="
         useModalStore().openLidModal({
-          title: 'Узнать подробнее',
-          text: 'Оставьте заявку и мы свяжемся с вами в ближайшее время',
-          buttonText: 'Узнать подробнее',
+          title: 'Записаться на экскурсию',
+          text: 'Оставьте свои контакты, и мы подберём удобное время экскурсии по саду, познакомим вас с пространством и ответим на все вопросы.',
+          buttonText: 'Записаться на экскурсию',
           group: '',
           community: '',
-          motive: 'Мотив: Узнать подробнее',
+          motive: 'Лид: Записаться на экскурсию',
         })
         ">
-        Узнать подробнее
+        Записаться на экскурсию
       </button>
     </div>
 
