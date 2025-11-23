@@ -3,7 +3,7 @@
     <div class="title" style="margin-bottom: 50px">
       <div style="display: flex; align-items: center">Новости</div>
       <span class="age-span">
-        школы
+        детского сада
         <img
           class="title-vector-2"
           style="width: 120px"
