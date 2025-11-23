@@ -71,7 +71,7 @@ export default defineNuxtPlugin(() => {
     title: 'Создайте будущее вашего ребёнка с материнским капиталом ',
     text: `Инвестируйте в будущее ребёнка с выгодой. Превратите государственную поддержку в прочную базу для его развития. `,
     buttonText: 'Узнать подробнее',
-    image: '/img/main-sliders/MainSlider2.webp',
+    image: '/img/main-sliders/MainSlider4.webp',
     alt: 'Оплата материнским капиталом в Фанскул',
   },
 
