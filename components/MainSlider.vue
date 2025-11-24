@@ -91,7 +91,8 @@ const { $constants } = useNuxtApp();
 const slides = $constants.main_sliders;
 const swiperEl: Ref<null | SwiperContainer> = ref(null);
 const isInitialized = ref(false);
-const windowWidth = ref(window.innerWidth)
+const isClient = typeof window !== 'undefined';
+const windowWidth = ref(isClient ? window.innerWidth : 1024);
 
 const swiperParams: SwiperOptions = {
   slidesPerView: 1,
@@ -129,10 +130,15 @@ const initializeSwiper = () => {
 };
 
 let gsapRef: any;
+const onResize = () => {
+  if (isClient) windowWidth.value = window.innerWidth;
+};
 
 onMounted(async () => {
-  const onResize = () => { windowWidth.value = window.innerWidth }
-  window.addEventListener('resize', onResize)
+  if (isClient) {
+    windowWidth.value = window.innerWidth;
+    window.addEventListener('resize', onResize);
+  }
 
   const [{ register }, gsapMod] = await Promise.all([
     import('swiper/element/bundle'),
@@ -146,6 +152,10 @@ onMounted(async () => {
   } else {
     setTimeout(start, 0)                               // фолбэк
   }
+});
+
+onBeforeUnmount(() => {
+  if (isClient) window.removeEventListener('resize', onResize);
 });
 
 const remark = ref('');
@@ -182,7 +192,7 @@ const onSlideChange = (swiper: Swiper) => {
           gsapRef.to(caption, { duration: 2, opacity: 1 });
           gsapRef.to(title, { duration: 3, opacity: 1 });
           gsapRef.to(btn, { duration: 4, opacity: 1 });
-          if (window.innerWidth < 768) gsapRef.to(image, { duration: 2, opacity: 0 });
+          if (isClient && window.innerWidth < 768) gsapRef.to(image, { duration: 2, opacity: 0 });
         }
       }, 1700)
 
