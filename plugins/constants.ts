@@ -48,6 +48,7 @@ export default defineNuxtPlugin(() => {
     buttonText: 'Записаться на экскурсию',
     image: '/img/main-sliders/MainSlider1.webp',
     alt: 'Детский сад Фанскул — забота о будущем ребёнка',
+    remark: '',
   },
   {
     title: 'Волшебная зима в Фанскул: Тёплый приём и выгодные условия!',

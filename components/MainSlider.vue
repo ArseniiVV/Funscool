@@ -6,7 +6,8 @@
           <div class="slider-row">
             <div class="slider-column slider-column--left">
               <div class="swiper-main__title" v-html="slide.title" />
-              <div class="swiper-main__text" v-html="slide.text" />
+              <div class="swiper-main__text" v-html="slide.text" 
+                :style="(windowWidth < 768 && slide.text.length > 300)? { lineHeight: '1.2rem' }: {}"/>
               <div>
                 <button type="button" class="the-button swiper-main__btn" style="opacity: 1" @click="
                   useModalStore().openLidModal({
@@ -38,10 +39,10 @@
       <div class="slider-container">
         <div class="slider-row">
           <div class="slider-column slider-column--left">
-            <div class="swiper-main__title" style="opacity: 1" v-html="slides[0].title" />
-            <div class="swiper-main__text" style="opacity: 1" v-html="slides[0].text" />
+            <div class="swiper-main__title" style="opacity: 1" v-html="slides[0].title" v-if="slides[0]"/>
+            <div class="swiper-main__text" style="opacity: 1" v-html="slides[0].text" v-if="slides[0]" />
             <div>
-              <button type="button" class="the-button swiper-main__btn" style="opacity: 1" @click="
+              <button v-if="slides[0]" type="button" class="the-button swiper-main__btn" style="opacity: 1" @click="
                 useModalStore().openLidModal({
                   title: 'Заявка на обратный звонок',
                   text: 'Оставьте заявку и мы свяжемся с вами в ближайшее время',
@@ -57,7 +58,7 @@
           </div>
           <div class="slider-column slider-column--right">
             <div class="swiper-main__img">
-              <img :src="slides[0].image" :alt="slides[0].alt" fetchpriority="high" />
+              <img v-if="slides[0]" :src="slides[0].image" :alt="slides[0].alt" fetchpriority="high" />
             </div>
           </div>
         </div>
@@ -90,6 +91,7 @@ const { $constants } = useNuxtApp();
 const slides = $constants.main_sliders;
 const swiperEl: Ref<null | SwiperContainer> = ref(null);
 const isInitialized = ref(false);
+const windowWidth = ref(window.innerWidth)
 
 const swiperParams: SwiperOptions = {
   slidesPerView: 1,
@@ -129,6 +131,9 @@ const initializeSwiper = () => {
 let gsapRef: any;
 
 onMounted(async () => {
+  const onResize = () => { windowWidth.value = window.innerWidth }
+  window.addEventListener('resize', onResize)
+
   const [{ register }, gsapMod] = await Promise.all([
     import('swiper/element/bundle'),
     import('gsap'),
@@ -154,7 +159,7 @@ const onSlideChange = (swiper: Swiper) => {
   // и все слайды
 
   const activeIndex = swiper.activeIndex;
-  remark.value = $constants.main_sliders[activeIndex].remark ?? '';
+  remark.value = $constants.main_sliders[activeIndex]?.remark ?? '';
 
   const slides = swiper.slides;
   // Сброс вращения для всех изображений перед началом новой анимации
