@@ -83,7 +83,7 @@ const ageGroups = $constants.age_groups;
   }
   .title-img {
     position: absolute;
-    width: auto;
+    width: 68px;
     left: 5%;
   }
 }
