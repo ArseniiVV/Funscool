@@ -68,7 +68,7 @@ export default defineNuxtConfig({
         lang: 'ru', // Устанавливаем язык страницы
       },
       meta: [
-        { name: 'description', content: 'Фанскул - билингвальный детский сад в Москве' }, //todo: добавить описание
+        { name: 'description', content: 'Фанскул — билингвальный детский сад в Москве: погружение в английский с 2 лет, авторские программы и заботливые педагоги. Запишитесь на бесплатную экскурсию!'},
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { name: 'theme-color', content: '#feb200' },
       ],

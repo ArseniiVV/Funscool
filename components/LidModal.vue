@@ -59,7 +59,7 @@
               </label>
             </div>
 
-            <div class="modal-control__wrap">
+            <!-- <div class="modal-control__wrap">
               <input
                 id="lid-email"
                 class="modal-input"
@@ -70,7 +70,7 @@
                 placeholder=" "
               />
               <label for="lid-email">Email</label>
-            </div>
+            </div> -->
 
             <div v-if="modalData.group" id="groupSelect" class="modal-control__wrap">
               <select v-model="selectedGroup" aria-label="Выбрать группу">
@@ -212,7 +212,7 @@ async function sendRequest() {
   };
 
   try {
-    const response = await fetch('https://lids-reciever.funscool.ru/d4e4lbdavl078eclofa5', {
+    const response = await fetch('https://functions.yandexcloud.net/d4e4lbdavl078eclofa5', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(lid),
