@@ -66,7 +66,7 @@ const ageGroups = $constants.age_groups;
 @media (max-width: 748px) {
   .title-img {
     position: absolute;
-    width: auto;
+    width: 68px;
     left: 5%;
   }
 }
