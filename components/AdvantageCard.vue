@@ -72,13 +72,17 @@ function toggleFlip() {
 
   setTimeout(() => {
     if (flipped.value) {
-      gsap.to(card, { duration: 0.6, rotationY: 180, ease: 'power2.inOut' });
-      gsap.to(front, { duration: 0.3, opacity: 0 });
-      gsap.to(back, { delay: 0.3, duration: 0.3, opacity: 1 });
+      if (card && front && back) {
+        gsap.to(card, { duration: 0.6, rotationY: 180, ease: 'power2.inOut' });
+        gsap.to(front, { duration: 0.3, opacity: 0 });
+        gsap.to(back, { delay: 0.3, duration: 0.3, opacity: 1 });
+      }
     } else {
-      gsap.to(card, { duration: 0.6, rotationY: 0, ease: 'power2.inOut' });
-      gsap.to(back, { duration: 0.3, opacity: 0 });
-      gsap.to(front, { delay: 0.3, duration: 0.3, opacity: 1 });
+      if (card && front && back) {
+        gsap.to(card, { duration: 0.6, rotationY: 0, ease: 'power2.inOut' });
+        gsap.to(back, { duration: 0.3, opacity: 0 });
+        gsap.to(front, { delay: 0.3, duration: 0.3, opacity: 1 });
+      }
     }
   }, 300);
 }
@@ -108,26 +112,9 @@ onMounted(() => {
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin: 0 auto 30px;
+  align-items: stretch;
+  margin: 0;
   z-index: 100;
-
-  @media (min-width: 576px) {
-    width: 80%;
-    max-width: 360px;
-  }
-
-  @media (min-width: 768px) {
-    width: 20%;
-  }
-
-  @media (min-width: 992px) {
-    width: 20%;
-  }
-
-  @media (min-width: 1200px) {
-    width: 20%;
-  }
 }
 
 .advantages-card {
@@ -137,10 +124,12 @@ onMounted(() => {
   flex-direction: column;
   align-items: center;
   border-radius: 16px;
-  margin-bottom: 30px;
+  margin-bottom: 0;
   cursor: pointer;
   min-height: 420px;
   padding-bottom: 30px;
+  width: 100%;
+  height: 100%;
   /* Keep 3D context local to the card to avoid text blur
      from ancestor perspective on some Chrome/Windows GPUs */
   perspective: 1000px;
