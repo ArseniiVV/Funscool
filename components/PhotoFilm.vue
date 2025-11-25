@@ -45,12 +45,14 @@ const filmImages = ref([
 
 <style scoped lang="scss">
 #sliderFilm {
+  --film-height: 360px;
   margin-top: 100px;
   margin-bottom: 76px;
   background-color: var(--theme-dark);
   width: 100%;
   padding: 90px 0;
   position: relative;
+  min-height: calc(var(--film-height) + 180px);
 
   .sliderFilm-vector {
     position: absolute;
@@ -79,12 +81,14 @@ const filmImages = ref([
   overflow: hidden;          /* не видно края дорожки */
   pointer-events: none;      /* полностью игнорируем взаимодействие */
   user-select: none;
+  height: var(--film-height);
 }
 
 .film-track {
   display: flex;
   align-items: center;
   gap: 20px;
+  height: var(--film-height);
   /* два набора кадров занимают ~200% ширины.
      Скроллим от 0 до -50%, чтобы второй набор занял место первого — бесшовно. */
   width: max-content;
@@ -96,7 +100,7 @@ const filmImages = ref([
 .film-slide {
   width: auto;
   max-width: 600px;
-  height: auto;
+  height: var(--film-height);
   border-radius: 16px;
   overflow: hidden;
   flex: 0 0 auto; /* не сжимать/не растягивать */
@@ -105,7 +109,6 @@ const filmImages = ref([
     display: block;
     width: 100%;
     height: 100%;
-    max-height: 360px;
     object-fit: cover;
     border-radius: 16px;
     -webkit-user-drag: none;
@@ -123,9 +126,11 @@ const filmImages = ref([
 /* Мобильные правки */
 @media (max-width: 768px) {
   #sliderFilm {
+    --film-height: 300px;
     margin-top: 50px;
     margin-bottom: 50px;
     padding: 60px 0;
+    min-height: calc(var(--film-height) + 120px);
 
     .sliderFilm-vector {
       height: 30px;
@@ -139,21 +144,17 @@ const filmImages = ref([
       background-size: contain;
     }
   }
-
-  .film-slide img {
-    max-height: 300px;
-  }
 }
 
 @media (max-width: 568px) {
-  #sliderFilm { padding: 50px 0; }
+  #sliderFilm {
+    --film-height: 196px;
+    padding: 50px 0;
+    min-height: calc(var(--film-height) + 100px);
+  }
 
   .film-slide {
     max-width: 180px;
-
-    img {
-      max-height: 196px;
-    }
   }
 
   .sliderFilm-vector,
