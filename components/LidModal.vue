@@ -212,7 +212,7 @@ async function sendRequest() {
   };
 
   try {
-    const response = await fetch('https://et-web.ru/mailing/funscool-lid', {
+    const response = await fetch('https://lids-reciever.funscool.ru/d4e4lbdavl078eclofa5', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(lid),
