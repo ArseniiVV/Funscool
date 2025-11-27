@@ -12,7 +12,7 @@
                 v-html="slide.text"
               />
               <div>
-                <button type="button" class="the-button swiper-main__btn" style="opacity: 1" @click="
+                <button type="button" class="the-button swiper-main__btn" style="opacity: 0" @click="
                   useModalStore().openLidModal({
                     title: 'Заявка на обратный звонок',
                     text: 'Оставьте заявку и мы свяжемся с вами в ближайшее время',
@@ -59,7 +59,7 @@
               v-if="slides[0]"
             />
             <div>
-              <button v-if="slides[0]" type="button" class="the-button swiper-main__btn" style="opacity: 1" @click="
+              <button v-if="slides[0]" type="button" class="the-button swiper-main__btn" style="opacity: 0" @click="
                 useModalStore().openLidModal({
                   title: 'Заявка на обратный звонок',
                   text: 'Оставьте заявку и мы свяжемся с вами в ближайшее время',
@@ -519,9 +519,10 @@ const onSlideChange = (swiper: Swiper) => {
       margin-block: unset !important;
 
       .swiper-main__img {
-        position: absolute;
-        max-height: 310px;
-        margin-bottom: 105px;
+        width: 100vw;
+        img {
+          margin: 0 auto;
+        }
       }
 
       .swiper-main__title {
