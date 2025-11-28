@@ -121,22 +121,23 @@ const isLongText = (text?: string) => (text?.length ?? 0) > 300;
 
 const setDesktopCentering = () => {
   if (!isClient) return;
-
   const wrapper = document.querySelector<HTMLElement>('#MainSlider-nuxt .swiper-main');
   const container =
     document.querySelector<HTMLElement>('#MainSlider-nuxt .swiper-slide-active .slider-container') ??
     document.querySelector<HTMLElement>('#MainSlider-nuxt .slider-container');
   if (!wrapper || !container) return;
 
-  if (window.innerWidth < 768) {
-    return;
-  }
-
   const availableHeight = wrapper.clientHeight; 
   wrapper.style.height = `${availableHeight}px`;
   container.style.position = `absolute`;
   container.style.top = `50%`;
   container.style.transform = `translateY(-50%)`;
+
+  if (window.innerWidth >768) {
+    container.style.left = `50%`;
+    container.style.transform += ` translateX(-50%)`;
+    return;
+  }
 };
 
 const swiperParams: SwiperOptions = {
@@ -150,15 +151,11 @@ const swiperParams: SwiperOptions = {
     el: '.swiper-pagination-main',
     clickable: true,
   },
-  // autoplay: {
-  //   disableOnInteraction: true,
-  //   delay: 5000,
-  // },
-  speed: 2500,
-  breakpoints: {
-    0: { autoHeight: true },
-    768: { autoHeight: false },
+  autoplay: {
+    disableOnInteraction: true,
+    delay: 5000,
   },
+  speed: 2500,
   on: {
     slideChange(swiper: Swiper) {
       onSlideChange(swiper);
@@ -223,6 +220,7 @@ const onSlideChange = (swiper: Swiper) => {
     if (index === activeIndex) {
       if (gsapRef) gsapRef.to(image, { duration: 2.5, rotate: -720 });
       setTimeout(() => {
+        setDesktopCentering();
         if (gsapRef) {
           gsapRef.to(caption, { duration: 2, opacity: 1 });
           gsapRef.to(title, { duration: 3, opacity: 1 });
@@ -278,7 +276,7 @@ onUnmounted(() => {
 
   .remark {
     max-width: 1240px;
-    min-height: 80px;
+    min-height: 10px;
     margin: 20px auto;
     padding-left: 10px;
     font-size: 10px;
@@ -291,6 +289,7 @@ onUnmounted(() => {
 
   // Container & Layout
   .slider-container {
+    width: 100%;
     max-width: 1240px;
     margin: 0 auto;
   }
@@ -306,14 +305,7 @@ onUnmounted(() => {
   .slider-column {
     width: 50%;
     padding: 0 12px;
-
-    @media (max-width: 767px) {
-      width: 100%;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
+    
     &--left,
     &--right {
       flex: 1 0 auto;
@@ -528,6 +520,11 @@ onUnmounted(() => {
   @media (max-width: 767px) {
     padding-top: 4rem;
 
+    .slider-column {
+      width: 100%;
+      padding: 0 20px;
+    }
+
     .swiper-main__text {
       font-size: clamp(14px, 2.5vw, 18px);
 
@@ -541,8 +538,8 @@ onUnmounted(() => {
     }
 
     .swiper-main .swiper-slide {
-      position: relative;
-      height: 600px;
+      // position: relative;
+      // min-height: 600px;
       margin-block: unset !important;
 
       .swiper-main__img {
@@ -586,7 +583,7 @@ onUnmounted(() => {
   left: 0;
   z-index: -1;
   width: 100%;
-  height: 600px;
+  height: 35vw;
   background: var(--theme-dark);
   clip-path: circle(100% at 50% -54.25vw);
 }
