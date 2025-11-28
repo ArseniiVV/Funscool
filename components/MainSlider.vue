@@ -119,6 +119,26 @@ const isInitialized = ref(false);
 const isClient = typeof window !== 'undefined';
 const isLongText = (text?: string) => (text?.length ?? 0) > 300;
 
+const setDesktopCentering = () => {
+  if (!isClient) return;
+
+  const wrapper = document.querySelector<HTMLElement>('#MainSlider-nuxt .swiper-main');
+  const container =
+    document.querySelector<HTMLElement>('#MainSlider-nuxt .swiper-slide-active .slider-container') ??
+    document.querySelector<HTMLElement>('#MainSlider-nuxt .slider-container');
+  if (!wrapper || !container) return;
+
+  if (window.innerWidth < 768) {
+    return;
+  }
+
+  const availableHeight = wrapper.clientHeight; 
+  wrapper.style.height = `${availableHeight}px`;
+  container.style.position = `absolute`;
+  container.style.top = `50%`;
+  container.style.transform = `translateY(-50%)`;
+};
+
 const swiperParams: SwiperOptions = {
   slidesPerView: 1,
   loop: true,
@@ -164,11 +184,13 @@ onMounted(async () => {
   register();
   gsapRef = (gsapMod as any).gsap || gsapMod;
   initializeSwiper();
+  nextTick(setDesktopCentering);
   if ('requestIdleCallback' in window) {
     ; (window as any).requestIdleCallback(start)        // когда поток «свободен»
   } else {
     setTimeout(start, 0)                               // фолбэк
   }
+  window.addEventListener('resize', setDesktopCentering);
 });
 
 const remark = ref('');
@@ -222,6 +244,11 @@ const onSlideChange = (swiper: Swiper) => {
     // gsap.to(image, { duration: 5, opacity: 0.3 });
   });
 };
+
+onUnmounted(() => {
+  if (!isClient) return;
+  window.removeEventListener('resize', setDesktopCentering);
+});
 </script>
 
 <style scoped lang="scss">
