@@ -21,10 +21,10 @@
       :space-between="24"
       :center-insufficient-slides="true"
       :breakpoints="{
-        0: { slidesPerView: 1.05, slidesOffsetBefore: 20, slidesOffsetAfter: 20 },
-        600: { slidesPerView: 2.05, slidesOffsetBefore: 20, slidesOffsetAfter: 20 },
-        960: { slidesPerView: 3.05, slidesOffsetBefore: 20, slidesOffsetAfter: 20 },
-        1480: { slidesPerView: 3.05 },
+        0: { slidesPerView: 1.25, slidesOffsetBefore: 20, slidesOffsetAfter: 20 },
+        600: { slidesPerView: 2.25, slidesOffsetBefore: 20, slidesOffsetAfter: 20 },
+        960: { slidesPerView: 3.25, slidesOffsetBefore: 20, slidesOffsetAfter: 20 },
+        1480: { slidesPerView: 3.25 },
       }"
       class="swiper-gardens"
     >

@@ -6,9 +6,13 @@
           <div class="slider-row">
             <div class="slider-column slider-column--left">
               <div class="swiper-main__title" v-html="slide.title" />
-              <div class="swiper-main__text" v-html="slide.text" />
+              <div
+                class="swiper-main__text"
+                :class="{ 'is-long': isLongText(slide.text) }"
+                v-html="slide.text"
+              />
               <div>
-                <button type="button" class="the-button swiper-main__btn" style="opacity: 1" @click="
+                <button type="button" class="the-button swiper-main__btn" style="opacity: 0" @click="
                   useModalStore().openLidModal({
                     title: 'Заявка на обратный звонок',
                     text: 'Оставьте заявку и мы свяжемся с вами в ближайшее время',
@@ -25,7 +29,15 @@
             </div>
             <div class="slider-column slider-column--right">
               <div class="swiper-main__img">
-                <img :src="slide.image" :alt="slide.alt" fetchpriority="high" />
+                <img :src="slide.image" :alt="slide.alt" fetchpriority="high" @click="
+                  useModalStore().openLidModal({
+                    title: 'Заявка на обратный звонок',
+                    text: 'Оставьте заявку и мы свяжемся с вами в ближайшее время',
+                    buttonText: 'Отправить заявку',
+                    group: '',
+                    community: '',
+                    motive: slide.title && 'Мотив: ' + slide.title,
+                  })" />
               </div>
             </div>
           </div>
@@ -38,10 +50,16 @@
       <div class="slider-container">
         <div class="slider-row">
           <div class="slider-column slider-column--left">
-            <div class="swiper-main__title" style="opacity: 1" v-html="slides[0].title" />
-            <div class="swiper-main__text" style="opacity: 1" v-html="slides[0].text" />
+            <div class="swiper-main__title" style="opacity: 1" v-html="slides[0].title" v-if="slides[0]"/>
+            <div
+              class="swiper-main__text"
+              style="opacity: 1"
+              :class="{ 'is-long': slides[0] && isLongText(slides[0].text) }"
+              v-html="slides[0].text"
+              v-if="slides[0]"
+            />
             <div>
-              <button type="button" class="the-button swiper-main__btn" style="opacity: 1" @click="
+              <button v-if="slides[0]" type="button" class="the-button swiper-main__btn" style="opacity: 0" @click="
                 useModalStore().openLidModal({
                   title: 'Заявка на обратный звонок',
                   text: 'Оставьте заявку и мы свяжемся с вами в ближайшее время',
@@ -57,7 +75,15 @@
           </div>
           <div class="slider-column slider-column--right">
             <div class="swiper-main__img">
-              <img :src="slides[0].image" :alt="slides[0].alt" fetchpriority="high" />
+              <img v-if="slides[0]" :src="slides[0].image" :alt="slides[0].alt" fetchpriority="high" @click="
+                  useModalStore().openLidModal({
+                    title: 'Заявка на обратный звонок',
+                    text: 'Оставьте заявку и мы свяжемся с вами в ближайшее время',
+                    buttonText: 'Отправить заявку',
+                    group: '',
+                    community: '',
+                    motive: slides[0].title && 'Мотив: ' + slides[0].title,
+                  })" />
             </div>
           </div>
         </div>
@@ -90,6 +116,29 @@ const { $constants } = useNuxtApp();
 const slides = $constants.main_sliders;
 const swiperEl: Ref<null | SwiperContainer> = ref(null);
 const isInitialized = ref(false);
+const isClient = typeof window !== 'undefined';
+const isLongText = (text?: string) => (text?.length ?? 0) > 300;
+
+const setDesktopCentering = () => {
+  if (!isClient) return;
+  const wrapper = document.querySelector<HTMLElement>('#MainSlider-nuxt .swiper-main');
+  const container =
+    document.querySelector<HTMLElement>('#MainSlider-nuxt .swiper-slide-active .slider-container') ??
+    document.querySelector<HTMLElement>('#MainSlider-nuxt .slider-container');
+  if (!wrapper || !container) return;
+
+  const availableHeight = wrapper.clientHeight; 
+  wrapper.style.height = `${availableHeight}px`;
+  container.style.position = `absolute`;
+  container.style.top = `50%`;
+  container.style.transform = `translateY(-50%)`;
+
+  if (window.innerWidth >768) {
+    container.style.left = `50%`;
+    container.style.transform += ` translateX(-50%)`;
+    return;
+  }
+};
 
 const swiperParams: SwiperOptions = {
   slidesPerView: 1,
@@ -102,15 +151,11 @@ const swiperParams: SwiperOptions = {
     el: '.swiper-pagination-main',
     clickable: true,
   },
-  // autoplay: {
-  //   disableOnInteraction: true,
-  //   delay: 5000,
-  // },
-  speed: 2500,
-  breakpoints: {
-    0: { autoHeight: true },
-    768: { autoHeight: false },
+  autoplay: {
+    disableOnInteraction: true,
+    delay: 5000,
   },
+  speed: 2500,
   on: {
     slideChange(swiper: Swiper) {
       onSlideChange(swiper);
@@ -154,7 +199,7 @@ const onSlideChange = (swiper: Swiper) => {
   // и все слайды
 
   const activeIndex = swiper.activeIndex;
-  remark.value = $constants.main_sliders[activeIndex].remark ?? '';
+  remark.value = $constants.main_sliders[activeIndex]?.remark ?? '';
 
   const slides = swiper.slides;
   // Сброс вращения для всех изображений перед началом новой анимации
@@ -173,6 +218,7 @@ const onSlideChange = (swiper: Swiper) => {
     if (index === activeIndex) {
       if (gsapRef) gsapRef.to(image, { duration: 2.5, rotate: -720 });
       setTimeout(() => {
+        setDesktopCentering();
         if (gsapRef) {
           gsapRef.to(caption, { duration: 2, opacity: 1 });
           gsapRef.to(title, { duration: 3, opacity: 1 });
@@ -201,7 +247,7 @@ const onSlideChange = (swiper: Swiper) => {
   width: 150px;
   height: 50px;
   margin: 0 auto;
-  background: rgba(255, 255, 255, .15);
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 6px;
 }
 
@@ -210,11 +256,11 @@ const onSlideChange = (swiper: Swiper) => {
 }
 
 #MainSlider-nuxt {
-  padding-top: 10rem;
-  background-color: var(--theme-dark);
-  width: 100%;
   position: relative;
+  width: 100%;
+  padding-top: 10rem;
   padding-bottom: 60px;
+  background-color: var(--theme-dark);
 
   .ya-mark {
     width: 100%;
@@ -223,52 +269,36 @@ const onSlideChange = (swiper: Swiper) => {
 
   .remark {
     max-width: 1240px;
+    min-height: 10px;
     margin: 20px auto;
-    font-size: 10px;
-    color: #ffffff;
     padding-left: 10px;
-    min-height: 80px;
+    font-size: 10px;
+    color: #fff;
   }
 
   .swiper-main {
-    padding: 68px 0;
-  }
-
-
-
-  @media (max-width: 768px) {
-    padding: 32px 20px;
-
-    .swiper-main {
-      padding: 0;
-    }
+    padding: 8px 0;
   }
 
   // Container & Layout
   .slider-container {
+    width: 100%;
     max-width: 1240px;
     margin: 0 auto;
   }
 
   .slider-row {
-    margin: 0 -12px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    margin: 0 -12px;
     row-gap: 24px;
   }
 
   .slider-column {
     width: 50%;
     padding: 0 12px;
-
-    @media (max-width: 767px) {
-      width: 100%;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
+    
     &--left,
     &--right {
       flex: 1 0 auto;
@@ -276,9 +306,11 @@ const onSlideChange = (swiper: Swiper) => {
 
     &--left {
       order: 2;
+      padding: 0 20px;
 
       @media (min-width: 768px) {
         order: 1;
+        padding: 0 10px;
       }
     }
 
@@ -293,27 +325,26 @@ const onSlideChange = (swiper: Swiper) => {
 
   // Slide Title
   .swiper-main__title {
+    margin-bottom: 56px;
+    padding-left: 10px;
     font-weight: 600;
     font-size: 32px;
     line-height: 1.2em;
     color: #fff;
-    margin-bottom: 56px;
-    padding-left: 10px;
     opacity: 0;
   }
 
+  // Slide Text
   .swiper-main__text {
-    color: #fff;
+    padding-left: 10px;
     font-weight: 500;
     font-size: 17px;
     line-height: 1.8em;
-    padding-left: 10px;
+    color: #fff;
     opacity: 0;
 
     :deep(ul) {
-      // list-style: none !important;
       padding: 0 0 0 19px !important;
-      // margin: 0 !important;
 
       li {
         margin-bottom: 0.5em;
@@ -323,41 +354,17 @@ const onSlideChange = (swiper: Swiper) => {
 
   // Slide Image
   .swiper-main__img {
-    height: auto;
     position: absolute;
     top: 50%;
+    height: auto;
     transform: translateY(-50%);
 
     img {
       width: 100%;
       max-width: 540px;
-      aspect-ratio: 1/1;
+      aspect-ratio: 1 / 1;
       object-fit: contain;
       will-change: transform;
-    }
-  }
-
-  /* ↓ добавлено: на десктопе убираем absolute у картинки, чтобы флекс-центровка работала идеально */
-  @media (min-width: 768px) {
-    .swiper-main__img {
-      position: relative;
-      top: auto;
-      transform: none;
-    }
-
-    /* ↓ добавлено: выравнивание wrapper и слайда по вертикали */
-    :deep(.swiper-main .swiper-wrapper) {
-      align-items: center;
-      /* wrapper у Swiper — flex, этого достаточно */
-    }
-
-    :deep(.swiper-main .swiper-slide) {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      /* вертикальный центр содержимого слайда */
-      /* при нужде можно раскомментировать: */
-      /* justify-content: center; */
     }
   }
 
@@ -365,11 +372,11 @@ const onSlideChange = (swiper: Swiper) => {
   .swiper-buttons {
     position: relative;
     z-index: 10;
+    display: flex;
     width: 250px;
     margin: 20px auto 0;
-    display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     gap: 24px;
   }
 
@@ -379,11 +386,11 @@ const onSlideChange = (swiper: Swiper) => {
     width: auto;
     height: auto;
     margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
     color: #fff;
     cursor: pointer;
-    background: transparent;
-    border: none;
-    padding: 0;
 
     &::after {
       font-size: 22px;
@@ -398,33 +405,34 @@ const onSlideChange = (swiper: Swiper) => {
 
   .swiper-pagination-main {
     position: relative;
-    width: auto;
     display: flex;
+    width: auto;
+    margin-top: 12px;
     align-items: center;
     justify-content: center;
     flex-grow: 1;
-    margin-top: 12px;
 
     :deep(.swiper-pagination-bullet) {
       width: 8px;
       height: 8px;
-      background-color: rgba(255, 255, 255, 0.6);
-      opacity: 1;
       margin: 0 15px;
       border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.6);
+      opacity: 1;
+      cursor: pointer;
       transition:
         background-color 0.3s ease,
         transform 0.3s ease;
-      cursor: pointer;
     }
 
     :deep(.swiper-pagination-bullet-active) {
-      background-color: #ffffff;
+      background-color: #fff;
       transform: scale(1.3);
     }
   }
 
-  // Media Queries
+  // --- Media Queries ---
+
   @media (max-width: 1400px) {
     .swiper-main__title {
       font-size: 30px;
@@ -475,66 +483,102 @@ const onSlideChange = (swiper: Swiper) => {
     }
   }
 
+  @media (max-width: 768px) {
+    padding: 32px 0;
+
+    .swiper-main {
+      padding: 0;
+    }
+  }
+
+  @media (min-width: 768px) {
+    // на десктопе убираем absolute у картинки, чтобы флекс-центровка работала
+    .swiper-main__img {
+      position: relative;
+      top: auto;
+      transform: none;
+    }
+
+    :deep(.swiper-main .swiper-wrapper) {
+      align-items: center;
+    }
+
+    :deep(.swiper-main .swiper-slide) {
+      display: flex;
+      height: 100%;
+      align-items: center;
+    }
+  }
+
   @media (max-width: 767px) {
     padding-top: 4rem;
 
+    .slider-column {
+      width: 100%;
+      padding: 0 20px;
+    }
+
+    .swiper-main__text {
+      font-size: clamp(14px, 2.5vw, 18px);
+
+      li {
+        font-size: 16px;
+      }
+
+      &.is-long {
+        line-height: 1.2rem;
+      }
+    }
+
     .swiper-main .swiper-slide {
+      // position: relative;
+      // min-height: 600px;
       margin-block: unset !important;
-      height: 600px;
-      position: relative;
 
       .swiper-main__img {
-        max-height: 310px;
-        margin-bottom: 105px;
-        position: absolute;
-      }
-
-      .swiper-main__title {
-        font-size: 22px;
-        margin-bottom: 20px;
-        height: 80px;
-      }
-
-      .swiper-main__text {
-        font-size: clamp(14px, 2.5vw, 18px);
-        // width: 80%;
-
-        li {
-          font-size: 16px;
+        width: 100vw;
+        img {
+          margin: 0 auto;
         }
       }
 
+      .swiper-main__title {
+        height: 80px;
+        margin-bottom: 20px;
+        font-size: 22px;
+      }
+
       .swiper-main__btn {
-        padding: 17px 26px;
         margin-top: 30px;
         margin-bottom: 10px;
         margin-left: 0;
         margin-right: 0;
-        // position: absolute;
+        padding: 17px 26px;
         bottom: 10px;
       }
     }
 
-    //.swiper-buttons {
-    // position: absolute;
-    // bottom: 10px;
-    // left: 40%;
-    // transform: translateX(-50%);
-    // max-width: fit-content;
-    // width: auto;
-    //}
+    // .swiper-buttons {
+    //   position: absolute;
+    //   bottom: 10px;
+    //   left: 40%;
+    //   transform: translateX(-50%);
+    //   max-width: fit-content;
+    //   width: auto;
+    // }
   }
 }
 
 #MainSlider-nuxt::after {
   content: '';
   position: absolute;
-  top: 99.9%; // начинается сразу под блоком
+  top: 99.9%;
   left: 0;
+  z-index: -1;
   width: 100%;
-  height: 600px;
+  height: 35vw;
   background: var(--theme-dark);
   clip-path: circle(100% at 50% -54.25vw);
-  z-index: -1;
 }
 </style>
+

@@ -59,7 +59,7 @@
               </label>
             </div>
 
-            <div class="modal-control__wrap">
+            <!-- <div class="modal-control__wrap">
               <input
                 id="lid-email"
                 class="modal-input"
@@ -70,13 +70,10 @@
                 placeholder=" "
               />
               <label for="lid-email">Email</label>
-            </div>
+            </div> -->
 
             <div v-if="modalData.group" id="groupSelect" class="modal-control__wrap">
-              <select v-model="selectedGroup" aria-label="Выбрать группу">
-                <option value="" disabled hidden>Выбрать группу</option>
-                <option v-for="g in $constants.groups" :key="g" :value="g">{{ g }}</option>
-              </select>
+              <div class="modal-static">{{ modalData.group }}</div>
             </div>
 
             <div v-if="modalData.community" id="communitySelect" class="modal-control__wrap">
@@ -212,7 +209,7 @@ async function sendRequest() {
   };
 
   try {
-    const response = await fetch('https://et-web.ru/mailing/funscool-lid', {
+    const response = await fetch('https://functions.yandexcloud.net/d4e4lbdavl078eclofa5', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(lid),
@@ -248,7 +245,7 @@ async function sendRequest() {
 .lid-modal__backdrop {
   position: fixed;
   inset: 0;
-  z-index: 999;
+  z-index: 9999;
   display: block;
 }
 
@@ -308,6 +305,14 @@ async function sendRequest() {
     color: #333;
     outline: none;
     -webkit-tap-highlight-color: transparent;
+  }
+  .modal-static {
+    display: block;
+    width: 100%;
+    padding: 14px 16px 14px 0;
+    font-size: 16px;
+    color: #333;
+    border-bottom: 2px solid #000;
   }
 }
 

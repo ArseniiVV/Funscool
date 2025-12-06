@@ -3,7 +3,7 @@
 # ==============================
 
 # Configuration
-$BucketName = "gdkids.ru"       # your Yandex Cloud bucket name
+$Buckets  = @("school.ufa.funscool.ru", "gdkids.ru")  # список бакетов
 $BuildDir   = ".output/public"      # static output folder from Nuxt generate
 
 Write-Host "=== 1. Building Nuxt project ==="
@@ -15,6 +15,9 @@ if (-Not (Test-Path $BuildDir)) {
     exit 1
 }
 
+
+# === 2. Deploy loop for each bucket ===
+foreach ($BucketName in $Buckets) {
 Write-Host "=== 2. Clearing bucket ==="
 aws --profile yandex --endpoint-url=https://storage.yandexcloud.net s3 rm "s3://$BucketName" --recursive
 
@@ -93,3 +96,6 @@ if ($LASTEXITCODE -eq 0) {
 } else {
     Write-Error "Error occurred while uploading files"
 }
+
+}
+Write-Host "`n=== ✅ All deployments completed ==="

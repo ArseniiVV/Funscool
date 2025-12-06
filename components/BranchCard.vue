@@ -102,6 +102,7 @@ defineProps<{
     font-weight: 700;
     font-size: 20px;
     text-align: center;
+    min-height: 50px;
   }
 
   &__info {
@@ -113,8 +114,9 @@ defineProps<{
   &__metro-group {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 6px;
-    height: 5rem;
+    height: 7rem;
   }
 
   &__metro,
