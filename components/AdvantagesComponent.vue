@@ -1,6 +1,6 @@
 <template>
   <section id="Advantages" class="main-section">
-    <div class="row">
+    <div class="row" :class="{ 'row--even-split': isEvenSplit }">
       <AdvantageCard v-for="(item, index) in advantages" :key="index" :title="item.title" :additional="item.additional"
         :description="item.description" :front-image="item.frontImage" :back-image="item.backImage"
         :button-text="item.buttonText" :card-class="item.cardClass" />
@@ -27,6 +27,7 @@
 <script setup lang="ts">
 const { $constants } = useNuxtApp();
 const advantages = $constants.advantages;
+const isEvenSplit = computed(() => advantages.length % 2 === 0 && advantages.length % 3 !== 0);
 </script>
 
 <style lang="scss" scoped>
@@ -48,14 +49,31 @@ const advantages = $constants.advantages;
     perspective: none;
     transform-style: flat;
 
+    &.row--even-split {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    &.row--even-split>* {
+      max-width: 420px;
+      width: 100%;
+      justify-self: center;
+    }
+
     @media (max-width: 1100px) {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+
+      &.row--even-split {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
 
     @media (max-width: 700px) {
       grid-template-columns: 1fr;
+
+      &.row--even-split {
+        grid-template-columns: 1fr;
+      }
     }
   }
 }
 </style>
-
