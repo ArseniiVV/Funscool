@@ -4,20 +4,11 @@
       <div ref="cardElement" :class="['advantages-card', cardClass]">
         <div ref="frontElement" class="advantages-card__front" style="opacity: 1">
           <div class="advantages-card__img">
-            <img
-              :src="frontImage"
-              style="max-width: 300px"
-              :alt="title"
-              loading="lazy"
-            />
+            <img :src="frontImage" style="max-width: 300px" :alt="title" loading="lazy" />
           </div>
           <div class="advantages-card__title" v-html="title" />
         </div>
-        <div
-          ref="backElement"
-          class="advantages-card__back"
-          style="opacity: 0; position: absolute; top: 0"
-        >
+        <div ref="backElement" class="advantages-card__back" style="opacity: 0; position: absolute; top: 0">
           <div class="advantages-card__back-img">
             <img :src="backImage" alt="" loading="lazy" />
           </div>
@@ -34,7 +25,8 @@
 import { gsap } from 'gsap';
 
 // Props
-const props = defineProps({
+// const props = 
+defineProps({
   title: { type: String, default: '' },
   description: { type: String, default: '' },
   frontImage: { type: String, default: '' },
@@ -53,7 +45,7 @@ const backElement: Ref<null | HTMLElement> = ref(null);
 // State
 const flipped = ref(false);
 const canFlip = ref(true);
-let autoFlipped = false; // чтобы не переворачивалась снова при скролле туда-сюда
+// let autoFlipped = false; // чтобы не переворачивалась снова при скролле туда-сюда
 
 // Methods
 function toggleFlip() {
@@ -90,19 +82,19 @@ function toggleFlip() {
 // Run auto-flip only after user sees the card
 onMounted(() => {
   setTimeout(() => {
-      toggleFlip();
+    toggleFlip();
 
-      // Далее — бесконечный цикл каждые 7 ± 0–2 сек
-      const flipLoop = () => {
-        const randomDelay = 7000 + Math.random() * 2000; // 7–9 сек
-        setTimeout(() => {
-          toggleFlip();
-          flipLoop();
-        }, randomDelay);
-      };
+    // Далее — бесконечный цикл каждые 7 ± 0–2 сек
+    const flipLoop = () => {
+      const randomDelay = 7000 + Math.random() * 2000; // 7–9 сек
+      setTimeout(() => {
+        toggleFlip();
+        flipLoop();
+      }, randomDelay);
+    };
 
-      flipLoop();
-    }, 2000);
+    flipLoop();
+  }, 2000);
 });
 </script>
 
@@ -223,10 +215,9 @@ onMounted(() => {
     }
 
     &-text {
-      text-align: center;
       font-size: min(max(14px, 1.2vw), 17px);
       font-weight: 500;
-      line-height: 1.8em;
+      line-height: 1em;
       text-wrap: balance;
     }
 

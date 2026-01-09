@@ -1,10 +1,10 @@
-const now = new Date();
-const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-const formattedDate = lastDay.toLocaleDateString('ru-RU', {
-  day: '2-digit',
-  month: '2-digit',
-  year: 'numeric',
-});
+// const now = new Date();
+// const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+// const formattedDate = lastDay.toLocaleDateString('ru-RU', {
+//   day: '2-digit',
+//   month: '2-digit',
+//   year: 'numeric',
+// });
 
 export default defineNuxtPlugin(() => {
   return {
@@ -63,7 +63,7 @@ export default defineNuxtPlugin(() => {
               <p>Не упустите золотое время для выгодного старта!</p>
             `,
             remark: '',
-            buttonText: 'УСПЕТЬ ДО 31.12',
+            buttonText: 'УСПЕТЬ ДО 31.01',
             image: '/img/main-sliders/MainSlider2.webp',
             alt: 'Новогоднее предложение Фанскул',
           },
@@ -81,7 +81,7 @@ export default defineNuxtPlugin(() => {
             title: 'Старт в прекрасное будущее — без вступительного взноса!',
             text: `
               <p>Приходите в нашу частную школу в 0 класс и начните развитие вашего ребёнка без лишних затрат.</p>
-              <p>Акция действует до 31.12.25</p>
+              <p>Акция действует до 31.01.26</p>
             `,
             remark: '',
             buttonText: 'Записаться на экскурсию',
