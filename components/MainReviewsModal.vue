@@ -11,30 +11,24 @@
         </div>
       </div>
 
-      <div class="review-modal__text">
-        <div class="review-modal__text-desc">
-          {{ modalData?.text }}
-        </div>
-
-        <div class="review-modal__img">
-          <img :src="modalData?.img" alt="Изображение отзыва" loading="lazy" />
-        </div>
+      <div class="review-modal__text-desc">
+        {{ modalData?.text }}
       </div>
 
-      <button
-        class="review-modal__cta the-button"
-        type="button"
-        @click="
-          useModalStore().openLidModal({
-            title: 'Заявка на обратный звонок',
-            text: 'Оставьте заявку и мы свяжемся с вами в ближайшее время',
-            buttonText: 'Отправить заявку',
-            group: '',
-            community: '',
-            motive: modalData?.title && 'Отзыв: ' + modalData.title,
-          })
-        "
-      >
+      <div class="review-modal__img">
+        <img :src="modalData?.img" alt="Изображение отзыва" loading="lazy" />
+      </div>
+
+      <button class="review-modal__cta the-button" type="button" @click="
+        useModalStore().openLidModal({
+          title: 'Заявка на обратный звонок',
+          text: 'Оставьте заявку и мы свяжемся с вами в ближайшее время',
+          buttonText: 'Отправить заявку',
+          group: '',
+          community: '',
+          motive: modalData?.title && 'Отзыв: ' + modalData.title,
+        })
+        ">
         Оставить заявку
       </button>
     </div>
@@ -55,9 +49,14 @@ const closeModal = () => (modalStore.isReviewModalVisible = false);
   padding: 50px 49px 40px 40px;
   margin: 0 16px;
   width: min(800px, 100%);
+  height: min(90vh, 800px);
+  height: min(90dvh, 800px);
+  max-height: 90vh;
+  max-height: 90dvh;
   background-color: #fff;
   border-radius: 16px;
-  overflow: hidden; /* скролл убран */
+  overflow: hidden;
+  /* скролл убран */
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -65,10 +64,6 @@ const closeModal = () => (modalStore.isReviewModalVisible = false);
   @media (max-width: 576px) {
     padding: 24px 20px;
     gap: 16px;
-    max-height: 90vh;
-    max-height: 90dvh;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
   }
 }
 
@@ -107,25 +102,23 @@ const closeModal = () => (modalStore.isReviewModalVisible = false);
   }
 }
 
-/* Текст + картинка */
-.review-modal__text {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+/* Текст */
+.review-modal__text-desc {
+  flex: 0 1 40%;
+  min-height: 0;
   font-size: 18px;
   line-height: 1.5;
+  overflow-y: auto;
 
   @media (max-width: 768px) {
     font-size: 14px;
   }
 }
 
-/* Картинка адаптивно вписывается в модалку:
-   - по ширине 100%
-   - по высоте не больше 60vh (минус отступы), чтобы модалка не вылезала
-*/
 .review-modal__img {
   width: 100%;
+  flex: 0 1 40%;
+  min-height: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -133,8 +126,8 @@ const closeModal = () => (modalStore.isReviewModalVisible = false);
   img {
     display: block;
     width: 100%;
-    height: auto;
-    max-height: min(60vh, 520px);
+    height: 100%;
+    max-height: 100%;
     object-fit: contain;
     border-radius: 12px;
   }
