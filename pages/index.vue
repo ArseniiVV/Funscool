@@ -125,13 +125,15 @@ onMounted(() => {
 }
 
 .swiper-gardens {
-  @media (min-width: 1600px) {
-    &.should-center {
-      .swiper-wrapper {
-        display: flex;
-        justify-content: center;
-        box-sizing: border-box;
-      }
+  &.should-center {
+    display: inline-block;
+    width: auto;
+    max-width: 100%;
+
+    .swiper-wrapper {
+      display: flex;
+      justify-content: center;
+      box-sizing: border-box;
     }
   }
 }
