@@ -17,15 +17,15 @@
     <Swiper
       :a11y="false"
       :space-between="24"
-      :slides-offset-before="24"
-      :slides-offset-after="24"
+      :slides-offset-before="shouldCenter ? 0 : 24"
+      :slides-offset-after="shouldCenter ? 0 : 24"
       :breakpoints="{
         0: { slidesPerView: 1.2 },
         600: { slidesPerView: 'auto' },
         1200: { slidesPerView: 'auto', centerInsufficientSlides: true },
       }"
       class="swiper-gardens"
-      :class="{ 'should-center': $constants.news.length < 6 }"
+      :class="{ 'should-center': shouldCenter }"
     >
       <SwiperSlide
         v-for="newsItem in $constants.news"
@@ -41,6 +41,7 @@
 <script setup lang="ts">
 import { Swiper, SwiperSlide } from 'swiper/vue';
 const { $constants } = useNuxtApp();
+const shouldCenter = computed(() => $constants.news.length < 6);
 </script>
 
 <style lang="scss" scoped>
