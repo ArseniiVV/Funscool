@@ -16,7 +16,7 @@
           :class="{ 'is-loaded': loaded[i], 'is-visible': isVisible[i], 'has-error': errors[i] }"
           :ref="(el) => setWrapperRef(el, i)"
         >
-          <div v-if="!loaded[i]" class="video-skeleton" />
+          <div v-if="!loaded[i] && !isVisible[i]" class="video-skeleton" />
 
           <video
             v-if="isVisible[i] && !errors[i]"
@@ -26,7 +26,9 @@
             loop
             playsinline
             preload="metadata"
+            :poster="frameReady[i] ? null : (video.poster || defaultPoster)"
             @loadeddata="markLoaded(i, $event)"
+            @loadedmetadata="markLoaded(i, $event)"
             @canplay="markLoaded(i, $event)"
             @playing="markLoaded(i, $event)"
             @error="markError(i)"
@@ -68,9 +70,11 @@ const videos = [
 ];
 
 const loaded = ref<boolean[]>(videos.map(() => false));
+const frameReady = ref<boolean[]>(videos.map(() => false));
 const isVisible = ref<boolean[]>(videos.map(() => false));
 const errors = ref<boolean[]>(videos.map(() => false));
 const wrapperRefs = ref<(HTMLElement | null)[]>([]);
+const defaultPoster = '/img/video-poster.svg';
 
 let observer: IntersectionObserver | null = null;
 
@@ -89,15 +93,40 @@ const setWrapperRef = (el: Element | null, index: number) => {
 };
 
 function markLoaded(i: number, e?: Event) {
-  if (loaded.value[i]) return;
+  if (frameReady.value[i]) return;
   const video = (e?.target as HTMLVideoElement) || null;
   if (!video || typeof HTMLMediaElement === 'undefined') {
+    frameReady.value[i] = true;
     loaded.value[i] = true;
     return;
   }
 
   if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
-    loaded.value[i] = true;
+    const finalize = () => {
+      frameReady.value[i] = true;
+      loaded.value[i] = true;
+    };
+
+    if (video.currentTime === 0 && Number.isFinite(video.duration)) {
+      const onSeeked = () => {
+        video.removeEventListener('seeked', onSeeked);
+        finalize();
+      };
+
+      video.addEventListener('seeked', onSeeked, { once: true });
+
+      try {
+        const seekTo = Math.min(0.01, Math.max(0, video.duration || 0.01));
+        video.currentTime = seekTo;
+        setTimeout(() => {
+          if (!frameReady.value[i]) finalize();
+        }, 200);
+      } catch {
+        finalize();
+      }
+    } else {
+      requestAnimationFrame(finalize);
+    }
   }
 }
 
@@ -178,11 +207,17 @@ onBeforeUnmount(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex: 0 1 450px;
+  width: min(450px, 100%);
 }
 
 .video-wrapper {
   position: relative;
-  min-height: 240px;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--theme-middle);
 }
 
 .video-wrapper.has-error {
@@ -193,10 +228,9 @@ onBeforeUnmount(() => {
 /* сам плеер */
 .video-player {
   width: 100%;
-  height: auto;
-  border-radius: 10px;
+  height: 100%;
   display: block;
-  max-width: 450px;
+  object-fit: cover;
 }
 
 /* скелетон */
@@ -248,6 +282,10 @@ onBeforeUnmount(() => {
   .video-container {
     flex-direction: column;
     align-items: center;
+  }
+
+  .video-item {
+    width: 100%;
   }
 }
 </style>
