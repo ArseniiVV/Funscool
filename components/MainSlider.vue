@@ -155,6 +155,9 @@ const swiperParams: SwiperOptions = {
     disableOnInteraction: true,
     delay: 5000,
   },
+  mousewheel: {
+    forceToAxis: true,
+  },
   speed: 2500,
   on: {
     slideChange(swiper: Swiper) {
