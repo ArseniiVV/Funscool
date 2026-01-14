@@ -64,7 +64,7 @@ export default defineNuxtPlugin(() => {
     `,
             buttonText: 'Оставить заявку',
             image: '/img/main-sliders/MainSlider3.webp',
-            alt: 'Акция Новогодний подарок — скидка 30%',
+            alt: 'Акция Вместе теплее — скидка 30%',
           },
           {
             title: 'Мама и малыш<br>Совместные развивающие занятия от 1 года',
