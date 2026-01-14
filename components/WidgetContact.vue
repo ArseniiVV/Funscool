@@ -9,14 +9,14 @@
         community: '',
         motive: 'Лид: Обратная связь',
       })">
-        <img :src="'/img/contacts/lid-btn.png'" alt="Оставить заявку" style="width: 70px" loading="lazy" />
+        <img :src="'/img/contacts/lid-btn.png'" alt="Оставить заявку" style="width: 60px" loading="lazy" />
       </a>
     </div>
     <div>
       <a target="_blank" :href="'tel:' + $constants.phone_number" class="widget-phone widget-content-item"
         @click="useSendMetrika('phoneCall')">
         <span style="display: none" class="phone-number">{{ $constants.phone_text }}</span>
-        <img :src="'/img/contacts/phone-last.png'" alt="" style="width: 70px" loading="lazy" />
+        <img :src="'/img/contacts/phone-last.png'" alt="" style="width: 60px" loading="lazy" />
       </a>
     </div>
   </div>
