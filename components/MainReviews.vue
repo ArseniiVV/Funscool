@@ -7,8 +7,9 @@
       768: { slidesPerView: 2 },
       991: { slidesPerView: 3 },
       1200: { slidesPerView: 4 },
-    }" class="swiper swiper-review" :modules="[Navigation]" :center-insufficient-slides="true" :space-between="24"
-      :watch-overflow="true" @swiper="onReviewSwiper" @resize="onReviewSwiperUpdate" @breakpoint="onReviewSwiperUpdate">
+    }" class="swiper swiper-review" :modules="[Navigation, Mousewheel]" :center-insufficient-slides="true"
+      :space-between="24" :watch-overflow="true" :mousewheel="{ forceToAxis: true }" @swiper="onReviewSwiper"
+      @resize="onReviewSwiperUpdate" @breakpoint="onReviewSwiperUpdate">
       <SwiperSlide v-for="item in $constants.reviews" :key="item.title" style="padding: 0 20px;">
         <div class="reviews-card" :class="item.color">
           <div class="reviews-card__head">
@@ -48,7 +49,7 @@
 <script setup lang="ts">
 import type { Swiper as SwiperType } from 'swiper';
 import type { reviewModalData } from '~/types';
-import { Navigation } from 'swiper/modules';
+import { Mousewheel, Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 
 const { $constants } = useNuxtApp();
