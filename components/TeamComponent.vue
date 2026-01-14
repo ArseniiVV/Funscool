@@ -5,14 +5,9 @@
     <section id="team">
       <!-- Фулл-блид слайдер (вне ограничения 1400px) -->
       <div class="main-team-swiper">
-        <Swiper
-          :modules="[Navigation, Autoplay]"
-          :autoplay="{ delay: 3000, disableOnInteraction: false }"
-          :speed="2500"
-          :loop="true"
-          class="swiper-team"
-          @slideChange="onSlideChange"
-        >
+        <Swiper :modules="[Navigation, Autoplay, Mousewheel]" :autoplay="{ delay: 3000, disableOnInteraction: false }"
+          :mousewheel="{ forceToAxis: true }" :speed="2500" :loop="true" class="swiper-team"
+          @slideChange="onSlideChange">
           <SwiperSlide v-for="member in teamMembers" :key="member.id" @click="setActive(member)">
             <div class="swiper-team-item">
               <img :src="member.img" :alt="member.name" loading="lazy" />
@@ -26,7 +21,7 @@
       </div>
 
       <!-- Остальной контент — в контейнере 1400px -->
-      <div class="container">
+      <div class="container" v-if="activeMember">
         <div class="main-team-swiper-bottom">
           <div class="main-team-info">
             <div class="main-team-info-name" ref="teamName">{{ activeMember.name }}</div>
@@ -36,12 +31,8 @@
             <div class="main-team-info-description" ref="teamDescription">
               {{ activeMember.description }}
             </div>
-            <img
-              style="width: 22px; height: 18px; margin: 0 auto"
-              :src="'/img/ui-elements/team-precredo-svg.svg'"
-              alt=""
-              loading="lazy"
-            />
+            <img style="width: 22px; height: 18px; margin: 0 auto" :src="'/img/ui-elements/team-precredo-svg.svg'"
+              alt="" loading="lazy" />
             <div class="main-team-info-credo" ref="teamCredo">{{ activeMember.credo }}</div>
           </div>
 
@@ -49,12 +40,7 @@
         </div>
 
         <img class="main-team-svg" :src="'/img/ui-elements/team-svg.svg'" alt="" loading="lazy" />
-        <img
-          class="main-team-svg-2"
-          :src="'/img/ui-elements/team-svg-mobile.svg'"
-          alt=""
-          loading="lazy"
-        />
+        <img class="main-team-svg-2" :src="'/img/ui-elements/team-svg-mobile.svg'" alt="" loading="lazy" />
       </div>
     </section>
   </div>
@@ -63,7 +49,7 @@
 <script setup lang="ts">
 import { gsap } from 'gsap';
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import { Navigation, Autoplay } from 'swiper/modules';
+import { Navigation, Autoplay, Mousewheel } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
 import type { teamMember } from '~/types';
 

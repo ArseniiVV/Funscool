@@ -1,7 +1,7 @@
 <template>
   <div style="display: flex; justify-content: center">
     <div class="branch-card" @click="useSendMetrika(branch.yaMetrikGoal)">
-      <Swiper :modules="[Autoplay]" :loop="true"
+      <Swiper :modules="[Autoplay, Mousewheel]" :loop="true" :mousewheel="{ forceToAxis: true }"
         :autoplay="{ delay: 1500 + branch.id * 300, disableOnInteraction: true }" :speed="1000"
         class="branch-card__swiper">
         <SwiperSlide v-for="(i, index) in branch.photos" :key="index">
@@ -48,7 +48,7 @@
 
 <script setup lang="ts">
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import { Autoplay } from 'swiper/modules';
+import { Autoplay, Mousewheel } from 'swiper/modules';
 import { useVideoModal } from '@/composables/useVideoModal';
 import type { branchData } from '~/types';
 

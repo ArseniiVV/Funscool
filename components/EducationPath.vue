@@ -56,7 +56,8 @@
       <div class="container">
         <div class="row">
           <div class="col-md-8 col-12 col-center mx-auto">
-            <Swiper ref="educationSwiper" :modules="[Autoplay]" :loop="true" :navigation="{
+            <Swiper ref="educationSwiper" :modules="[Autoplay, Mousewheel]" :loop="true"
+              :mousewheel="{ forceToAxis: true }" :navigation="{
               nextEl: '.main-education-path__swiper-navigation-next',
               prevEl: '.main-education-path__swiper-navigation-prev',
             }" :autoplay="{ delay: 5000, disableOnInteraction: true }" class="swiper-path"
@@ -90,7 +91,7 @@
 
 <script setup lang="ts">
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import { Autoplay } from 'swiper/modules';
+import { Autoplay, Mousewheel } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
 
 // Слайды для нижнего слайдера

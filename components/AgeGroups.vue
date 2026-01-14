@@ -3,22 +3,12 @@
     <div class="main-section">
       <div class="title">
         <div style="display: flex; align-items: center">
-          <img
-            class="title-img"
-            :src="'/img/ui-elements/arm.svg'"
-            alt="Иконка руки"
-            loading="lazy"
-          />
+          <img class="title-img" :src="'/img/ui-elements/arm.svg'" alt="Иконка руки" loading="lazy" />
           Ступени
         </div>
         <span class="age-span">
           образования
-          <img
-            class="title-vector-2"
-            :src="'/img/ui-elements/Vector-aqua.svg'"
-            alt="Украшение"
-            loading="lazy"
-          />
+          <img class="title-vector-2" :src="'/img/ui-elements/Vector-aqua.svg'" alt="Украшение" loading="lazy" />
         </span>
       </div>
 
