@@ -15,8 +15,9 @@
         600: { slidesPerView: 'auto' },
         1200: { slidesPerView: 'auto', centerInsufficientSlides: true },
       }" class="swiper-gardens" :class="{ 'should-center': shouldCenter }"
-      :navigation="{ nextEl: '.swiper-news-next', prevEl: '.swiper-news-prev' }" :modules="[Navigation]"
-      :watch-overflow="true" @swiper="onNewsSwiper" @resize="onNewsSwiperUpdate" @breakpoint="onNewsSwiperUpdate">
+      :navigation="{ nextEl: '.swiper-news-next', prevEl: '.swiper-news-prev' }"
+      :modules="[Navigation, Mousewheel]" :mousewheel="{ forceToAxis: true }" :watch-overflow="true"
+      @swiper="onNewsSwiper" @resize="onNewsSwiperUpdate" @breakpoint="onNewsSwiperUpdate">
       <SwiperSlide v-for="newsItem in $constants.news" :key="newsItem.id" class="swiper-gardens__card">
         <NewsCard :news="newsItem" />
       </SwiperSlide>
@@ -34,7 +35,7 @@
 
 <script setup lang="ts">
 import type { Swiper as SwiperType } from 'swiper';
-import { Navigation } from 'swiper/modules';
+import { Mousewheel, Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 const { $constants } = useNuxtApp();
 const newsSwiper = ref<SwiperType | null>(null);

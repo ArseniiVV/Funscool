@@ -12,8 +12,9 @@
     </div>
 
     <Swiper
-      :modules="[Autoplay, Navigation]"
+      :modules="[Autoplay, Navigation, Mousewheel]"
       :navigation="{ nextEl: '.swiper-proud-next', prevEl: '.swiper-proud-prev' }"
+      :mousewheel="{ forceToAxis: true }"
       :loop="true"
       :autoplay="{ delay: 3000, disableOnInteraction: true }"
       :speed="700"
@@ -48,7 +49,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import { Autoplay, Navigation } from 'swiper/modules';
+import { Autoplay, Mousewheel, Navigation } from 'swiper/modules';
 
 const medalIcons = ['🏅', '🏆', '🎖️', '⭐'] as const;
 

@@ -20,6 +20,8 @@
       :a11y="false"
       :space-between="24"
       :center-insufficient-slides="true"
+      :mousewheel="{ forceToAxis: true }"
+      :modules="[Mousewheel]"
       :breakpoints="{
         0: { slidesPerView: 1.25, slidesOffsetBefore: 20, slidesOffsetAfter: 20 },
         600: { slidesPerView: 2.25, slidesOffsetBefore: 20, slidesOffsetAfter: 20 },
@@ -37,6 +39,7 @@
 
 <script setup lang="ts">
 import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Mousewheel } from 'swiper/modules';
 const { $constants } = useNuxtApp();
 </script>
 
