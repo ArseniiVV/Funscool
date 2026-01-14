@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="news__body-img">
-      <img :src="'/img/ui-elements/arrow-yellow.svg'" alt="" loading="lazy" />
+      Подробнее
     </div>
   </div>
 </template>
@@ -53,10 +53,11 @@ defineProps<{ news: infoModalData }>();
 
     .news__body-img {
       opacity: 1;
-
-      img {
-        transform: translateX(0px) translateY(-24px);
-      }
+      color: gray;
+      position: absolute;
+      bottom: 20px;
+      right: 50%;
+      transform: translateX(50%);
     }
   }
 
