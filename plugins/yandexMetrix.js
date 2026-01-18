@@ -13,6 +13,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         useCookie: false,
         accurateTrackBounce: true,
         defer:true,
+        webvisor: true,
         trustedDomains:["moscow.funscool.ru"],
       });
     }

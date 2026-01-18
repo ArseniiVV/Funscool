@@ -181,11 +181,19 @@ async function sendRequest() {
     });
 
     if (response?.status === 200) {
-      // цель успешной отправки
+
+      // Метрика событие отправки формы
       if (import.meta.client) {
-        const { $yaMetrika } = useNuxtApp() as any;
-        if (typeof $yaMetrika === 'function') $yaMetrika('formSent');
-        else $yaMetrika?.send?.('formSent', { title: modalData.value.title });
+        try {
+          const { $yaMetrika } = useNuxtApp() as any
+          if (typeof $yaMetrika === 'function') {
+            $yaMetrika('formSent')
+          } else if ($yaMetrika && typeof $yaMetrika.send === 'function') {
+            $yaMetrika.send('formSent', { title: modalData.value.title })
+          }
+        } catch (e) {
+          console.warn('[Metrika] send failed', e)
+        }
       }
 
       lidStatus.value = 'Заявка отправлена! Мы свяжемся с вами в ближайшее время!';
