@@ -5,6 +5,11 @@
 # Configuration
 $BucketName = "ufa.funscool.ru"       # your Yandex Cloud bucket name
 $BuildDir   = ".output/public"      # static output folder from Nuxt generate
+$CacheControlImmutable = "public, max-age=31536000, immutable"
+$CacheControlImages    = "public, max-age=31536000"
+$CacheControlHtml      = "no-cache, max-age=0, must-revalidate"
+$CacheControlSeo       = "public, max-age=86400"
+$CacheControlJson      = "public, max-age=86400"
 
 Write-Host "=== 1. Building Nuxt project ==="
 npm install
@@ -25,41 +30,51 @@ Write-Host "=== 4. Re-uploading files with correct MIME types ==="
 
 # HTML
 aws --profile yandex --endpoint-url=https://storage.yandexcloud.net s3 cp "$BuildDir\" "s3://$BucketName" --recursive `
-    --exclude "*" --include "*.html" --content-type "text/html" --metadata-directive REPLACE
+    --exclude "*" --include "*.html" --content-type "text/html" --cache-control $CacheControlHtml --metadata-directive REPLACE
+
+# SEO files (robots/sitemap)
+aws --profile yandex --endpoint-url=https://storage.yandexcloud.net s3 cp "$BuildDir\" "s3://$BucketName" --recursive `
+    --exclude "*" --include "robots.txt" --content-type "text/plain" --cache-control $CacheControlSeo --metadata-directive REPLACE
+aws --profile yandex --endpoint-url=https://storage.yandexcloud.net s3 cp "$BuildDir\" "s3://$BucketName" --recursive `
+    --exclude "*" --include "sitemap.xml" --content-type "application/xml" --cache-control $CacheControlSeo --metadata-directive REPLACE
 
 # JavaScript
 aws --profile yandex --endpoint-url=https://storage.yandexcloud.net s3 cp "$BuildDir\" "s3://$BucketName" --recursive `
-    --exclude "*" --include "*.js" --content-type "application/javascript" --metadata-directive REPLACE
+    --exclude "*" --include "*.js" --content-type "application/javascript" --cache-control $CacheControlImmutable --metadata-directive REPLACE
 
 # CSS
 aws --profile yandex --endpoint-url=https://storage.yandexcloud.net s3 cp "$BuildDir\" "s3://$BucketName" --recursive `
-    --exclude "*" --include "*.css" --content-type "text/css" --metadata-directive REPLACE
+    --exclude "*" --include "*.css" --content-type "text/css" --cache-control $CacheControlImmutable --metadata-directive REPLACE
 
 # JSON
 aws --profile yandex --endpoint-url=https://storage.yandexcloud.net s3 cp "$BuildDir\" "s3://$BucketName" --recursive `
-    --exclude "*" --include "*.json" --content-type "application/json" --metadata-directive REPLACE
+    --exclude "*" --include "*.json" --content-type "application/json" --cache-control $CacheControlJson --metadata-directive REPLACE
 
 # Fonts
 aws --profile yandex --endpoint-url=https://storage.yandexcloud.net s3 cp "$BuildDir\" "s3://$BucketName" --recursive `
-    --exclude "*" --include "*.woff2" --content-type "font/woff2" --metadata-directive REPLACE
+    --exclude "*" --include "*.woff2" --content-type "font/woff2" --cache-control $CacheControlImmutable --metadata-directive REPLACE
 aws --profile yandex --endpoint-url=https://storage.yandexcloud.net s3 cp "$BuildDir\" "s3://$BucketName" --recursive `
-    --exclude "*" --include "*.woff"  --content-type "font/woff"  --metadata-directive REPLACE
+    --exclude "*" --include "*.woff"  --content-type "font/woff"  --cache-control $CacheControlImmutable --metadata-directive REPLACE
 aws --profile yandex --endpoint-url=https://storage.yandexcloud.net s3 cp "$BuildDir\" "s3://$BucketName" --recursive `
-    --exclude "*" --include "*.ttf"   --content-type "font/ttf"   --metadata-directive REPLACE
+    --exclude "*" --include "*.ttf"   --content-type "font/ttf"   --cache-control $CacheControlImmutable --metadata-directive REPLACE
 
 # Images
 aws --profile yandex --endpoint-url=https://storage.yandexcloud.net s3 cp "$BuildDir\" "s3://$BucketName" --recursive `
-    --exclude "*" --include "*.svg"  --content-type "image/svg+xml" --metadata-directive REPLACE
+    --exclude "*" --include "*.svg"  --content-type "image/svg+xml" --cache-control $CacheControlImages --metadata-directive REPLACE
 aws --profile yandex --endpoint-url=https://storage.yandexcloud.net s3 cp "$BuildDir\" "s3://$BucketName" --recursive `
-    --exclude "*" --include "*.png"  --content-type "image/png"     --metadata-directive REPLACE
+    --exclude "*" --include "*.png"  --content-type "image/png"     --cache-control $CacheControlImages --metadata-directive REPLACE
 aws --profile yandex --endpoint-url=https://storage.yandexcloud.net s3 cp "$BuildDir\" "s3://$BucketName" --recursive `
-    --exclude "*" --include "*.jpg"  --content-type "image/jpeg"    --metadata-directive REPLACE
+    --exclude "*" --include "*.jpg"  --content-type "image/jpeg"    --cache-control $CacheControlImages --metadata-directive REPLACE
 aws --profile yandex --endpoint-url=https://storage.yandexcloud.net s3 cp "$BuildDir\" "s3://$BucketName" --recursive `
-    --exclude "*" --include "*.jpeg" --content-type "image/jpeg"    --metadata-directive REPLACE
+    --exclude "*" --include "*.jpeg" --content-type "image/jpeg"    --cache-control $CacheControlImages --metadata-directive REPLACE
 aws --profile yandex --endpoint-url=https://storage.yandexcloud.net s3 cp "$BuildDir\" "s3://$BucketName" --recursive `
-    --exclude "*" --include "*.webp" --content-type "image/webp"    --metadata-directive REPLACE
+    --exclude "*" --include "*.webp" --content-type "image/webp"    --cache-control $CacheControlImages --metadata-directive REPLACE
 aws --profile yandex --endpoint-url=https://storage.yandexcloud.net s3 cp "$BuildDir\" "s3://$BucketName" --recursive `
-    --exclude "*" --include "*.ico"  --content-type "image/x-icon"  --metadata-directive REPLACE
+    --exclude "*" --include "*.ico"  --content-type "image/x-icon"  --cache-control $CacheControlImages --metadata-directive REPLACE
+
+# Video
+aws --profile yandex --endpoint-url=https://storage.yandexcloud.net s3 cp "$BuildDir\" "s3://$BucketName" --recursive `
+    --exclude "*" --include "*.mp4" --content-type "video/mp4" --cache-control $CacheControlImages --metadata-directive REPLACE
 
 if ($LASTEXITCODE -eq 0) {
     Write-Host "=== ✅ Deploy completed successfully ==="
