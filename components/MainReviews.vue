@@ -1,45 +1,45 @@
 <template>
   <section id="reviews">
-    <div class="container">
-      <div class="title">Нам доверяют</div>
-      <Swiper :navigation="{ nextEl: '.swiper-review-next', prevEl: '.swiper-review-prev' }" :breakpoints="{
-        0: { slidesPerView: 1 },
-        768: { slidesPerView: 2 },
-        991: { slidesPerView: 3 },
-        1200: { slidesPerView: 4 },
-      }" class="swiper swiper-review" :modules="[Navigation]" :center-insufficient-slides="true" :space-between="24">
-        <SwiperSlide v-for="item in $constants.reviews" :key="item.title">
-          <div class="reviews-card" :class="item.color">
-            <div class="reviews-card__head">
-              <div class="reviews-card__head-avatar">
-                <img :src="item.logo" alt="" loading="lazy" />
-              </div>
-              <div class="reviews-card__head-title">
-                {{ item.title }}
-              </div>
+    <!-- <div class="container"> -->
+    <div class="title">Нам доверяют</div>
+    <Swiper :navigation="{ nextEl: '.swiper-review-next', prevEl: '.swiper-review-prev' }" :breakpoints="{
+      0: { slidesPerView: 1 },
+      768: { slidesPerView: 2 },
+      991: { slidesPerView: 3 },
+      1200: { slidesPerView: 4 },
+    }" class="swiper swiper-review" :modules="[Navigation, Mousewheel]" :center-insufficient-slides="true"
+      :space-between="24" :watch-overflow="true" :mousewheel="{ forceToAxis: true }" @swiper="onReviewSwiper"
+      @resize="onReviewSwiperUpdate" @breakpoint="onReviewSwiperUpdate">
+      <SwiperSlide v-for="item in $constants.reviews" :key="item.title" style="padding: 0 20px;">
+        <div class="reviews-card" :class="item.color">
+          <div class="reviews-card__head">
+            <div class="reviews-card__head-avatar">
+              <img :src="item.logo" alt="" loading="lazy" />
             </div>
-            <div class="reviews-card__body">
-              <div class="reviews-card__body-text">
-                {{ item.text }}
-              </div>
-              <button class="the-button reviews-card__body-btn" @click="openReviewModal(item)">
-                Читать полностью
-              </button>
+            <div class="reviews-card__head-title">
+              {{ item.title }}
             </div>
           </div>
-        </SwiperSlide>
-      </Swiper>
-      <!-- <div class="row d-flex justify-content-center">
-        <div class="reviews-buttons">
-          <button class="swiper-button-prev swiper-review-prev" aria-label="Назад">
-            <img :src="'/img/ui-elements/arrow-swiper.svg'" alt="" loading="lazy" />
-          </button>
-          <button class="swiper-button-next swiper-review-next" aria-label="Вперёд">
-            <img :src="'/img/ui-elements/arrow-swiper.svg'" alt="" loading="lazy" />
-          </button>
+          <div class="reviews-card__body">
+            <div class="reviews-card__body-text">
+              {{ item.text }}
+            </div>
+            <button class="the-button reviews-card__body-btn" @click="openReviewModal(item)">
+              Читать полностью
+            </button>
+          </div>
         </div>
-      </div> -->
+      </SwiperSlide>
+    </Swiper>
+    <div class="reviews-buttons" :class="{ 'is-locked': isReviewSwiperLocked }">
+      <button class="swiper-review-prev" type="button" aria-label="Предыдущий отзыв">
+        <img :src="'/img/ui-elements/swipe-l.png'" alt="" loading="lazy" />
+      </button>
+      <button class="swiper-review-next" type="button" aria-label="Следующий отзыв">
+        <img :src="'/img/ui-elements/swipe-r.png'" alt="" loading="lazy" />
+      </button>
     </div>
+    <!-- </div> -->
   </section>
   <Teleport to="body">
     <MainReviewsModal />
@@ -47,12 +47,33 @@
 </template>
 
 <script setup lang="ts">
+import type { Swiper as SwiperType } from 'swiper';
 import type { reviewModalData } from '~/types';
-import { Navigation } from 'swiper/modules';
+import { Mousewheel, Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 
 const { $constants } = useNuxtApp();
 const modalStore = useModalStore();
+const reviewSwiper = ref<SwiperType | null>(null);
+const isReviewSwiperLocked = ref(false);
+
+const updateReviewSwiperLock = (swiper?: SwiperType) => {
+  const activeSwiper = swiper ?? reviewSwiper.value;
+  if (!activeSwiper) {
+    return;
+  }
+
+  isReviewSwiperLocked.value = Boolean(activeSwiper.isLocked);
+};
+
+const onReviewSwiper = (swiper: SwiperType) => {
+  reviewSwiper.value = swiper;
+  updateReviewSwiperLock(swiper);
+};
+
+const onReviewSwiperUpdate = (swiper: SwiperType) => {
+  updateReviewSwiperLock(swiper);
+};
 
 const openReviewModal = (item: reviewModalData) => {
   modalStore.reviewModalData = item;
@@ -231,12 +252,6 @@ const openReviewModal = (item: reviewModalData) => {
     justify-content: center;
     gap: max(24px, 50px);
 
-    .swiper-review-next {
-      img {
-        transform: rotate(180deg);
-      }
-    }
-
     .swiper-button-prev.swiper-button-disabled {
       opacity: 1;
     }
@@ -253,14 +268,18 @@ const openReviewModal = (item: reviewModalData) => {
       height: 50px;
       border-radius: 50%;
 
-      img {
-        height: 16px;
-        width: 16px;
-      }
+      // img {
+      //   height: 16px;
+      //   width: 16px;
+      // }
 
       &::after {
         display: none;
       }
+    }
+
+    &.is-locked {
+      display: none;
     }
   }
 

@@ -9,10 +9,10 @@
         <div class="contact-item" v-for="br in $constants.branches" :key="br.id">
           <img :src="'/img/ui-elements/Mark.svg'" style="margin-right: 10px" loading="lazy" alt="Маркер" />
           <a :href="`tel:${br.phone.replace(/\D/g, '')}`" style="display: inline">
-            {{ br.address }}
-            <br />
-            {{ br.phone }}
-            <!-- <a :href="`tel:${br.phone.replace(/\D/g, '')}`">{{ br.phone }}</a> -->
+          {{ br.address }}
+          <br />
+          {{ br.phone }}
+          <!-- <a :href="`tel:${br.phone.replace(/\D/g, '')}`">{{ br.phone }}</a> -->
           </a>
         </div>
       </div>

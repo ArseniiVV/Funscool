@@ -1,16 +1,22 @@
 <template>
   <div id="ContactWidget" class="widget" v-if="showOnMobile">
     <div style="margin-bottom: 30px">
-      <a :href="'https://wa.me/' + $constants.wa" target="_blank" rel="noopener noreferrer" class="widget-content-item"
-        @click="useSendMetrika('WhatsApp')">
-        <img :src="'/img/contacts/whatsapp2.svg'" alt="wa" style="width: 60px" loading="lazy" />
+      <a rel="noopener noreferrer" class="widget-content-item" @click="useModalStore().openLidModal({
+        title: 'Обратная связь',
+        text: 'Оставьте свои контакты, и мы свяжемся с вами в ближайшее время.',
+        buttonText: 'Отправить',
+        group: '',
+        community: '',
+        motive: 'Лид: Обратная связь',
+      })">
+        <img :src="'/img/contacts/lid-btn.png'" alt="Оставить заявку" style="width: 60px" loading="lazy" />
       </a>
     </div>
     <div>
       <a target="_blank" :href="'tel:' + $constants.phone_number" class="widget-phone widget-content-item"
         @click="useSendMetrika('phoneCall')">
         <span style="display: none" class="phone-number">{{ $constants.phone_text }}</span>
-        <img :src="'/img/contacts/phone2.svg'" alt="" style="width: 60px" loading="lazy" />
+        <img :src="'/img/contacts/phone-last.png'" alt="" style="width: 60px" loading="lazy" />
       </a>
     </div>
   </div>

@@ -137,7 +137,6 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
     margin-top: 32px;
 
     &__rights,

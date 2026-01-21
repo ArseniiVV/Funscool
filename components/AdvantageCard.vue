@@ -4,20 +4,11 @@
       <div ref="cardElement" :class="['advantages-card', cardClass]">
         <div ref="frontElement" class="advantages-card__front" style="opacity: 1">
           <div class="advantages-card__img">
-            <img
-              :src="frontImage"
-              style="max-width: 300px"
-              :alt="title"
-              loading="lazy"
-            />
+            <img :src="frontImage" style="max-width: 300px" :alt="title" loading="lazy" />
           </div>
           <div class="advantages-card__title" v-html="title" />
         </div>
-        <div
-          ref="backElement"
-          class="advantages-card__back"
-          style="opacity: 0; position: absolute; top: 0"
-        >
+        <div ref="backElement" class="advantages-card__back" style="opacity: 0; position: absolute; top: 0">
           <div class="advantages-card__back-img">
             <img :src="backImage" alt="" loading="lazy" />
           </div>
@@ -72,13 +63,17 @@ function toggleFlip() {
 
   setTimeout(() => {
     if (flipped.value) {
-      gsap.to(card, { duration: 0.6, rotationY: 180, ease: 'power2.inOut' });
-      gsap.to(front, { duration: 0.3, opacity: 0 });
-      gsap.to(back, { delay: 0.3, duration: 0.3, opacity: 1 });
+      if (card && front && back) {
+        gsap.to(card, { duration: 0.6, rotationY: 180, ease: 'power2.inOut' });
+        gsap.to(front, { duration: 0.3, opacity: 0 });
+        gsap.to(back, { delay: 0.3, duration: 0.3, opacity: 1 });
+      }
     } else {
-      gsap.to(card, { duration: 0.6, rotationY: 0, ease: 'power2.inOut' });
-      gsap.to(back, { duration: 0.3, opacity: 0 });
-      gsap.to(front, { delay: 0.3, duration: 0.3, opacity: 1 });
+      if (card && front && back) {
+        gsap.to(card, { duration: 0.6, rotationY: 0, ease: 'power2.inOut' });
+        gsap.to(back, { duration: 0.3, opacity: 0 });
+        gsap.to(front, { delay: 0.3, duration: 0.3, opacity: 1 });
+      }
     }
   }, 300);
 }
@@ -86,19 +81,19 @@ function toggleFlip() {
 // Run auto-flip only after user sees the card
 onMounted(() => {
   setTimeout(() => {
-      toggleFlip();
+    toggleFlip();
 
-      // Далее — бесконечный цикл каждые 7 ± 0–2 сек
-      const flipLoop = () => {
-        const randomDelay = 7000 + Math.random() * 2000; // 7–9 сек
-        setTimeout(() => {
-          toggleFlip();
-          flipLoop();
-        }, randomDelay);
-      };
+    // Далее — бесконечный цикл каждые 7 ± 0–2 сек
+    const flipLoop = () => {
+      const randomDelay = 7000 + Math.random() * 2000; // 7–9 сек
+      setTimeout(() => {
+        toggleFlip();
+        flipLoop();
+      }, randomDelay);
+    };
 
-      flipLoop();
-    }, 2000);
+    flipLoop();
+  }, 2000);
 });
 </script>
 
@@ -108,26 +103,9 @@ onMounted(() => {
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin: 0 auto 30px;
+  align-items: stretch;
+  margin: 0;
   z-index: 100;
-
-  @media (min-width: 576px) {
-    width: 80%;
-    max-width: 360px;
-  }
-
-  @media (min-width: 768px) {
-    width: 20%;
-  }
-
-  @media (min-width: 992px) {
-    width: 20%;
-  }
-
-  @media (min-width: 1200px) {
-    width: 20%;
-  }
 }
 
 .advantages-card {
@@ -137,10 +115,12 @@ onMounted(() => {
   flex-direction: column;
   align-items: center;
   border-radius: 16px;
-  margin-bottom: 30px;
+  margin-bottom: 0;
   cursor: pointer;
   min-height: 420px;
   padding-bottom: 30px;
+  width: 100%;
+  height: 100%;
   /* Keep 3D context local to the card to avoid text blur
      from ancestor perspective on some Chrome/Windows GPUs */
   perspective: 1000px;
@@ -234,10 +214,9 @@ onMounted(() => {
     }
 
     &-text {
-      text-align: center;
       font-size: min(max(14px, 1.2vw), 17px);
       font-weight: 500;
-      line-height: 1.8em;
+      line-height: 1em;
       text-wrap: balance;
     }
 

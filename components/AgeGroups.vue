@@ -27,6 +27,8 @@
         :space-between="24"
         :slides-offset-before="24"
         :slides-offset-after="24"
+        :mousewheel="{ forceToAxis: true }"
+        :modules="[Mousewheel]"
         :breakpoints="{
           0: { slidesPerView: 1.2, slidesOffsetBefore: 20, slidesOffsetAfter: 20 },
           576: { slidesPerView: 2.2, slidesOffsetBefore: 20, slidesOffsetAfter: 20 },
@@ -60,6 +62,7 @@
 </template>
 <script setup lang="ts">
 import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Mousewheel } from 'swiper/modules';
 
 const { $constants } = useNuxtApp();
 const ageGroups = $constants.age_groups;
@@ -83,8 +86,11 @@ const ageGroups = $constants.age_groups;
   }
   .title-img {
     position: absolute;
-    width: auto;
+    width: 68px;
     left: 5%;
+  }
+  .title-vector-2{
+    left: -50%;
   }
 }
 

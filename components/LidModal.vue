@@ -2,27 +2,13 @@
   <!-- Телепортируем в body, чтобы inert на фоне не отключал модалку -->
   <Teleport to="body">
     <!-- Контейнер модалки -->
-    <div
-      id="groupModal"
-      :aria-hidden="!isVisible"
-      class="lid-modal__backdrop"
-      v-show="isVisible"
-      @keydown.esc.prevent="closeModal"
-    >
+    <div id="groupModal" :aria-hidden="!isVisible" class="lid-modal__backdrop" v-show="isVisible"
+      @keydown.esc.prevent="closeModal">
       <!-- Оверлей: кликом по фону закрываем -->
       <div class="modal-overlay" @click.self="closeModal">
         <!-- Диалог -->
-        <form
-          class="lid-modal__dialog"
-          role="dialog"
-          aria-modal="true"
-          tabindex="-1"
-          aria-labelledby="lid-modal-title"
-          aria-describedby="lid-modal-text"
-          @submit.prevent="sendRequest"
-          @click.stop
-          ref="dialogRef"
-        >
+        <form class="lid-modal__dialog" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="lid-modal-title"
+          aria-describedby="lid-modal-text" @submit.prevent="sendRequest" @click.stop ref="dialogRef">
           <button class="lid-modal__close" type="button" @click="closeModal" />
 
           <h2 id="lid-modal-title" class="lid-modal__title">{{ modalData.title }}</h2>
@@ -30,36 +16,20 @@
 
           <div class="lid-modal__controls">
             <div class="modal-control__wrap">
-              <input
-                id="lid-name"
-                class="modal-input"
-                v-model="requestName"
-                type="text"
-                autocomplete="name"
-                name="name"
-                placeholder=" "
-              />
+              <input id="lid-name" class="modal-input" v-model="requestName" type="text" autocomplete="name" name="name"
+                placeholder=" " />
               <label for="lid-name">ФИО</label>
             </div>
 
             <div class="modal-control__wrap">
-              <input
-                id="lid-phone"
-                class="modal-input"
-                v-model="requestPhone"
-                v-mask-phone="true"
-                type="tel"
-                inputmode="tel"
-                name="phone"
-                :required="isVisible"
-                placeholder=" "
-              />
+              <input id="lid-phone" class="modal-input" v-model="requestPhone" v-mask-phone="true" type="tel"
+                inputmode="tel" name="phone" :required="isVisible" placeholder=" " />
               <label for="lid-phone">
                 Телефон <span>*</span>
               </label>
             </div>
 
-            <div class="modal-control__wrap">
+            <!-- <div class="modal-control__wrap">
               <input
                 id="lid-email"
                 class="modal-input"
@@ -70,13 +40,10 @@
                 placeholder=" "
               />
               <label for="lid-email">Email</label>
-            </div>
+            </div> -->
 
             <div v-if="modalData.group" id="groupSelect" class="modal-control__wrap">
-              <select v-model="selectedGroup" aria-label="Выбрать группу">
-                <option value="" disabled hidden>Выбрать группу</option>
-                <option v-for="g in $constants.groups" :key="g" :value="g">{{ g }}</option>
-              </select>
+              <div class="modal-static">{{ modalData.group }}</div>
             </div>
 
             <div v-if="modalData.community" id="communitySelect" class="modal-control__wrap">
@@ -92,13 +59,8 @@
 
           <p class="lid-modal__status" v-html="lidStatus" />
 
-          <button
-            v-if="!lidInProcess"
-            class="lid-modal__btn"
-            type="submit"
-            :disabled="requestPhone?.length < 18"
-          >
-            Получить консультацию
+          <button v-if="!lidInProcess" class="lid-modal__btn" type="submit" :disabled="requestPhone?.length < 18">
+            {{ modalData.buttonText ?? 'Отправить заявку' }}
           </button>
 
           <div class="lid-modal__link">
@@ -212,18 +174,26 @@ async function sendRequest() {
   };
 
   try {
-    const response = await fetch('https://et-web.ru/mailing/funscool-lid', {
+    const response = await fetch('https://functions.yandexcloud.net/d4e4lbdavl078eclofa5', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(lid),
     });
 
     if (response?.status === 200) {
-      // цель успешной отправки
+
+      // Метрика событие отправки формы
       if (import.meta.client) {
-        const { $yaMetrika } = useNuxtApp() as any;
-        if (typeof $yaMetrika === 'function') $yaMetrika('formSent');
-        else $yaMetrika?.send?.('formSent', { title: modalData.value.title });
+        try {
+          const { $yaMetrika } = useNuxtApp() as any
+          if (typeof $yaMetrika === 'function') {
+            $yaMetrika('formSent')
+          } else if ($yaMetrika && typeof $yaMetrika.send === 'function') {
+            $yaMetrika.send('formSent', { title: modalData.value.title })
+          }
+        } catch (e) {
+          console.warn('[Metrika] send failed', e)
+        }
       }
 
       lidStatus.value = 'Заявка отправлена! Мы свяжемся с вами в ближайшее время!';
@@ -248,7 +218,7 @@ async function sendRequest() {
 .lid-modal__backdrop {
   position: fixed;
   inset: 0;
-  z-index: 999;
+  z-index: 9999;
   display: block;
 }
 
@@ -274,8 +244,15 @@ async function sendRequest() {
 }
 
 @keyframes modalShow {
-  from { transform: translateY(20px); opacity: 0; }
-  to   { transform: translateY(0);   opacity: 1; }
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .lid-modal__close {
@@ -293,12 +270,28 @@ async function sendRequest() {
   background-size: contain;
 }
 
-.lid-modal__title { margin-bottom: 12px; text-align: center; font-size: 26px; }
-.lid-modal__text  { font-size: 17px; text-align: center; text-wrap: balance; font-weight: 500; margin-bottom: 40px; }
+.lid-modal__title {
+  margin-bottom: 12px;
+  text-align: center;
+  font-size: 26px;
+}
+
+.lid-modal__text {
+  font-size: 17px;
+  text-align: center;
+  text-wrap: balance;
+  font-weight: 500;
+  margin-bottom: 40px;
+}
 
 .lid-modal__controls {
-  display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px;
-  input, select {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 24px;
+
+  input,
+  select {
     padding: 14px 16px 14px 0;
     font-size: 16px;
     border: 0;
@@ -309,9 +302,21 @@ async function sendRequest() {
     outline: none;
     -webkit-tap-highlight-color: transparent;
   }
+
+  .modal-static {
+    display: block;
+    width: 100%;
+    padding: 14px 16px 14px 0;
+    font-size: 16px;
+    color: #333;
+    border-bottom: 2px solid #000;
+  }
 }
 
-.lid-modal__status { text-align: center; margin-bottom: 16px; }
+.lid-modal__status {
+  text-align: center;
+  margin-bottom: 16px;
+}
 
 .lid-modal__btn {
   display: block;
@@ -327,30 +332,71 @@ async function sendRequest() {
   cursor: pointer;
   transition: 0.25s ease;
   -webkit-tap-highlight-color: transparent;
-  &:hover:not(:disabled) { transform: scale(1.05); }
-  &:disabled { opacity: 0.5; }
+
+  &:hover:not(:disabled) {
+    transform: scale(1.05);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+  }
 }
 
 .modal-control__wrap {
   position: relative;
+
   label {
-    font-size: 16px; font-weight: 500; line-height: 1em;
-    position: absolute; top: 50%; transform: translateY(-50%);
-    transition: 0.25s; color: rgba(14, 18, 20, 1); pointer-events: none;
-    span { color: #d63384; }
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1em;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: 0.25s;
+    color: rgba(14, 18, 20, 1);
+    pointer-events: none;
+
+    span {
+      color: #d63384;
+    }
   }
+
   .modal-input {
-    display: block; width: 100%;
-    &:focus + label, &:not(:placeholder-shown) + label { font-size: 13px; top: 0; }
+    display: block;
+    width: 100%;
+
+    &:focus+label,
+    &:not(:placeholder-shown)+label {
+      font-size: 13px;
+      top: 0;
+    }
   }
 }
 
-.lid-modal__link { margin-top: 32px; font-size: 14px; text-align: center; }
+.lid-modal__link {
+  margin-top: 32px;
+  font-size: 14px;
+  text-align: center;
+}
 
 @media (max-width: 768px) {
-  .lid-modal__dialog { padding: 24px; width: 100%; max-width: 100%; }
-  .lid-modal__title { font-size: 20px; }
-  .lid-modal__text  { font-size: 16px; }
-  .lid-modal__btn   { font-size: 16px; padding: 12px; }
+  .lid-modal__dialog {
+    padding: 24px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .lid-modal__title {
+    font-size: 20px;
+  }
+
+  .lid-modal__text {
+    font-size: 16px;
+  }
+
+  .lid-modal__btn {
+    font-size: 16px;
+    padding: 12px;
+  }
 }
 </style>
