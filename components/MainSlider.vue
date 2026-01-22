@@ -6,11 +6,7 @@
           <div class="slider-row">
             <div class="slider-column slider-column--left">
               <div class="swiper-main__title" v-html="slide.title" />
-              <div
-                class="swiper-main__text"
-                :class="{ 'is-long': isLongText(slide.text) }"
-                v-html="slide.text"
-              />
+              <div class="swiper-main__text" :class="{ 'is-long': isLongText(slide.text) }" v-html="slide.text" />
               <div>
                 <button type="button" class="the-button swiper-main__btn" style="opacity: 0" @click="
                   useModalStore().openLidModal({
@@ -50,14 +46,10 @@
       <div class="slider-container">
         <div class="slider-row">
           <div class="slider-column slider-column--left">
-            <div class="swiper-main__title" style="opacity: 1" v-html="slides[0].title" v-if="slides[0]"/>
-            <div
-              class="swiper-main__text"
-              style="opacity: 1"
-              :class="{ 'is-long': slides[0] && isLongText(slides[0].text) }"
-              v-html="slides[0].text"
-              v-if="slides[0]"
-            />
+            <div class="swiper-main__title" style="opacity: 1" v-html="slides[0].title" v-if="slides[0]" />
+            <div class="swiper-main__text" style="opacity: 1"
+              :class="{ 'is-long': slides[0] && isLongText(slides[0].text) }" v-html="slides[0].text"
+              v-if="slides[0]" />
             <div>
               <button v-if="slides[0]" type="button" class="the-button swiper-main__btn" style="opacity: 0" @click="
                 useModalStore().openLidModal({
@@ -76,14 +68,14 @@
           <div class="slider-column slider-column--right">
             <div class="swiper-main__img">
               <img v-if="slides[0]" :src="slides[0].image" :alt="slides[0].alt" fetchpriority="high" @click="
-                  useModalStore().openLidModal({
-                    title: 'Заявка на обратный звонок',
-                    text: 'Оставьте заявку и мы свяжемся с вами в ближайшее время',
-                    buttonText: 'Отправить заявку',
-                    group: '',
-                    community: '',
-                    motive: slides[0].title && 'Мотив: ' + slides[0].title,
-                  })" />
+                useModalStore().openLidModal({
+                  title: 'Заявка на обратный звонок',
+                  text: 'Оставьте заявку и мы свяжемся с вами в ближайшее время',
+                  buttonText: 'Отправить заявку',
+                  group: '',
+                  community: '',
+                  motive: slides[0].title && 'Мотив: ' + slides[0].title,
+                })" />
             </div>
           </div>
         </div>
@@ -127,13 +119,13 @@ const setDesktopCentering = () => {
     document.querySelector<HTMLElement>('#MainSlider-nuxt .slider-container');
   if (!wrapper || !container) return;
 
-  const availableHeight = wrapper.clientHeight; 
+  const availableHeight = wrapper.clientHeight;
   wrapper.style.height = `${availableHeight}px`;
   container.style.position = `absolute`;
   container.style.top = `50%`;
   container.style.transform = `translateY(-50%)`;
 
-  if (window.innerWidth >768) {
+  if (window.innerWidth > 768) {
     container.style.left = `50%`;
     container.style.transform += ` translateX(-50%)`;
     return;
@@ -197,7 +189,7 @@ const remark = ref('');
 
 const src = ref<string>('')
 
-function start() { src.value = 'https://yandex.ru/sprav/widget/rating-badge/'+ $constants.ya_mark+'?type=rating' }
+function start() { src.value = 'https://yandex.ru/sprav/widget/rating-badge/' + $constants.ya_mark + '?type=rating' }
 
 const onSlideChange = (swiper: Swiper) => {
   // Получаем индекс активного слайда
@@ -308,7 +300,7 @@ onUnmounted(() => {
   .slider-column {
     width: 50%;
     padding: 0 12px;
-    
+
     &--left,
     &--right {
       flex: 1 0 auto;
@@ -502,6 +494,7 @@ onUnmounted(() => {
   }
 
   @media (min-width: 768px) {
+
     // на десктопе убираем absolute у картинки, чтобы флекс-центровка работала
     .swiper-main__img {
       position: relative;
@@ -547,6 +540,7 @@ onUnmounted(() => {
 
       .swiper-main__img {
         width: 100vw;
+
         img {
           margin: 0 auto;
         }
@@ -591,4 +585,3 @@ onUnmounted(() => {
   clip-path: circle(100% at 50% -54.25vw);
 }
 </style>
-

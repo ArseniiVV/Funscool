@@ -47,6 +47,7 @@ export default defineNuxtPlugin(() => {
             buttonText: 'Узнать о наличии мест',
             image: '/img/main-sliders/MainSlider1.webp',
             alt: 'Детский сад Фанскул — забота о будущем ребёнка',
+            remark: '',
           },
           {
             title: 'Акция «Неделя в подарок»',
