@@ -81,12 +81,6 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       ],
       // Скрипты подключайте через @nuxt/scripts или здесь, ТОЛЬКО defer
-      script: [
-        {
-          src: 'https://widgets.mango-office.ru/site/27875',
-          defer: true,
-        },
-      ],
     },
   },
 

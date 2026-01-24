@@ -36,6 +36,7 @@ export type branchData = {
   yaMetrikGoal?: string;
   video: string;
   metro?: string[];
+  promotions?: string[];
   phone?: string;
 };
 export type teamMember = {
