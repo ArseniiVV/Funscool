@@ -37,6 +37,9 @@
       </a>
       <div class="header-bottom__menu">
         <div class="header-bottom__menu-item">
+          <a href="/#about" @click="menuOpen = false">О нас</a>
+        </div>
+        <div class="header-bottom__menu-item">
           <a href="/#ageGroupSection" @click="menuOpen = false">Группы</a>
         </div>
         <!-- <div class="header-bottom__menu-item">
