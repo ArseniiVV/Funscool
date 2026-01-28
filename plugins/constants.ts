@@ -713,8 +713,12 @@ export default defineNuxtPlugin(() => {
               Акция действует до 26 февраля, только на филиале по адресу: ул. Столетова, 19.
               <br><br>
               Спешите, количество мест ограничено!`,
-            img: '/img/news/news-1.jpg',
-            images: ['/img/news/news-1.jpg', '/img/news/news-modal1.jpg', '/img/news/news-modal1(2).jpg'],
+            img: '/img/news/newsssss.jpeg',
+            images: [
+              '/img/news/newsssss.jpeg',
+              '/img/news/news-modal1.jpg',
+              '/img/news/news-modal1(2).jpg',
+            ],
             color: 'yellow-light',
           },
           {
@@ -739,8 +743,12 @@ export default defineNuxtPlugin(() => {
               Приглашаем на экскурсию! Почувствуйте атмосферу Фанскул!
               <br><br>
               Акция действует до 26 февраля, в детских садах по адресам: ул. Новозаводская, 8 и Карамышевская наб. д.48 к.1`,
-            img: '/img/news/news-2.jpg',
-            images: ['/img/news/news-2.jpg', '/img/news/news-modal4(1).jpg', '/img/news/news-modal4(2).jpg'],
+            img: '/img/news/news_karam_ng.jpeg',
+            images: [
+              '/img/news/news_karam_ng.jpeg',
+              '/img/news/news-modal4(1).jpg',
+              '/img/news/news-modal4(2).jpg',
+            ],
             color: 'aqua',
           },
           {
@@ -755,8 +763,8 @@ export default defineNuxtPlugin(() => {
               Фанскул благодарит всех родителей и педагогов за участие в создании новогодней сказки для наших детей!
               <br><br>
               Вперёд, в счастливый 2026 год!`,
-            img: '/img/news/news-3.jpg',
-            images: ['/img/news/news-3.jpg', '/img/news/news-4.jpg', '/img/news/news-5.jpg'],
+            img: '/img/news/ng_news.jpeg',
+            images: ['/img/news/ng_news.jpeg', '/img/news/news-4.jpg', '/img/news/news-5.jpg'],
             color: 'beige',
           },
         ],
