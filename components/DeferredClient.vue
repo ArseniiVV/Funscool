@@ -13,7 +13,42 @@
 <script setup lang="ts">
 import { onMounted, onBeforeUnmount, shallowRef, ref, computed } from 'vue'
 
-type When = 'immediate' | 'visible' | 'idle'
+type When = 'immediate' | 'visible' | 'idle' | 'sequence'
+
+const sequenceQueue: Array<() => Promise<void>> = []
+let isSequenceRunning = false
+
+async function runSequenceQueue() {
+  if (isSequenceRunning) return
+  isSequenceRunning = true
+  try {
+    while (sequenceQueue.length) {
+      const job = sequenceQueue.shift()
+      if (!job) continue
+      try {
+        await job()
+      } catch {
+        // already handled per job, keep queue moving
+      }
+    }
+  } finally {
+    isSequenceRunning = false
+  }
+}
+
+function enqueueSequence(task: () => Promise<void>) {
+  return new Promise<void>((resolve, reject) => {
+    sequenceQueue.push(async () => {
+      try {
+        await task()
+        resolve()
+      } catch (error) {
+        reject(error)
+      }
+    })
+    runSequenceQueue()
+  })
+}
 
 const props = defineProps<{
   loader: () => Promise<any>
@@ -45,6 +80,11 @@ onMounted(() => {
 
   if (when === 'immediate') {
     loadNow()
+    return
+  }
+
+  if (when === 'sequence') {
+    enqueueSequence(loadNow)
     return
   }
 
