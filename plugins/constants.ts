@@ -45,6 +45,7 @@ export default defineNuxtPlugin(() => {
             buttonText: 'Записаться на экскурсию',
             image: '/img/main-sliders/MainSlider6.webp',
             alt: 'Специальное предложение для малышей на Столетова 19',
+            remark: '',
           },
           {
             title: 'Зимняя сказка в Фанскул по выгодной цене!',
