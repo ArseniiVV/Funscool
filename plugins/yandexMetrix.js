@@ -10,11 +10,12 @@ export default defineNuxtPlugin((nuxtApp) => {
       })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
       
       window.ym(YID, 'init', {
-        useCookie: false,
         accurateTrackBounce: true,
-        defer:true,
+        clickmap: true,
+        trackLinks: true,
+        defer: true,
         webvisor: true,
-        trustedDomains:["moscow.funscool.ru"],
+        trustedDomains: ["moscow.funscool.ru"],
       });
     }
     try {
