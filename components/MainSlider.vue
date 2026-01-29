@@ -25,15 +25,7 @@
             </div>
             <div class="slider-column slider-column--right">
               <div class="swiper-main__img">
-                <img :src="slide.image" :alt="slide.alt" fetchpriority="high" @click="
-                  useModalStore().openLidModal({
-                    title: 'Заявка на обратный звонок',
-                    text: 'Оставьте заявку и мы свяжемся с вами в ближайшее время',
-                    buttonText: 'Отправить заявку',
-                    group: '',
-                    community: '',
-                    motive: slide.title && 'Мотив: ' + slide.title,
-                  })" />
+                <img :src="slide.image" :alt="slide.alt" fetchpriority="high" />
               </div>
             </div>
           </div>
@@ -67,15 +59,7 @@
           </div>
           <div class="slider-column slider-column--right">
             <div class="swiper-main__img">
-              <img v-if="slides[0]" :src="slides[0].image" :alt="slides[0].alt" fetchpriority="high" @click="
-                useModalStore().openLidModal({
-                  title: 'Заявка на обратный звонок',
-                  text: 'Оставьте заявку и мы свяжемся с вами в ближайшее время',
-                  buttonText: 'Отправить заявку',
-                  group: '',
-                  community: '',
-                  motive: slides[0].title && 'Мотив: ' + slides[0].title,
-                })" />
+              <img v-if="slides[0]" :src="slides[0].image" :alt="slides[0].alt" fetchpriority="high" />
             </div>
           </div>
         </div>
