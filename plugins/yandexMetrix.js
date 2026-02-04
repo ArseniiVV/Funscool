@@ -12,7 +12,6 @@ export default defineNuxtPlugin((nuxtApp) => {
       window.ym(YID, 'init', {
         useCookie: false,
         accurateTrackBounce: true,
-        defer:true,
         webvisor: true,
         trustedDomains:["moscow.funscool.ru"],
       });
