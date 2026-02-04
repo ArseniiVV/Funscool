@@ -13,7 +13,6 @@ export default defineNuxtPlugin((nuxtApp) => {
         accurateTrackBounce: true,
         clickmap: true,
         trackLinks: true,
-        defer: true,
         webvisor: true,
         trustedDomains: ["moscow.funscool.ru"],
       });
