@@ -75,6 +75,8 @@
 </template>
 
 <script setup lang="ts">
+import { getTrackingParams } from '~/composables/useTrackingParams';
+
 const { $constants } = useNuxtApp();
 
 const dialogRef = ref<HTMLElement | null>(null);
@@ -149,17 +151,7 @@ async function sendRequest() {
   lidInProcess = true;
   lidStatus.value = 'Отправляем ваш запрос...';
 
-  // UTM
-  const urlParams = new URLSearchParams(window.location.search);
-  const url = window.location.origin + window.location.pathname;
-  const utm = {
-    utm_source: urlParams.get('utm_source') || '',
-    utm_medium: urlParams.get('utm_medium') || '',
-    utm_campaign: urlParams.get('utm_campaign') || '',
-    utm_term: urlParams.get('utm_term') || '',
-    utm_content: urlParams.get('utm_content') || '',
-  };
-
+  const trackingParams = getTrackingParams();
   const lid = {
     landing: $constants.landing_name,
     phone: requestPhone.value.trim(),
@@ -169,8 +161,7 @@ async function sendRequest() {
     ...(selectedCommunity.value && { communityRole: selectedCommunity.value }),
     ...(modalData.value.motive && { motive: modalData.value.motive }),
     ...(modalData.value.additional && { additional: modalData.value.additional }),
-    ...(utm ? utm : {}),
-    url,
+    ...(Object.keys(trackingParams).length ? trackingParams : {}),
   };
 
   try {
@@ -186,10 +177,15 @@ async function sendRequest() {
       if (import.meta.client) {
         try {
           const { $yaMetrika } = useNuxtApp() as any
+          const metrikaPayload = {
+            title: modalData.value.title,
+            ...trackingParams,
+          };
+
           if (typeof $yaMetrika === 'function') {
-            $yaMetrika('formSent')
+            $yaMetrika('formSent', metrikaPayload);
           } else if ($yaMetrika && typeof $yaMetrika.send === 'function') {
-            $yaMetrika.send('formSent', { title: modalData.value.title })
+            $yaMetrika.send('formSent', metrikaPayload)
           }
         } catch (e) {
           console.warn('[Metrika] send failed', e)
