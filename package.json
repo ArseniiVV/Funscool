@@ -27,6 +27,13 @@
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
+    "baseline-browser-mapping": "^2.10.0",
     "sass-embedded": "^1.92.1"
+  },
+  "overrides": {
+    "serialize-javascript": "7.0.4",
+    "@rollup/plugin-terser": {
+      "serialize-javascript": "7.0.4"
+    }
   }
 }
