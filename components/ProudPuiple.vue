@@ -225,7 +225,7 @@ const slides = ref([
   },
   /* Добавленные по просьбе */
   {
-    img: '/img/puple/111.webp',
+    img: '/img/puple/222.webp',
     title: 'Лебедев Глеб',
     class: '3А класс',
     goals:
@@ -233,7 +233,7 @@ const slides = ref([
     alt: 'Ученик',
   },
   {
-    img: '/img/puple/222.webp',
+    img: '/img/puple/111.webp',
     title: 'Колесников Максим',
     class: '3Б класс',
     goals:

@@ -92,8 +92,7 @@
 
 
     <div class="swiper-buttons" v-show="slides.length > 1 && isInitialized">
-      <button type="button" class="swiper-button-prev swiper-button-prev-main" aria-label="Назад"
-        style="transform: rotate(180deg);"></button>
+      <button type="button" class="swiper-button-prev swiper-button-prev-main" aria-label="Назад"></button>
       <div class="swiper-pagination swiper-pagination-main" />
       <button type="button" class="swiper-button-next swiper-button-next-main" aria-label="Вперёд"></button>
     </div>
@@ -153,7 +152,7 @@ const swiperParams: SwiperOptions = {
   },
   autoplay: {
     disableOnInteraction: true,
-    delay: 5000,
+    delay: 6500,
   },
   mousewheel: {
     forceToAxis: true,
@@ -191,7 +190,7 @@ onMounted(async () => {
   }
 });
 
-const remark = ref('');
+const remark = ref($constants.main_sliders[0]?.remark ?? '');
 
 const src = ref<string>('')
 
@@ -201,7 +200,7 @@ const onSlideChange = (swiper: Swiper) => {
   // Получаем индекс активного слайда
   // и все слайды
 
-  const activeIndex = swiper.activeIndex;
+  const activeIndex = (swiper as any).realIndex ?? swiper.activeIndex;
   remark.value = $constants.main_sliders[activeIndex]?.remark ?? '';
 
   const slides = swiper.slides;
