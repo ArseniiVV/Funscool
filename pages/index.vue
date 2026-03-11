@@ -3,14 +3,14 @@
     <HeaderComponent />
     <MainSlider />
 
+    <!-- Anchor placeholder so /#ageGroupSection works before lazy load -->
+    <div id="ageGroupSection" style="scroll-margin-top: 120px"></div>
+    <DeferredClient :loader="() => import('~/components/AgeGroups.vue')" when="visible" :placeholder-height="560" />
+
     <DeferredClient :loader="() => import('~/components/AdvantagesComponent.vue')" when="visible"
       :placeholder-height="420" />
 
     <DeferredClient :loader="() => import('~/components/PhotoFilm.vue')" when="visible" :placeholder-height="220" />
-
-    <!-- Anchor placeholder so /#ageGroupSection works before lazy load -->
-    <div id="ageGroupSection" style="scroll-margin-top: 120px"></div>
-    <DeferredClient :loader="() => import('~/components/AgeGroups.vue')" when="visible" :placeholder-height="560" />
 
     <DeferredClient :loader="() => import('~/components/NumbersComponent.vue')" when="visible"
       :placeholder-height="320" />

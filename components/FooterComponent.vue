@@ -20,7 +20,7 @@
 
     <div class="footer-bottom">
       <div class="footer-bottom__rights">
-        © {{ $constants.company_name }}, 2025
+        © {{ $constants.company_name }}, {{ currentYear }}
         <br />
         Все права защищены
       </div>
@@ -88,6 +88,7 @@
 
 <script setup lang="ts">
 const { $constants } = useNuxtApp();
+const currentYear = new Date().getFullYear();
 </script>
 
 <style scoped lang="scss">

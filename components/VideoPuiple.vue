@@ -2,11 +2,8 @@
   <section id="video-section" class="main-section">
     <img class="title-img" :src="'/img/ui-elements/Vector4.svg'" alt="" loading="lazy" />
     <div class="video-heading">
-      Наши выпускники 2023-2024 гг. поступили
-      <br />
-      в ВШЭ, ИТМО, Cesar Ritz Colleges
-      <br />
-      (Швейцария)
+      Наши выпускники 2023–2025 гг. поступили в ВШЭ, ИТМО, Cesar Ritz Colleges (Швейцария),
+      РАНХиГС, МГТУ им. Баумана, РУДН, УУНИТ и УГНТУ
     </div>
 
     <div class="video-container">
