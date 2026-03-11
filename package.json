@@ -19,7 +19,7 @@
     "eslint": "^9.35.0",
     "gsap": "^3.13.0",
     "maska": "^3.2.0",
-    "nuxt": "^4.1.2",
+    "nuxt": "^4.3.1",
     "pinia": "^3.0.3",
     "sharp": "^0.34.4",
     "swiper": "^12.0.1",
@@ -28,5 +28,8 @@
   },
   "devDependencies": {
     "sass-embedded": "^1.92.1"
+  },
+  "overrides": {
+    "serialize-javascript": "^7.0.4"
   }
 }
