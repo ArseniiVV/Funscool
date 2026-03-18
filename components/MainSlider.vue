@@ -92,6 +92,13 @@ const swiperEl: Ref<null | SwiperContainer> = ref(null);
 const isInitialized = ref(false);
 const isClient = typeof window !== 'undefined';
 const isLongText = (text?: string) => (text?.length ?? 0) > 300;
+const swiperShadowStyles = [
+  `
+    .swiper {
+      overflow: visible;
+    }
+  `,
+];
 
 const setDesktopCentering = () => {
   if (!isClient) return;
@@ -101,17 +108,26 @@ const setDesktopCentering = () => {
     document.querySelector<HTMLElement>('#MainSlider-nuxt .slider-container');
   if (!wrapper || !container) return;
 
-  const availableHeight = wrapper.clientHeight;
-  wrapper.style.height = `${availableHeight}px`;
+  const wrapperStyles = window.getComputedStyle(wrapper);
+  const paddingBlock =
+    Number.parseFloat(wrapperStyles.paddingTop || '0') +
+    Number.parseFloat(wrapperStyles.paddingBottom || '0');
+  const availableHeight = container.offsetHeight + paddingBlock;
+  const nextHeight = `${availableHeight}px`;
+
+  if (wrapper.style.height !== nextHeight) {
+    wrapper.style.height = nextHeight;
+  }
   container.style.position = `absolute`;
   container.style.top = `50%`;
-  container.style.transform = `translateY(-50%)`;
 
   if (window.innerWidth > 768) {
     container.style.left = `50%`;
-    container.style.transform += ` translateX(-50%)`;
+    container.style.transform = `translate(-50%, -50%)`;
     return;
   }
+
+  container.style.transform = `translateY(-50%)`;
 };
 
 const swiperParams: SwiperOptions = {
@@ -142,7 +158,9 @@ const swiperParams: SwiperOptions = {
 
 const initializeSwiper = () => {
   if (swiperEl.value && !isInitialized.value) {
-    Object.assign(swiperEl.value, swiperParams);
+    Object.assign(swiperEl.value, swiperParams, {
+      injectStyles: swiperShadowStyles,
+    });
     swiperEl.value.initialize();
     isInitialized.value = true;
   }
@@ -261,7 +279,9 @@ onUnmounted(() => {
   }
 
   .swiper-main {
-    padding: 8px 0;
+    --main-slider-rotation-safe-space: clamp(48px, 7vw, 96px);
+    overflow: hidden;
+    padding: var(--main-slider-rotation-safe-space) 0;
   }
 
   // Container & Layout
@@ -341,14 +361,17 @@ onUnmounted(() => {
     position: absolute;
     top: 50%;
     height: auto;
+    overflow: visible;
     transform: translateY(-50%);
 
     img {
+      display: block;
       width: 100%;
       height: auto;
       max-height: 450px;
       aspect-ratio: 1 / 1;
       object-fit: contain;
+      transform-origin: center;
       will-change: transform;
     }
   }
@@ -472,7 +495,7 @@ onUnmounted(() => {
     padding: 32px 0;
 
     .swiper-main {
-      padding: 0;
+      --main-slider-rotation-safe-space: clamp(24px, 9vw, 56px);
     }
   }
 
