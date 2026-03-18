@@ -21,7 +21,6 @@
                   {{ slide.buttonText }}
                 </button>
               </div>
-
             </div>
             <div class="slider-column slider-column--right">
               <div class="swiper-main__img">
@@ -68,8 +67,7 @@
 
 
     <div class="swiper-buttons" v-show="slides.length > 1 && isInitialized">
-      <button type="button" class="swiper-button-prev swiper-button-prev-main" aria-label="Назад"
-        style="transform: rotate(180deg);"></button>
+      <button type="button" class="swiper-button-prev swiper-button-prev-main" aria-label="Назад"></button>
       <div class="swiper-pagination swiper-pagination-main" />
       <button type="button" class="swiper-button-next swiper-button-next-main" aria-label="Вперёд"></button>
     </div>
@@ -347,7 +345,8 @@ onUnmounted(() => {
 
     img {
       width: 100%;
-      max-width: 540px;
+      height: auto;
+      max-height: 450px;
       aspect-ratio: 1 / 1;
       object-fit: contain;
       will-change: transform;
@@ -434,7 +433,7 @@ onUnmounted(() => {
     }
 
     .swiper-main__img img {
-      max-height: 450px;
+        max-height: 450px;
     }
   }
 
@@ -460,7 +459,7 @@ onUnmounted(() => {
     }
 
     .swiper-main__img img {
-      max-height: 350px;
+        max-height: 350px;
     }
 
     .swiper-buttons {
@@ -505,6 +504,12 @@ onUnmounted(() => {
       padding: 0 20px;
     }
 
+    .slider-column--right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
     .swiper-main__text {
       font-size: clamp(14px, 2.5vw, 18px);
 
@@ -518,12 +523,10 @@ onUnmounted(() => {
     }
 
     .swiper-main .swiper-slide {
-      // position: relative;
-      // min-height: 600px;
       margin-block: unset !important;
 
       .swiper-main__img {
-        width: 100vw;
+        width: 70vw;
 
         img {
           margin: 0 auto;
