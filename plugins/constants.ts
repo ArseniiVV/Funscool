@@ -18,10 +18,9 @@ export default defineNuxtPlugin(() => {
         company_name: 'ОАНО "Фанскул"',
 
         //contacts
-        phone_number: '+73472120590',
-        phone_text: '+7 (347) 212 05 90',
-        wa: '+79872542080',
-        tg: '+79872542080',
+        phone_number: '+79872542080',
+        phone_text: '+7 (987) 254-20-80',
+        max_link: 'https://max.ru/u/f9LHodD0cOICzLQjVkp17Ui3FJ8_4_B-04JZvU_Qf9RsIaZEOxl0xMJjdD0',
         vk_link: 'funscool.kids',
         mail: 'Moscow@FunsCool.ru',
         agreement: 'https://storage.yandexcloud.net/funscool-pdfs/OAHO_agreement.pdf', // OOO_agreement.pdf

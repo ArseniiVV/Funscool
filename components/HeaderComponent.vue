@@ -7,17 +7,13 @@
       <div class=" header-top__menu">
         <div class="header-top__menu-icons">
           <BvI />
-          <a :href="'https://wa.me/' + $constants.wa" target="_blank" rel="noopener noreferrer"
-            @click="useSendMetrika('WhatsApp')">
-            <img :src="'/img/contacts/whatsapp-white.svg'" class="icon" alt="WhatsApp" loading="lazy" />
+          <a :href="$constants.max_link" target="_blank" rel="noopener noreferrer"
+            @click="useSendMetrika('MAX')">
+            <img :src="'/img/contacts/max-white.svg'" class="icon" alt="MAX" loading="lazy" />
           </a>
           <a :href="'https://vk.com/' + $constants.vk_link" target="_blank" rel="noopener noreferrer"
             @click="useSendMetrika('Vk')">
             <img :src="'/img/contacts/Vk.svg'" class="icon" alt="Vk" loading="lazy" />
-          </a>
-          <a :href="'https://t.me/' + $constants.tg" target="_blank" rel="noopener noreferrer"
-            @click="useSendMetrika('TG')">
-            <img :src="'/img/contacts/Telegram.svg'" class="icon" alt="Telegram" loading="lazy" />
           </a>
         </div>
         <div class="header-top__menu-phone">
@@ -73,11 +69,11 @@
         ">
           <img :src="'/img/contacts/Vk.svg'" class="icon" alt="Vk" loading="lazy" />
         </a>
-        <a :href="'https://t.me/' + $constants.tg" target="_blank" rel="noopener noreferrer" @click="
-          useSendMetrika('TG');
+        <a :href="$constants.max_link" target="_blank" rel="noopener noreferrer" @click="
+          useSendMetrika('MAX');
         menuOpen = false;
         ">
-          <img :src="'/img/contacts/Telegram.svg'" class="icon" alt="Telegram" loading="lazy" />
+          <img :src="'/img/contacts/max-white.svg'" class="icon" alt="MAX" loading="lazy" />
         </a>
       </div>
     </div>

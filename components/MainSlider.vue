@@ -84,6 +84,7 @@
 </template>
 
 <script setup lang="ts">
+import { gsap } from 'gsap';
 import type Swiper from 'swiper';
 import type { SwiperContainer } from 'swiper/element/bundle';
 import type { SwiperOptions } from 'swiper/types';
@@ -168,20 +169,15 @@ const initializeSwiper = () => {
   }
 };
 
-let gsapRef: any;
 
 onMounted(async () => {
-  const [{ register }, gsapMod] = await Promise.all([
-    import('swiper/element/bundle'),
-    import('gsap'),
-  ]);
+  const { register } = await import('swiper/element/bundle');
   register();
-  gsapRef = (gsapMod as any).gsap || gsapMod;
   initializeSwiper();
   if ('requestIdleCallback' in window) {
-    ; (window as any).requestIdleCallback(start)        // когда поток «свободен»
+    window.requestIdleCallback(start);
   } else {
-    setTimeout(start, 0)                               // фолбэк
+    setTimeout(start, 0);
   }
 });
 
@@ -201,8 +197,8 @@ const onSlideChange = (swiper: Swiper) => {
   const slides = swiper.slides;
   // Сброс вращения для всех изображений перед началом новой анимации
   slides.forEach((slide) => {
-    const image = slide.querySelector('.swiper-main__img img'); // Подтвердите корректность селектора
-    if (gsapRef) gsapRef.set(image, { rotate: 0 });
+    const image = slide.querySelector<HTMLElement>('.swiper-main__img img');
+    if (image) gsap.set(image, { rotate: 0 });
   });
 
   // Добавляем анимацию затухания для текста всех неактивных слайдов
@@ -213,15 +209,13 @@ const onSlideChange = (swiper: Swiper) => {
     const image = slide.querySelector<HTMLElement>('.swiper-main__img img');
 
     if (index === activeIndex) {
-      if (gsapRef) gsapRef.to(image, { duration: 2.5, rotate: -720 });
+      if (image) gsap.to(image, { duration: 2.5, rotate: -720 });
       setTimeout(() => {
         setDesktopCentering();
-        if (gsapRef) {
-          gsapRef.to(caption, { duration: 2, opacity: 1 });
-          gsapRef.to(title, { duration: 3, opacity: 1 });
-          gsapRef.to(btn, { duration: 4, opacity: 1 });
-          if (window.innerWidth < 768) gsapRef.to(image, { duration: 2, opacity: 0 });
-        }
+        if (caption) gsap.to(caption, { duration: 2, opacity: 1 });
+        if (title) gsap.to(title, { duration: 3, opacity: 1 });
+        if (btn) gsap.to(btn, { duration: 4, opacity: 1 });
+        if (image && window.innerWidth < 768) gsap.to(image, { duration: 2, opacity: 0 });
       }, 1700)
 
     } else {

@@ -40,7 +40,7 @@ export default defineNuxtConfig({
   },
 
   // === ИЗОБРАЖЕНИЯ ===
-  modules: ['@nuxt/image', '@pinia/nuxt', '@nuxt/scripts', '@nuxt/eslint'],
+  modules: ['@nuxt/image', '@pinia/nuxt', '@nuxt/eslint'],
 
   image: {
     // AVIF/WebP по умолчанию + responsive
@@ -80,13 +80,7 @@ export default defineNuxtConfig({
         // Иконка
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       ],
-      // Скрипты подключайте через @nuxt/scripts или здесь, ТОЛЬКО defer
-      script: [
-        {
-          src: 'https://widgets.mango-office.ru/site/27875',
-          defer: true,
-        },
-      ],
+
     },
   },
 

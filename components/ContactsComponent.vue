@@ -24,13 +24,10 @@
           <img :src="'/img/contacts/phone.svg'" alt="" loading="lazy" />
           {{ $constants.phone_text }}
         </a>
-        <a target="_blank" :href="'https://wa.me/' + $constants.wa" @click="useSendMetrika('WhatsApp')">
-          <img :src="'/img/contacts/whatsapp.svg'" alt="" loading="lazy" />
-          WhatsApp
-        </a>
-        <a target="_blank" :href="'https://t.me/' + $constants.tg" @click="useSendMetrika('TG')">
-          <img :src="'/img/contacts/telegram-yellow.svg'" alt="" loading="lazy" />
-          Telegram
+        <a target="_blank" rel="noopener noreferrer" :href="$constants.max_link" @click="useSendMetrika('MAX')"
+          class="max-link">
+          <img :src="'/img/contacts/max.svg'" alt="MAX" loading="lazy" class="max-icon" />
+          MAX
         </a>
         <a target="_blank" :href="'mailto:' + $constants.mail" @click="useSendMetrika('email')">
           <img :src="'/img/contacts/mail.svg'" alt="" loading="lazy" />
@@ -162,6 +159,13 @@ onMounted(() => {
       width: 20px;
       height: 20px;
     }
+  }
+
+  .contacts-row a.max-link .max-icon {
+    background-color: var(--theme-dark);
+    border-radius: 6px;
+    box-sizing: border-box;
+    padding: 2px;
   }
 
   @media (max-width: 600px) {

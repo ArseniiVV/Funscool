@@ -27,15 +27,15 @@
 
       <div class="footer-bottom__social-group">
         <a
-          :href="'https://wa.me/' + $constants.wa"
+          :href="$constants.max_link"
           target="_blank"
           rel="noopener noreferrer"
-          @click="useSendMetrika('WhatsApp')"
+          @click="useSendMetrika('MAX')"
         >
           <img
             class="lazyload icon"
-            :src="'/img/contacts/whatsapp-white.svg'"
-            alt="whatsapp"
+            :src="'/img/contacts/max-white.svg'"
+            alt="MAX"
             loading="lazy"
           />
         </a>
@@ -46,19 +46,6 @@
           @click="useSendMetrika('VK')"
         >
           <img class="lazyload icon" :src="'/img/contacts/Vk.svg'" alt="Vk" loading="lazy" />
-        </a>
-        <a
-          :href="'https://t.me/' + $constants.tg"
-          target="_blank"
-          rel="noopener noreferrer"
-          @click="useSendMetrika('TG')"
-        >
-          <img
-            class="lazyload icon"
-            :src="'/img/contacts/Telegram.svg'"
-            alt="Telegram"
-            loading="lazy"
-          />
         </a>
       </div>
 
